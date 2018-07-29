@@ -35,7 +35,7 @@ public class StoreClothes extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_store, container, false);
         TextView textView = (TextView) rootView.findViewById(R.id.section_store);
-        textView.setText("HIHIHIHIHI");
+        textView.setText("HIHIHIH");
         return rootView;
     }
 

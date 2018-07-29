@@ -1,8 +1,6 @@
 package com.example.dobitnarae;
 
 import android.support.design.widget.TabLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -21,7 +19,7 @@ import android.widget.TextView;
 
 import java.util.Objects;
 
-public class ExampleSwipeMenu extends AppCompatActivity {
+public class Store extends AppCompatActivity {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -31,7 +29,7 @@ public class ExampleSwipeMenu extends AppCompatActivity {
      * may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
-       private SectionsPagerAdapter mSectionsPagerAdapter;
+    private SectionsPagerAdapter mSectionsPagerAdapter;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -41,7 +39,7 @@ public class ExampleSwipeMenu extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_example_swipe_menu);
+        setContentView(R.layout.activity_store);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
@@ -51,10 +49,10 @@ public class ExampleSwipeMenu extends AppCompatActivity {
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = (ViewPager) findViewById(R.id.container_clothes);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.store_tabs);
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
@@ -64,7 +62,7 @@ public class ExampleSwipeMenu extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_example_swipe_menu, menu);
+        getMenuInflater().inflate(R.menu.menu_store, menu);
         return true;
     }
 
@@ -111,8 +109,8 @@ public class ExampleSwipeMenu extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_example_swipe_menu, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
+            View rootView = inflater.inflate(R.layout.fragment_store, container, false);
+            TextView textView = (TextView) rootView.findViewById(R.id.section_store);
             textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             return rootView;
         }
@@ -136,22 +134,19 @@ public class ExampleSwipeMenu extends AppCompatActivity {
             // 액티비티 만들어서 케이스 문에다가 넣어주면 됩니다
             // 탭 이름은 values/string 에 들어있어요
             // 아마 클래스 타입은 무조건 PlaceholderFragment 여야 할꺼같아요
-            /*
+
             switch(position) {
                 case 0:
-                    return new 첫번째탭에들어갈내용이담긴액티비티이름(mContext);
+                    return PlaceholderFragment.newInstance(position + 1);
                 case 1:
-                    return new 두번째탭에들어갈내용이담긴액티비티이름(mContext);
+                    return StoreClothes.newInstance(444);  // <<< 이렇게 쓰면됩니다
             }
             return null;
-            */
-            // 위에꺼 추가하면 아래 코드 삭제
-            return PlaceholderFragment.newInstance(position + 1);
         }
 
         @Override
         public int getCount() {
-            // 탭 개수
+            // Show 3 total pages.
             return 2;
         }
     }

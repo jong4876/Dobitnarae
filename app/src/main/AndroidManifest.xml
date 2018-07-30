@@ -19,7 +19,9 @@
         <activity
             android:name=".ExampleSwipeMenu"
             android:label="@string/title_activity_example_swipe_menu"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme">
+
+        </activity>
     </application>
 
 </manifest>

@@ -15,12 +15,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Objects;
 
-public class Store extends AppCompatActivity {
-
+public class Store extends AppCompatActivity{
+    static ImageView storeImg;
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -56,6 +57,8 @@ public class Store extends AppCompatActivity {
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+
+        storeImg = (ImageView)findViewById(R.id.store_img);
     }
 
 
@@ -139,14 +142,14 @@ public class Store extends AppCompatActivity {
                 case 0:
                     return PlaceholderFragment.newInstance(position + 1);
                 case 1:
-                    return StoreClothes.newInstance(444);  // <<< 이렇게 쓰면됩니다
+                    return StoreClothes.newInstance(444, storeImg);  // <<< 이렇게 쓰면됩니다
             }
             return null;
         }
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
+            // Show 2 total pages.
             return 2;
         }
     }

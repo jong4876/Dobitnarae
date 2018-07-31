@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.dobitnarae">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -19,9 +21,8 @@
         <activity
             android:name=".ExampleSwipeMenu"
             android:label="@string/title_activity_example_swipe_menu"
-            android:theme="@style/AppTheme">
-
-        </activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".SQLActivity"></activity>
     </application>
 
 </manifest>

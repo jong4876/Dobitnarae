@@ -7,15 +7,22 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
+    Button sqlBtn;
+    public static final int RequestKey = 1001;
+    Intent intent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        sqlBtn = (Button)findViewById(R.id.sqlBtn);
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(myToolbar);
@@ -28,5 +35,18 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        sqlBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent = new Intent(getApplicationContext(),SQLActivity.class);
+
+                startActivityForResult(intent,RequestKey);
+                //Toast.makeText(getApplicationContext(),"??",Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+
     }
+
 }

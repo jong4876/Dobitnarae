@@ -62,7 +62,7 @@ public class StoreClothes extends Fragment {
             items.add(item[i]);
         }
 
-        recyclerView.setAdapter(new RecyclerAdapter(getContext(), items, R.layout.fragment_store_clothes));
+        recyclerView.setAdapter(new RecyclerAdapter(getContext(), items, R.layout.fragment_store));
 
         return rootView;
     }

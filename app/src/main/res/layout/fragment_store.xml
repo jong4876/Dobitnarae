@@ -19,8 +19,12 @@
         app:layout_constraintTop_toTopOf="@+id/constraintLayout"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintTop_creator="1" />
-    <include
-        layout="@layout/fragment_store_clothes"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:orientation="horizontal"
+        android:id="@+id/recyclerview_clothes"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 
 </android.support.constraint.ConstraintLayout>

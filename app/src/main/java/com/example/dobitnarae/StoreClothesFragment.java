@@ -8,12 +8,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class StoreClothes extends Fragment {
+public class StoreClothesFragment extends Fragment {
 
     /**
      * The fragment argument representing the section number for this
@@ -21,15 +20,15 @@ public class StoreClothes extends Fragment {
      */
     private static final String ARG_SECTION_NUMBER = "section_number";
 
-    public StoreClothes() {
+    public StoreClothesFragment() {
     }
 
     /**
      * Returns a new instance of this fragment for the given section
      * number.
      */
-    public static StoreClothes newInstance(int sectionNumber) {
-        StoreClothes fragment = new StoreClothes();
+    public static StoreClothesFragment newInstance(int sectionNumber) {
+        StoreClothesFragment fragment = new StoreClothesFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);

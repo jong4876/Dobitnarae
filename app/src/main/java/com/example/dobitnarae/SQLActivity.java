@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 
 
+
 public class SQLActivity extends AppCompatActivity {
 
     ImageView imView;
@@ -47,7 +48,7 @@ public class SQLActivity extends AppCompatActivity {
 
         task = new htmlDown();
         txtView = (TextView) findViewById(R.id.txtView);
-        task.execute("http://192.168.219.201:3443/");//안종희 내부아이피, mygrape.ownip.net로 변경 필
+        task.execute("http://192.168.43.77:3443/");//안종희 내부아이피, mygrape.ownip.net로 변경 필
 
     }
 
@@ -90,36 +91,38 @@ public class SQLActivity extends AppCompatActivity {
 
         protected void onPostExecute(String str) {
 
-            String ID;
-            String PW;
-            String name;
-            String HP;
-            String priv="asd";
-
+            StringBuffer sb = new StringBuffer();
 
 
             try{//??파싱이 안됨, 전달받은 데이터가 온전한 JSON 데이터가 아닐수 있음
 
-                JSONObject root = new JSONObject(str);// 전체 데이터 JSON파싱
-                JSONArray ja = root.getJSONArray("results");
-
+                // JSONObject root = new JSONObject(str);// 전체 데이터 JSON파싱
+                JSONArray ja = new JSONArray(str);
+               // txtView.setText(str);
                 for(int i=0; i<ja.length(); i++){
                     JSONObject jo = ja.getJSONObject(i);
 
-                    ID = jo.getString("ID");
-                    PW = jo.getString("PW");
-                    name = jo.getString("name");
-                    HP = jo.getString("HP");
-                    priv = jo.getString("priv");
+                    String ID = jo.getString("ID");
+                    String PW = jo.getString("PW");
+                    String name = jo.getString("name");
+                    String HP = jo.getString("HP");
+                    int priv = jo.getInt("priv");
 
-                    listItem.add(new ListItem(ID,PW,name, HP, priv));
+                    sb.append(
+                            "ID:" + ID +
+                                    "\nPW:" + PW +
+                                    "\nname:" + name +
+                                    "\nHP:" + HP +
+                                    "\npriv:" + priv +
+                                    "\n\n"
+
+                    );
                 }
+                txtView.setText(sb);
             }catch(JSONException e){
                 e.printStackTrace();
             }
-           // txtView.setText("ID :"+listItem.get(0).getData(0));
-         //   txtView.setText("ID :"+listItem.get(0).getData(0)+"\nPW:"+ listItem.get(0).getData(1)+"\nname:"+listItem.get(0).getData(2)+"\nname:"+listItem.get(0).getData(2)
-           //         +"\nHP:"+listItem.get(0).getData(3)+"\npriv:"+listItem.get(0).getData(4));
+
         }
 
     }
@@ -128,7 +131,6 @@ public class SQLActivity extends AppCompatActivity {
 class ListItem {//sql문 결과를 담기위한 클래스
 
     private String[] mData;
-
     public ListItem(String[] data) {
 
 

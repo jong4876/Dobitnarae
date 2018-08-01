@@ -1,6 +1,7 @@
 package com.example.dobitnarae;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -22,22 +23,24 @@ import java.util.List;
 public class StoreClothes extends Fragment {
     // TODO 이미지를 받아오지 말고 다른 방법 찾기
     ImageView storeImg;
+    LinearLayout storeImgLayout;
     /**
      * The fragment argument representing the section number for this
      * fragment.
      */
     private static final String ARG_SECTION_NUMBER = "section_number";
 
-    public StoreClothes(ImageView storeImg) {
+    public StoreClothes(ImageView storeImg, LinearLayout storeImgLayout) {
         this.storeImg = storeImg;
+        this.storeImgLayout = storeImgLayout;
     }
 
     /**
      * Returns a new instance of this fragment for the given section
      * number.
      */
-    public static StoreClothes newInstance(int sectionNumber, ImageView storeImg) {
-        StoreClothes fragment = new StoreClothes(storeImg);
+    public static StoreClothes newInstance(int sectionNumber, ImageView storeImg, LinearLayout storeImgLayout) {
+        StoreClothes fragment = new StoreClothes(storeImg, storeImgLayout);
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);
@@ -55,13 +58,14 @@ public class StoreClothes extends Fragment {
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
-
+        /*
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            boolean isBottom = false;
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 if(!recyclerView.canScrollVertically(-1)) {
-                    Log.e("상단","ㅁㄴㅇ");
+                    Log.e("상단","" + recyclerView.computeVerticalScrollOffset());
                 }
                 if(!recyclerView.canScrollVertically(1)) {
                     Log.e("하단","ㅁㄴㅇ");
@@ -71,31 +75,9 @@ public class StoreClothes extends Fragment {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-
-                if (dy > 0) {
-                    Log.e("UP","" + dy);
-                    storeImg.setY(storeImg.getY() - dy);
-                } else {
-                    Log.e("down", "" + dy);
-                    storeImg.setY(storeImg.getY() - dy);
-                }
-                // TODO 이미지 크기 변경 대신 레이아웃 크기 변경으로 수정하기
-                /*
-                storeImg.getLayoutParams().height -= dy;
-                if (dy > 0) {
-                    Log.e("UP","" + dy);
-                    if(storeImg.getLayoutParams().height < 0)
-                        storeImg.getLayoutParams().height = 0;
-                } else {
-                    Log.e("down", "" + dy);
-                    if(storeImg.getLayoutParams().height > storeImg.getMaxHeight())
-                        storeImg.getLayoutParams().height = storeImg.getMaxHeight();
-                }
-                storeImg.requestLayout();
-                */
             }
         });
-
+        */
         // 옷추가
         final int ITEM_SIZE = 9;
         List<Clothes> items = new ArrayList<>();

@@ -1,5 +1,6 @@
 package com.example.dobitnarae;
 
+import android.content.Context;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -16,12 +17,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.Objects;
 
 public class Store extends AppCompatActivity{
-    static ImageView storeImg;
+    ImageView storeImg;
+    LinearLayout storeImgLayout;
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -58,7 +61,6 @@ public class Store extends AppCompatActivity{
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
-        storeImg = (ImageView)findViewById(R.id.store_img);
     }
 
 
@@ -113,8 +115,6 @@ public class Store extends AppCompatActivity{
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_store, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_store);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             return rootView;
         }
     }
@@ -142,7 +142,7 @@ public class Store extends AppCompatActivity{
                 case 0:
                     return PlaceholderFragment.newInstance(position + 1);
                 case 1:
-                    return StoreClothes.newInstance(444, storeImg);  // <<< 이렇게 쓰면됩니다
+                    return StoreClothes.newInstance(444, storeImg, storeImgLayout);  // <<< 이렇게 쓰면됩니다
             }
             return null;
         }

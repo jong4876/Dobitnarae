@@ -1,5 +1,6 @@
 package com.example.dobitnarae;
 
+import android.content.res.Configuration;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -18,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Objects;
 
@@ -153,6 +155,18 @@ public class ExampleSwipeMenu extends AppCompatActivity {
         public int getCount() {
             // 탭 개수
             return 2;
+        }
+    }
+
+    // 액티비티는 새로만들어지지 않고 유지
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        if(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            Toast.makeText(this, "가로방향", Toast.LENGTH_LONG).show();
+        } else if(newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            Toast.makeText(this, "세로방향", Toast.LENGTH_LONG).show();
         }
     }
 }

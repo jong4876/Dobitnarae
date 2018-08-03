@@ -27,7 +27,6 @@ import java.util.Objects;
 
 public class ExampleSwipeMenu extends AppCompatActivity {
 
-
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -42,8 +41,6 @@ public class ExampleSwipeMenu extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
-    // inhyeok add
-    public StoreManagementFragment fragment1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,42 +88,6 @@ public class ExampleSwipeMenu extends AppCompatActivity {
     }
 
     /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        public PlaceholderFragment() {
-        }
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_store_management, container, false);
-            return rootView;
-        }
-    }
-
-    /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
@@ -144,23 +105,24 @@ public class ExampleSwipeMenu extends AppCompatActivity {
             // 액티비티 만들어서 케이스 문에다가 넣어주면 됩니다
             // 탭 이름은 values/string 에 들어있어요
             // 아마 클래스 타입은 무조건 PlaceholderFragment 여야 할꺼같아요
-            /*
+
             switch(position) {
                 case 0:
-                    return new 첫번째탭에들어갈내용이담긴액티비티이름(mContext);
+                    return new StoreManagementFragment();
                 case 1:
-                    return new 두번째탭에들어갈내용이담긴액티비티이름(mContext);
+                    return new ItemManagementFragment();
+                // 임시
+                case 2:
+                    return new StoreManagementFragment();
+                default:
+                    return null;
             }
-            return null;
-            */
-            // 위에꺼 추가하면 아래 코드 삭제
-            return PlaceholderFragment.newInstance(position + 1);
         }
 
         @Override
         public int getCount() {
             // 탭 개수
-            return 2;
+            return 3;
         }
     }
 

@@ -50,6 +50,7 @@ public class ItemManagementFragment extends Fragment {
         listView.setAdapter(listViewAdapter);
         listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
+
         editText = (EditText) rootView.findViewById(R.id.editText);
 
         Button button1 = (Button) rootView.findViewById(R.id.registerBtn);

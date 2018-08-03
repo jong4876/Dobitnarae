@@ -3,6 +3,7 @@ package com.example.dobitnarae;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,6 +62,7 @@ public class ItemManagementFragment extends Fragment {
                     editText.setText("");
                     // 리스트 목록 갱신
                     listViewAdapter.notifyDataSetChanged();
+                    Snackbar.make(v, text + "가 추가되었습니다", Snackbar.LENGTH_LONG).show();
                 }
             }
         });
@@ -75,6 +77,7 @@ public class ItemManagementFragment extends Fragment {
                     listView.clearChoices();
                     // 어댑터와 연결된 원본데이터의 값이 변경됨을 알려 리스트뷰 목록 갱신
                     listViewAdapter.notifyDataSetChanged();
+                    Snackbar.make(v, "삭제되었습니다", Snackbar.LENGTH_LONG).show();
                 }
             }
         });

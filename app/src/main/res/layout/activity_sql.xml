@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".SQLActivity">
 
+
     <TextView
         android:id="@+id/txtView"
         android:layout_width="match_parent"

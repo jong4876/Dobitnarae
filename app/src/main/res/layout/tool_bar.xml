@@ -30,6 +30,42 @@
 
     </android.support.v7.widget.Toolbar>
 
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="50dp"
+            android:text="Store_ID :"
+            android:textSize="30sp" />
+
+        <EditText
+            android:id="@+id/storeEtxt"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/clothBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="한복 정보" />
+
+    <Button
+        android:id="@+id/storeBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="매장 정보" />
+
     <Button
         android:id="@+id/sqlBtn"
         android:layout_width="wrap_content"

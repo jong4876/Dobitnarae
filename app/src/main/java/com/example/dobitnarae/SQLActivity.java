@@ -32,10 +32,9 @@ public class SQLActivity extends AppCompatActivity {
     ImageView imView;
     TextView txtView;
     Bitmap bmImg;
+    ArrayList<account> accountList = new ArrayList<account>();
 
     htmlDown task;
-    ArrayList<ListItem> listItem = new ArrayList<ListItem>();
-    ListItem Item;
 
 
     @Override
@@ -48,7 +47,7 @@ public class SQLActivity extends AppCompatActivity {
 
         task = new htmlDown();
         txtView = (TextView) findViewById(R.id.txtView);
-        task.execute("http://192.168.43.77:3443/");//안종희 내부아이피, mygrape.ownip.net로 변경 필
+        task.execute("http://192.168.100.79:3443/");//안종희 내부아이피, 자신의 아이피로 변경 필수
 
     }
 
@@ -94,7 +93,7 @@ public class SQLActivity extends AppCompatActivity {
             StringBuffer sb = new StringBuffer();
 
 
-            try{//??파싱이 안됨, 전달받은 데이터가 온전한 JSON 데이터가 아닐수 있음
+            try{
 
                 // JSONObject root = new JSONObject(str);// 전체 데이터 JSON파싱
                 JSONArray ja = new JSONArray(str);
@@ -108,7 +107,12 @@ public class SQLActivity extends AppCompatActivity {
                     String HP = jo.getString("HP");
                     int priv = jo.getInt("priv");
 
-                    sb.append(
+
+                    account acc = new account(ID, PW, name, HP, priv);
+
+                    accountList.add(acc);//accountList에 차례대로 삽입
+
+                    sb.append(// test용 stringbuffer
                             "ID:" + ID +
                                     "\nPW:" + PW +
                                     "\nname:" + name +
@@ -118,7 +122,8 @@ public class SQLActivity extends AppCompatActivity {
 
                     );
                 }
-                txtView.setText(sb);
+                    txtView.setText(sb);
+
             }catch(JSONException e){
                 e.printStackTrace();
             }
@@ -128,38 +133,43 @@ public class SQLActivity extends AppCompatActivity {
     }
 }
 
-class ListItem {//sql문 결과를 담기위한 클래스
+class account {//account의 sql문 결과를 담기위한 클래스
 
-    private String[] mData;
-    public ListItem(String[] data) {
+    String ID;
+    String PW;
+    String name;
+    String HP;
+    int priv;
 
 
-        mData = data;
+    public account(String ID, String PW, String name, String HP, int priv) {
+
+        this.ID = ID;
+        this.PW = PW;
+        this.name = name;
+        this.HP = HP;
+        this.priv = priv;
+    }
+    public String getID(){
+        return ID;
     }
 
-    public ListItem(String ID, String PW, String name, String HP, String priv) {
-
-        mData = new String[4];
-        mData[0] = ID;
-        mData[1] = PW;
-        mData[2] = name;
-        mData[3] = HP;
-        mData[4] = priv;
-
-
+    public String getPW(){
+        return PW;
+    }
+    public String getname(){
+        return name;
+    }
+    public String getHP(){
+        return HP;
+    }
+    public int getpriv(){
+        return priv;
     }
 
-    public String[] getData() {
-        return mData;
-    }
 
-    public String getData(int index) {
-        return mData[index];
-    }
 
-    public void setData(String[] data) {
-        mData = data;
-    }
+
 
 }
 

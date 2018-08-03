@@ -5,9 +5,15 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.HorizontalScrollView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +66,28 @@ public class StoreClothesFragment extends Fragment {
         for (int i = 0; i < ITEM_SIZE; i++) {
             items.add(item[i]);
         }
+
+        // 옷 종류 선택 메뉴
+        LinearLayout clothesCategory = (LinearLayout) rootView.findViewById(R.id.clothes_category);
+
+        final int kinds = 5;
+        final String category[] = {"상의", "하의", "모자", "신발", "장신구"};
+        ImageView[] imageViews = new ImageView[15];
+
+        for(int i=0; i<15; i++){
+            imageViews[i] = new ImageView(getContext());
+            imageViews[i].setImageResource(R.drawable.ic_clothes_list);
+            imageViews[i].setId(i);
+            imageViews[i].setLayoutParams(new LinearLayout.LayoutParams(100, 100));
+            imageViews[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getContext(), category[v.getId() % kinds], Toast.LENGTH_SHORT).show();
+                }
+            });
+            clothesCategory.addView(imageViews[i]);
+        }
+
 
         recyclerView.setAdapter(new RecyclerAdapter(getContext(), items, R.layout.fragment_store));
 

@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 @SuppressLint("ValidFragment")
 public class StoreInfoFragment extends Fragment {
     Store store;
@@ -41,6 +43,8 @@ public class StoreInfoFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_store_info, container, false);
 
+        TextView name = (TextView)rootView.findViewById(R.id.content_name);
+        name.setText(store.getName());
         TextView intro = (TextView)rootView.findViewById(R.id.content_intro);
         intro.setText(store.getIntroduction());
         TextView info = (TextView)rootView.findViewById(R.id.content_info);

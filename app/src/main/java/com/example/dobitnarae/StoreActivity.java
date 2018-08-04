@@ -18,10 +18,13 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class StoreActivity extends AppCompatActivity {
     Store store;
+    List<Clothes> items;
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -68,6 +71,17 @@ public class StoreActivity extends AppCompatActivity {
                         " 8개의 BK21사업팀으로 구성되어 있다. 학교법인 대양학원에 의해 운영된다. 현재 총장은 화학 박사 신구이다. ",
                 "24시간 영업","02-3408-3114", "신구",
                 37.550278,127.073114);
+
+        // 옷 정보들 가져와서 초기화
+        int ITEM_SIZE = 8;
+        items = new ArrayList<>();
+        Clothes[] item = new Clothes[ITEM_SIZE];
+        for(int i=0; i<ITEM_SIZE; i++){
+            item[i] = new Clothes(i, R.drawable.gobchang, "불곱창" + (i + 1),
+                    1000 * (i + 1), i % Constant.category_cnt + 1);
+            items.add(item[i]);
+        }
+
     }
 
     @Override
@@ -114,7 +128,7 @@ public class StoreActivity extends AppCompatActivity {
                 case 0:
                     return StoreInfoFragment.newInstance(0, store);
                 case 1:
-                    return StoreClothesFragment.newInstance(1);  // <<< 이렇게 쓰면됩니다
+                    return StoreClothesFragment.newInstance(1, items);
             }
             return null;
         }

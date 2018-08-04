@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,9 +39,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         holder.image.setBackground(drawable);
         holder.name.setText(item.getName());
         holder.price.setText("" + item.getPrice());
+        holder.cardview.setTag("clothes_" + item.getId());
         holder.cardview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.e("saf", "" + v.getTag());
                 Toast.makeText(context, item.getName(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -63,5 +66,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             price = (TextView) itemView.findViewById(R.id.clothes_price);
             cardview = (CardView) itemView.findViewById(R.id.cardview);
         }
+    }
+
+    public void setClothes(List<Clothes> clothes) {
+        this.clothes = clothes;
+        this.notifyDataSetChanged();
     }
 }

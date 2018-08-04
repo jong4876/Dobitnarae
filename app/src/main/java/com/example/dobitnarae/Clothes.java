@@ -1,9 +1,11 @@
 package com.example.dobitnarae;
 
 public class Clothes {
-    int image;
-    String name;
-    int price;
+    private int id;
+    private int image;
+    private String name;
+    private int price;
+    private int category;
 
     int getImage() {
         return this.image;
@@ -12,10 +14,14 @@ public class Clothes {
         return this.name;
     }
     int getPrice() { return  this.price; }
+    int getId() { return this.id; }
+    int getCategory() { return this.category; }
 
-    Clothes(int image, String name, int price) {
+    Clothes(int id, int image, String name, int price, int category) {
+        this.id = id;
         this.image = image;
         this.name = name;
         this.price = price;
+        this.category = category;
     }
 }

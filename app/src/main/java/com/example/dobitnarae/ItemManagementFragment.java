@@ -5,6 +5,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,14 +43,23 @@ public class ItemManagementFragment extends Fragment {
 
         // 어댑터 설정
         listView = (ListView) rootView.findViewById(R.id.itemList);
-
+        /*
         // 어댑터 생성 - 단일선택
         listViewAdapter = new ArrayAdapter<String>(
                 getActivity(), android.R.layout.simple_list_item_single_choice, items);
+        */
+        // 어댑터 생성 - 다수선택
+        listViewAdapter = new ArrayAdapter<String>(
+                getActivity(), android.R.layout.simple_list_item_multiple_choice, items);
 
         // 어댑터 반영
         listView.setAdapter(listViewAdapter);
+        /*
+        // 단일선택
         listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        */
+        // 여러항목 선택 할 수 있도록 설정
+        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
 
         editText = (EditText) rootView.findViewById(R.id.editText);
@@ -72,6 +83,8 @@ public class ItemManagementFragment extends Fragment {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /*
+                // 단일 선택시
                 int pos = listView.getCheckedItemPosition();
                 if(pos != ListView.INVALID_POSITION) {
                     items.remove(pos);
@@ -79,6 +92,25 @@ public class ItemManagementFragment extends Fragment {
                     // 어댑터와 연결된 원본데이터의 값이 변경됨을 알려 리스트뷰 목록 갱신
                     listViewAdapter.notifyDataSetChanged();
                     Snackbar.make(v, "삭제되었습니다", Snackbar.LENGTH_LONG).show();
+                }
+                */
+                int cnt=0;
+                SparseBooleanArray sbArray = listView.getCheckedItemPositions();
+                // 선택된 아이템의 위치를 알려주는 배열 ex) {0=true, 3=true, 4=false}
+                Log.d("ItemManagementFragment", sbArray.toString());
+
+                if(sbArray.size() !=0) {
+                    // 목록의 역순으로 순회하면서 항목 제거
+                    for(int i = listView.getCount() -1; i>=0; i--) {
+                        if(sbArray.get(i)) {
+                            items.remove(i);
+                            cnt++;
+                        }
+                    }
+                    listView.clearChoices();
+                    listViewAdapter.notifyDataSetChanged();
+                    Snackbar.make(v, cnt + "개 항목이 삭제되었습니다", Snackbar.LENGTH_LONG).show();
+                    cnt=0;
                 }
             }
         });

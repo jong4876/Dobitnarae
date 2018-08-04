@@ -111,9 +111,8 @@ public class ExampleSwipeMenu extends AppCompatActivity {
                     return new StoreManagementFragment();
                 case 1:
                     return new ItemManagementFragment();
-                // 임시
                 case 2:
-                    return new StoreManagementFragment();
+                    return new OrderManagementFragment();
                 default:
                     return null;
             }
@@ -132,9 +131,9 @@ public class ExampleSwipeMenu extends AppCompatActivity {
         super.onConfigurationChanged(newConfig);
 
         if(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            Toast.makeText(this, "가로방향", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "가로방향", Toast.LENGTH_LONG).show();
         } else if(newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            Toast.makeText(this, "세로방향", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "세로방향", Toast.LENGTH_LONG).show();
         }
     }
 }

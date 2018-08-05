@@ -21,7 +21,7 @@ import java.util.Collections;
 
 public class StoreManagementFragment extends Fragment {
     private ListView mListView = null;
-    private ListViewAdapter mAdapter = null;
+    public ListViewAdapter mAdapter = null;
 
 
     @Nullable

@@ -1,5 +1,9 @@
 <resources>
 
+    <style name="AppTheme.NoActionBar">
+        <item name="coordinatorLayoutStyle">@style/Widget.Design.CoordinatorLayout</item>
+    </style>
+
     <!-- Base application theme. -->
     <style name="AppTheme.NoActionBar">
         <item name="coordinatorLayoutStyle">@style/Widget.Design.CoordinatorLayout</item>

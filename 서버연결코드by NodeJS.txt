@@ -1,0 +1,115 @@
+var express = require('express');
+var app = express();
+var mysql = require('mysql');
+app.set('views', __dirname + '/view');
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');//default엔진을 html로
+
+var conn = mysql.createConnection({//db계정 로그인
+  host     : 'localhost',
+  user     : 'root',
+  password : '111111',// 수정 필
+  database : 'dobitdb'
+});
+
+conn.connect();
+
+
+// account의 모든것
+app.get('/',function(req,res){
+  var accountArr = new Array();
+  var sql = 'select * from account';
+  conn.query(sql,function(err,results,fields){
+
+      for(var i=0; i<results.length;i++){
+
+        var accountObj = {
+          ID: results[i].ID,
+          PW: results[i].PW,
+          name: results[i].name,
+          HP: results[i].HP,
+          priv: results[i].priv
+        };
+
+
+        accountArr.push(accountObj);
+      }
+      //console.log(accountArr);
+      res.send(accountArr);
+  })
+});
+
+
+app.post('/cloth', (req, res) => {
+
+   var inputData;
+   req.on('data', (data) => {
+     inputData = JSON.parse(data);
+   });
+
+   req.on('end', () => {
+     console.log("user_id : "+inputData.user_id + " , name : "+inputData.name);
+     var str = inputData.user_id;
+
+     var accountArr = new Array();
+     var sql = 'select * from cloth where store_ID = ?';
+     conn.query(sql,[str],function(err,results,fields){
+         for(var i=0; i<results.length;i++){
+           var accountObj = {
+             cloth_ID: results[i].cloth_ID,
+             store_ID: results[i].store_ID,
+             type: results[i].type,
+             img: results[i].img,
+             name: results[i].name,
+             size: results[i].size,
+             price: results[i].price,
+             count: results[i].count
+           };
+
+          console.log(accountObj);
+           accountArr.push(accountObj);
+         }
+         res.send(accountArr);
+       })
+    });
+})
+
+app.post('/store', (req, res) => {
+
+   var inputData;
+   req.on('data', (data) => {
+     inputData = JSON.parse(data);
+   });
+
+   req.on('end', () => {
+     console.log("user_id : "+inputData.user_id + " , name : "+inputData.name);
+     var str = inputData.user_id;
+
+     var accountArr = new Array();
+     var sql = 'select * from store where store_ID = ?';
+     conn.query(sql,[str],function(err,results,fields){
+         for(var i=0; i<results.length;i++){
+           var accountObj = {
+             store_ID: results[i].store_ID,
+             name: results[i].name,
+             location: results[i].location,
+             explain: results[i].explain,
+           };
+
+          console.log(accountObj);
+           accountArr.push(accountObj);
+         }
+         res.send(accountArr);
+       })
+    });
+})
+
+
+
+
+
+
+app.listen(3443,function(){// 3000번 포트 listen
+
+  console.log('Connected, 3443 port!!');
+});

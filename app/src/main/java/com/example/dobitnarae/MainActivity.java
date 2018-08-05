@@ -11,7 +11,6 @@ import android.widget.ImageButton;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         gotoStore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, StoreActivity.class);
+                Intent intent = new Intent(MainActivity.this, ExampleSwipeMenu.class);
                 startActivity(intent);
             }
         });
@@ -51,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         gotoStore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, StoreActivity.class);
+                Intent intent = new Intent(MainActivity.this, TestManagementActivity.class);
                 startActivity(intent);
             }
         });

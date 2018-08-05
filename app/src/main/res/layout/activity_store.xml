@@ -44,13 +44,13 @@
                 android:id="@+id/store_information"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/tab_text_1" />
+                android:text="@string/store_tab_text_1" />
 
             <android.support.design.widget.TabItem
                 android:id="@+id/store_clothes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/tab_text_2" />
+                android:text="@string/store_tab_text_2" />
 
         </android.support.design.widget.TabLayout>
     </android.support.design.widget.AppBarLayout>

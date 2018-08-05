@@ -66,7 +66,7 @@ public class TestManagementActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {// 아이디에 해당하는 상점의 옷 가져오기
                 String str = storeEtxt.getText().toString();// 입력받은 아이디
-                intent = new Intent(getApplicationContext(), storeActivity.class);
+                intent = new Intent(getApplicationContext(), DBstoreActivity.class);
                 intent.putExtra("ID", str);
 
                 startActivityForResult(intent, RequestKey);

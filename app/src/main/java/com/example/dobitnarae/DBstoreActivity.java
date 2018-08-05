@@ -20,7 +20,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class storeActivity extends AppCompatActivity {
+public class DBstoreActivity extends AppCompatActivity {
 
     TextView txtView;
     String user_id;
@@ -29,14 +29,14 @@ public class storeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_store);
+        setContentView(R.layout.activity_dbstore);
 
         Intent intent = getIntent();
         user_id = intent.getExtras().getString("ID");
         Toast.makeText(getApplicationContext(), user_id + "님 안녕하세요!", Toast.LENGTH_LONG).show();
 
         txtView = (TextView) findViewById(R.id.txtView);
-        new storeActivity.JSONTask().execute("http://192.168.43.77:3443/store");//AsyncTask 시작시킴
+        new DBstoreActivity.JSONTask().execute("http://192.168.43.77:3443/store");//AsyncTask 시작시킴
 
     }
 

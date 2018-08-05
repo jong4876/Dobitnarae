@@ -36,7 +36,7 @@ public class storeActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), user_id + "님 안녕하세요!", Toast.LENGTH_LONG).show();
 
         txtView = (TextView) findViewById(R.id.txtView);
-        new storeActivity.JSONTask().execute("http://192.168.100.79:3443/store");//AsyncTask 시작시킴
+        new storeActivity.JSONTask().execute("http://192.168.43.77:3443/store");//AsyncTask 시작시킴
 
     }
 
@@ -121,7 +121,7 @@ public class storeActivity extends AppCompatActivity {
 
                     );
                 }
-                txtView.setText(storeList.get(0).getexplain());
+                txtView.setText(sb);
 
             }catch(JSONException e){
                 e.printStackTrace();

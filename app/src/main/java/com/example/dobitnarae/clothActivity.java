@@ -41,7 +41,7 @@ public class clothActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(),user_id+"님 안녕하세요!",Toast.LENGTH_LONG).show();
 
         txtView = (TextView) findViewById(R.id.txtView);
-        new JSONTask().execute("http://192.168.100.79:3443/cloth");//AsyncTask 시작시킴
+        new JSONTask().execute("http://192.168.43.77:3443/cloth");//AsyncTask 시작시킴
 
 
     }

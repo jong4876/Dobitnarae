@@ -9,51 +9,10 @@
 
     <include layout="@layout/tool_bar" />
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="50dp"
-            android:text="Store_ID :"
-            android:textSize="30sp" />
-
-        <EditText
-            android:id="@+id/storeEtxt"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
-
-    </LinearLayout>
-
     <Button
-        android:id="@+id/clothBtn"
-        android:layout_width="wrap_content"
+        android:id="@+id/button"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="한복 정보" />
-
-    <Button
-        android:id="@+id/storeBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="매장 정보" />
-
-    <Button
-        android:id="@+id/sqlBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="100dp"
-        android:cursorVisible="true"
-        android:text="SQL TEST" />
-
-
+        android:text="Button" />
 
 </LinearLayout>

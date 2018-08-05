@@ -23,6 +23,7 @@
             android:name=".ExampleSwipeMenu"
             android:label="@string/title_activity_example_swipe_menu"
             android:theme="@style/AppTheme" />
+        <activity android:name=".TestManagementActivity"/>
         <activity android:name=".SQLActivity" />
         <activity android:name=".clothActivity" />
         <activity android:name=".storeActivity"></activity>

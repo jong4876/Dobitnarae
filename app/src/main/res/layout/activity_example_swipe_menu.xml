@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,9 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-
     tools:context=".ExampleSwipeMenu">
-
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
@@ -18,9 +15,7 @@
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <include
-            layout="@layout/tool_bar"
-
-            />
+            layout="@layout/tool_bar"/>
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
@@ -34,19 +29,13 @@
                 android:id="@+id/tabItem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/tab_text_1" />
+                android:text="@string/store_tab_text_1" />
 
             <android.support.design.widget.TabItem
                 android:id="@+id/tabItem2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/tab_text_2" />
-
-            <android.support.design.widget.TabItem
-                android:id="@+id/tabItem3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tab_text_3" />
+                android:text="@string/store_tab_text_2" />
 
         </android.support.design.widget.TabLayout>
     </android.support.design.widget.AppBarLayout>

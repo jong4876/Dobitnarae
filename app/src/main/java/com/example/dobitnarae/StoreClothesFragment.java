@@ -1,20 +1,16 @@
 package com.example.dobitnarae;
 
 import android.annotation.SuppressLint;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -67,7 +63,7 @@ public class StoreClothesFragment extends Fragment {
         final String category[] = {"전체", "상의", "하의", "모자", "신발", "장신구"};
         ImageView[] imageViews = new ImageView[Constant.category_cnt];
 
-        for(int i=0; i<Constant.category_cnt; i++){
+        for(int i = 0; i< Constant.category_cnt; i++){
             imageViews[i] = new ImageView(getContext());
             imageViews[i].setImageResource(R.drawable.ic_clothes_list);
             imageViews[i].setId(i);

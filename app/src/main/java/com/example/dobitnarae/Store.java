@@ -6,7 +6,7 @@ public class Store {
     private String address;
     private String introduction;
     private String information;
-    private String phoneNumber;
+    private String  phoneNumber;
     private String ownerName;
     private double latitude, longitude;
 
@@ -55,4 +55,3 @@ public class Store {
         return phoneNumber;
     }
 }
-

@@ -16,7 +16,7 @@
         <android.support.design.widget.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="250dp"
-            app:contentScrim="?android:attr/colorPrimary"
+            app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <ImageView
@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 app:layout_collapseMode="parallax"
-                android:layout_marginTop="?android:attr/actionBarSize"
+                android:layout_marginTop="?attr/actionBarSize"
                 android:background="@drawable/sejong"/>
 
             <include
@@ -44,18 +44,19 @@
                 android:id="@+id/store_information"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/tab_text_1" />
+                android:text="@string/store_tab_text_1" />
 
             <android.support.design.widget.TabItem
                 android:id="@+id/store_clothes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/tab_text_2" />
+                android:text="@string/store_tab_text_2" />
 
         </android.support.design.widget.TabLayout>
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager
+        android:layout_marginTop="10dp"
         android:id="@+id/container_clothes"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -6,7 +6,9 @@
     tools:context=".StoreInfoFragment"
     android:paddingHorizontal="@dimen/padding_horizontal"
     android:paddingVertical="@dimen/padding_vertical"
-    android:scrollbars="none">
+    android:scrollbars="none"
+    android:background="#fff">
+
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/nestedScorllView_store"
         android:layout_width="match_parent"

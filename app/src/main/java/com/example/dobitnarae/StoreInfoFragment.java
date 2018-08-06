@@ -1,16 +1,29 @@
 package com.example.dobitnarae;
 
 import android.annotation.SuppressLint;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.nhn.android.maps.NMapContext;
+import com.nhn.android.maps.NMapController;
+import com.nhn.android.maps.NMapOverlayItem;
+import com.nhn.android.maps.NMapView;
+import com.nhn.android.maps.maplib.NGeoPoint;
+
 @SuppressLint("ValidFragment")
 public class StoreInfoFragment extends Fragment {
     Store store;
+
+    private NMapController mMapController;
+    private NMapView mMapView;// 지도 화면 View
+    private NMapContext mMapContext;
+    private final String CLIENT_ID = "kq6ZsHG_bYYKmox3mPqw";// 애플리케이션 클라이언트 아이디 값
+    private NMapOverlayItem mOverlayItem;
+
     /**
      * The fragment argument representing the section number for this
      * fragment.
@@ -52,5 +65,51 @@ public class StoreInfoFragment extends Fragment {
         address.setText(store.getAddress());
 
         return rootView;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mMapContext =  new NMapContext(super.getActivity());
+        mMapContext.onCreate();
+    }
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mMapView = (NMapView)getView().findViewById(R.id.mapView);
+        mMapView.setClientId(CLIENT_ID);// 클라이언트 아이디 설정
+        mMapContext.setupMapView(mMapView);
+
+        mMapController = mMapView.getMapController();
+        mMapController.setMapCenter(new NGeoPoint(store.getLongitude(), store.getLatitude()), 12);
+    }
+    @Override
+    public void onStart(){
+        super.onStart();
+        mMapContext.onStart();
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        mMapContext.onResume();
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        mMapContext.onPause();
+    }
+    @Override
+    public void onStop() {
+        mMapContext.onStop();
+        super.onStop();
+    }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
+    @Override
+    public void onDestroy() {
+        mMapContext.onDestroy();
+        super.onDestroy();
     }
 }

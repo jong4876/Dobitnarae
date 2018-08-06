@@ -1,9 +1,9 @@
 package com.example.dobitnarae;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,11 +24,11 @@ public class MainActivity extends AppCompatActivity {
         ImageButton backButton = (ImageButton)findViewById(R.id.backButton);
         backButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                Intent intent = new Intent(MainActivity.this, ExampleSwipeMenu.class);
+                Intent intent = new Intent(MainActivity.this, StoreActivity.class);
                 startActivity(intent);
             }
         });
-
+        //고객
         Button gotoStore = (Button)findViewById(R.id.gotoStore);
         gotoStore.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,21 +37,21 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+        //관리자
         Button gotoAdmin = (Button)findViewById(R.id.gotoAdmin);
-        gotoStore.setOnClickListener(new View.OnClickListener() {
+        gotoAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ExampleSwipeMenu.class);
+                Intent intent = new Intent(MainActivity.this, StoreActivity.class);
                 startActivity(intent);
             }
         });
-
+        //데이터베이스 조회
         Button gotoDatabase = (Button)findViewById(R.id.gotoDatabase);
-        gotoStore.setOnClickListener(new View.OnClickListener() {
+        gotoDatabase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, TestManagementActivity.class);
+                Intent intent = new Intent(MainActivity.this, StoreActivity.class);
                 startActivity(intent);
             }
         });

@@ -21,7 +21,6 @@
             android:name=".ExampleSwipeMenu"
             android:label="@string/title_activity_example_swipe_menu"
             android:theme="@style/AppTheme"></activity>
-        <activity android:name=".StoreActivity"/>
     </application>
 
 </manifest>

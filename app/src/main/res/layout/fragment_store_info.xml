@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".StoreInfoFragment"
+    tools:context=".StoreManagementFragment"
     android:paddingHorizontal="@dimen/padding_horizontal"
     android:paddingVertical="@dimen/padding_vertical"
     android:scrollbars="none">
@@ -30,15 +30,19 @@
                 android:textSize="@dimen/info_title"
                 android:layout_marginBottom="5dp"
                 />
-            <TextView
-                android:id="@+id/content_name"
+
+            <EditText
+                android:id="@+id/edit_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:ems="10"
+                android:focusableInTouchMode="false"
+                android:inputType="textPersonName"
                 android:text="내용없음"
-                android:textColor="@color/contentColor"
-                android:textStyle="bold"
-                android:textSize="@dimen/info_content"
-                />
+                android:visibility="visible"
+                android:clickable="false"
+                android:focusable="false"
+                android:background="@null"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -55,15 +59,19 @@
                 android:textSize="@dimen/info_title"
                 android:layout_marginBottom="5dp"
                 />
-            <TextView
-                android:id="@+id/content_intro"
+
+            <EditText
+                android:id="@+id/edit_intro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
                 android:text="내용없음"
-                android:textColor="@color/contentColor"
-                android:textStyle="bold"
-                android:textSize="@dimen/info_content"
-                />
+                android:visibility="visible"
+                android:focusableInTouchMode="false"
+                android:clickable="false"
+                android:focusable="false"
+                android:background="@null"/>
         </LinearLayout>
 
         <LinearLayout
@@ -81,15 +89,19 @@
                 android:textSize="@dimen/info_title"
                 android:layout_marginBottom="5dp"
                 />
-            <TextView
-                android:id="@+id/content_info"
+
+            <EditText
+                android:id="@+id/edit_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
                 android:text="내용없음"
-                android:textColor="@color/contentColor"
-                android:textStyle="bold"
-                android:textSize="@dimen/info_content"
-                />
+                android:visibility="visible"
+                android:focusableInTouchMode="false"
+                android:clickable="false"
+                android:focusable="false"
+                android:background="@null"/>
         </LinearLayout>
 
         <LinearLayout
@@ -107,15 +119,19 @@
                 android:textSize="@dimen/info_title"
                 android:layout_marginBottom="5dp"
                 />
-            <TextView
-                android:id="@+id/content_sales_info"
+
+            <EditText
+                android:id="@+id/edit_sales_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
                 android:text="내용없음"
-                android:textColor="@color/contentColor"
-                android:textStyle="bold"
-                android:textSize="@dimen/info_content"
-                />
+                android:visibility="visible"
+                android:focusableInTouchMode="false"
+                android:clickable="false"
+                android:focusable="false"
+                android:background="@null"/>
         </LinearLayout>
 
         <LinearLayout
@@ -133,15 +149,19 @@
                 android:textSize="@dimen/info_title"
                 android:layout_marginBottom="5dp"
                 />
-            <TextView
-                android:id="@+id/content_owner_info"
+
+            <EditText
+                android:id="@+id/edit_owner_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
                 android:text="내용없음"
-                android:textColor="@color/contentColor"
-                android:textStyle="bold"
-                android:textSize="@dimen/info_content"
-                />
+                android:visibility="visible"
+                android:focusableInTouchMode="false"
+                android:clickable="false"
+                android:focusable="false"
+                android:background="@null"/>
         </LinearLayout>
 
         <LinearLayout
@@ -159,15 +179,19 @@
                 android:textSize="@dimen/info_title"
                 android:layout_marginBottom="5dp"
                 />
-            <TextView
-                android:id="@+id/content_address"
+
+            <EditText
+                android:id="@+id/edit_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
                 android:text="내용없음"
-                android:textColor="@color/contentColor"
-                android:textStyle="bold"
-                android:textSize="@dimen/info_content"
-                />
+                android:visibility="visible"
+                android:focusableInTouchMode="false"
+                android:clickable="false"
+                android:focusable="false"
+                android:background="@null"/>
         </LinearLayout>
         <LinearLayout
             android:layout_marginTop="10dp"
@@ -175,6 +199,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center">
+
+            <Button
+                android:id="@+id/btn_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="수정" />
+
+            <Button
+                android:id="@+id/btn_register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="등록"
+                android:visibility="gone"
+                />
         </LinearLayout>
     </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

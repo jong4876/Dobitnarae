@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         ImageButton backButton = (ImageButton)findViewById(R.id.backButton);
         backButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                Intent intent = new Intent(MainActivity.this, StoreActivity.class);
+                Intent intent = new Intent(MainActivity.this, ExampleSwipeMenu.class);
                 startActivity(intent);
             }
         });

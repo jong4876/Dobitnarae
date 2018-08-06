@@ -1,11 +1,12 @@
 package com.example.dobitnarae;
 
 public class Store {
+    private int id;
     private String name;
     private String address;
     private String introduction;
     private String information;
-    private String phoneNumber;
+    private String  phoneNumber;
     private String ownerName;
     private double latitude, longitude;
 

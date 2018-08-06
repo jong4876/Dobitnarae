@@ -30,6 +30,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        Button button = (Button)findViewById(R.id.gotoStore);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, StoreActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     // 액티비티는 새로만들어지지 않고 유지

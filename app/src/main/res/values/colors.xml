@@ -6,4 +6,5 @@
     <color name="titleColor">#24292e</color>
     <color name="tabSelectedTextColor">#000000</color>
     <color name="tabTextColor">#606060</color>
+    <color name="contentColor">#606060</color>
 </resources>

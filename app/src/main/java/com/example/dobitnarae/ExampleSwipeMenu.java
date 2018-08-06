@@ -63,6 +63,11 @@ public class ExampleSwipeMenu extends AppCompatActivity {
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+
+
+
+
+        //fragment = (StoreManagementFragment) getFragmentManager().findFragmentById(R.id.);
     }
 
 

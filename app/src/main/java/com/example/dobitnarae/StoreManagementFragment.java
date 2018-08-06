@@ -33,9 +33,11 @@ import java.util.Collections;
 
 public class StoreManagementFragment extends Fragment {
     private ListView mListView = null;
-    public ListViewAdapter mAdapter = null;
+    private ListViewAdapter mAdapter = null;
     String user_id= "S-5";
     ArrayList<StoreTmp> storeList = new ArrayList<StoreTmp>();
+
+
 
     @Nullable
     @Override

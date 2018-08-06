@@ -50,18 +50,10 @@ public class StoreManagementFragment extends Fragment {
         mListView.setAdapter(mAdapter);
 
         Toast.makeText(getContext(), user_id + "님 안녕하세요!", Toast.LENGTH_LONG).show();
-        new JSONTask().execute("http://192.168.43.77:3443/store");//AsyncTask 시작시킴
+        getStoreAll("http://192.168.219.103:3443/store");//AsyncTask 시작시킴
 
 
 
-
-
-        /*
-        mAdapter.addItem("아이디", "1231");
-        mAdapter.addItem("이름", "두빛나래");
-        mAdapter.addItem("위치", "1");
-        mAdapter.addItem("설명", "어서오세요~ 앱만드는거 드럽게 어렵네요^^");
-        */
 
         return rootView;
     }
@@ -139,6 +131,10 @@ public class StoreManagementFragment extends Fragment {
         public void dataChange(){
             mAdapter.notifyDataSetChanged();
         }
+    }
+
+    public void getStoreAll(String URL){
+        new JSONTask().execute(URL);//AsyncTask 시작시킴
     }
 
 
@@ -223,15 +219,13 @@ public class StoreManagementFragment extends Fragment {
 
                     );
                 }
-
-
-
-                //Toast.makeText(getContext(),storeList.get(0).getname(),Toast.LENGTH_LONG).show();
-                mAdapter.addItem("아이디", "asd");
+                mAdapter.addItem("아이디",storeList.get(0).getstore_ID());
                 mAdapter.addItem("이름", storeList.get(0).getname());
                 mAdapter.addItem("위치", ""+storeList.get(0).getlocation());
                 mAdapter.addItem("설명", storeList.get(0).getexplain());
                 mAdapter.notifyDataSetChanged();
+
+
 
 
             }catch(JSONException e){

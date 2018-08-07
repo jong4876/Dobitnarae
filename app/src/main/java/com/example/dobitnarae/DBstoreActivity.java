@@ -23,7 +23,7 @@ import java.util.ArrayList;
 public class DBstoreActivity extends AppCompatActivity {
 
     TextView txtView;
-    String user_id="S-5";
+    String user_id="jong4876";
      ArrayList<StoreTmp> storeList = new ArrayList<StoreTmp>();
 
     @Override
@@ -33,10 +33,10 @@ public class DBstoreActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         //user_id = intent.getExtras().getString("ID");
-        Toast.makeText(getApplicationContext(), user_id + "님 안녕하세요!", Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), user_id + "님 안녕하세요!", Toast.LENGTH_LONG).show();
 
         txtView = (TextView) findViewById(R.id.txtView);
-        new JSONTask().execute("http://192.168.43.77:3443/store");//AsyncTask 시작시킴
+        new JSONTask().execute("http://192.168.219.103:3443/store");//AsyncTask 시작시킴
 
     }
 
@@ -96,34 +96,45 @@ public class DBstoreActivity extends AppCompatActivity {
 
         protected void onPostExecute(String str) {// 정작 실행되는 메서드
             StringBuffer sb = new StringBuffer();
-            try{
 
-                // JSONObject root = new JSONObject(str);// 전체 데이터 JSON파싱
+            //txtView.setText(str);
+            try{
                 JSONArray ja = new JSONArray(str);
-                // txtView.setText(str);
+               // txtView.setText(str);
                 for(int i=0; i<ja.length(); i++){
                     JSONObject jo = ja.getJSONObject(i);
-                    String store_ID = jo.getString("store_ID");
+                    int id = jo.getInt("id");
                     String name = jo.getString("name");
-                    int location = jo.getInt("location");
-                    String explain = jo.getString("explain");
+
+                    String admin_id = jo.getString("admin_id");
+                    String tel = jo.getString("tel");
+                    String intro = jo.getString("intro");
+                    String inform = jo.getString("inform");
+                    String address = jo.getString("address");
+                    int sector = jo.getInt("sector");
 
 
-                    StoreTmp tmp = new StoreTmp(store_ID, name, location, explain);
-                    storeList.add(tmp);//accountList 차례대로 삽입
+
+
+                 //   StoreTmp tmp = new StoreTmp(store_ID, name, location, explain);
+                  //  storeList.add(tmp);//accountList 차례대로 삽입
 
                     sb.append(// test용 stringbuffer
-                            "매장아이디: " + store_ID+
+                           "id: " + id+
                                     "\n\n매장명: " + name  +
-                                    "\n\n매장위치: " + location  +
-                                    "\n\n매장설명: " + explain +
+                                    "\n\n매장아이디: " + admin_id  +
+                                    "\n\n매장번호: " + tel  +
+                                    "\n\n매장소개: " + intro  +
+                                    "\n\n매장정보: " + inform  +
+                                    "\n\n매장주소: " + address  +
+                                    "\n\n매장구역: " + sector  +
                                     "\n\n"
 
                     );
+
                 }
 
                 txtView.setText(sb);
-
             }catch(JSONException e){
                 e.printStackTrace();
             }

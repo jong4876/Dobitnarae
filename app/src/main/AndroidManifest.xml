@@ -19,14 +19,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ExampleSwipeMenu"
-            android:label="@string/title_activity_example_swipe_menu"
-            android:theme="@style/AppTheme" />
-        <activity
             android:name=".StoreActivity"
             android:label="@string/title_activity_store"
             android:theme="@style/AppTheme" />
-        <activity android:name=".DBstoreActivity"></activity>
+        <activity android:name=".DBstoreActivity"/>
+        <activity android:name=".ExampleSwipeMenu"/>
     </application>
 
 </manifest>

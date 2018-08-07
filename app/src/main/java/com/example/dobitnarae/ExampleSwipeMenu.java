@@ -1,24 +1,33 @@
 package com.example.dobitnarae;
 
-import android.os.Bundle;
+import android.content.res.Configuration;
+import android.support.design.widget.TabItem;
 import android.support.design.widget.TabLayout;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Objects;
 
 public class ExampleSwipeMenu extends AppCompatActivity {
-
+    private Store store;
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -27,7 +36,7 @@ public class ExampleSwipeMenu extends AppCompatActivity {
      * may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
-       private SectionsPagerAdapter mSectionsPagerAdapter;
+    private SectionsPagerAdapter mSectionsPagerAdapter;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -54,12 +63,24 @@ public class ExampleSwipeMenu extends AppCompatActivity {
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+
+        // 특정 인덴트에서 store 키값을 받아와
+        // 서버로 통신 하여 `가게정보, 판매중인 옷` 데이터 받아옴
+        store = new Store("세종대학교","서울특별시 광진구 군자동 능동로 209",
+                "세종대학교는 대한민국 서울특별시 광진구 군자동에 위치한 사립 종합대학이다." +
+                        " 세종대나 SJU의 약칭으로 불리기도 한다. 10개의 단과 대학, 1개의 교양 대학," +
+                        " 1개의 독립학부, 1개의 일반대학원, 1개의 전문대학원, 5개의 특수대학원과 57개의 연구소," +
+                        " 8개의 BK21사업팀으로 구성되어 있다. 학교법인 대양학원에 의해 운영된다. 현재 총장은 화학 박사 신구이다. ",
+                "24시간 영업","02-3408-3114", "신구",
+                37.550278,127.073114);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        return false;
+        // Inflate the menu; this adds items to the action bar if it is present.
+        //getMenuInflater().inflate(R.menu.menu_example_swipe_menu, menu);
+        return true;
     }
 
     @Override
@@ -75,41 +96,6 @@ public class ExampleSwipeMenu extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        public PlaceholderFragment() {
-        }
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_example_swipe_menu, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-            return rootView;
-        }
     }
 
     /**
@@ -130,23 +116,35 @@ public class ExampleSwipeMenu extends AppCompatActivity {
             // 액티비티 만들어서 케이스 문에다가 넣어주면 됩니다
             // 탭 이름은 values/string 에 들어있어요
             // 아마 클래스 타입은 무조건 PlaceholderFragment 여야 할꺼같아요
-            /*
+
             switch(position) {
                 case 0:
-                    return new 첫번째탭에들어갈내용이담긴액티비티이름(mContext);
+                    return new StoreManagementFragment(store);
                 case 1:
-                    return new 두번째탭에들어갈내용이담긴액티비티이름(mContext);
+                    return new ItemManagementFragment();
+                case 2:
+                    return new OrderManagementFragment();
+                default:
+                    return null;
             }
-            return null;
-            */
-            // 위에꺼 추가하면 아래 코드 삭제
-            return PlaceholderFragment.newInstance(position + 1);
         }
 
         @Override
         public int getCount() {
             // 탭 개수
-            return 2;
+            return 3;
+        }
+    }
+
+    // 액티비티는 새로만들어지지 않고 유지
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        if(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            //Toast.makeText(this, "가로방향", Toast.LENGTH_LONG).show();
+        } else if(newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            //Toast.makeText(this, "세로방향", Toast.LENGTH_LONG).show();
         }
     }
 }

@@ -23,7 +23,7 @@ import java.util.ArrayList;
 public class DBstoreActivity extends AppCompatActivity {
 
     TextView txtView;
-    String user_id;
+    String user_id="S-5";
      ArrayList<StoreTmp> storeList = new ArrayList<StoreTmp>();
 
     @Override
@@ -32,7 +32,7 @@ public class DBstoreActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dbstore);
 
         Intent intent = getIntent();
-        user_id = intent.getExtras().getString("ID");
+        //user_id = intent.getExtras().getString("ID");
         Toast.makeText(getApplicationContext(), user_id + "님 안녕하세요!", Toast.LENGTH_LONG).show();
 
         txtView = (TextView) findViewById(R.id.txtView);

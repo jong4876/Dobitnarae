@@ -119,7 +119,7 @@ public class ExampleSwipeMenu extends AppCompatActivity {
 
             switch(position) {
                 case 0:
-                    return new StoreManagementFragment2(store);
+                    return new StoreManagementFragment(store);
                 case 1:
                     return new ItemManagementFragment();
                 case 2:

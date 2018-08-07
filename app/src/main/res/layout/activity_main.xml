@@ -1,18 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <include layout="@layout/tool_bar" />
-
-    <Button
-        android:id="@+id/button"
+    <include
+        layout="@layout/tool_bar"/>
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Button" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+        <Button
+            android:id="@+id/gotoStore"
+            android:layout_margin="20dp"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:text="상점 정보"/>
+        <Button
+            android:id="@+id/gotoAdmin"
+            android:layout_margin="20dp"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:text="관리자 정보"/>
+
+        <Button
+            android:id="@+id/gotoDatabase"
+            android:layout_margin="20dp"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:text="데이터베이스 조회"/>
+    </LinearLayout>
 
 </LinearLayout>

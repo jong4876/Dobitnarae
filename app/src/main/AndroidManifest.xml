@@ -11,9 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".MainActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,13 +19,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ExampleSwipeMenu"
-            android:label="@string/title_activity_example_swipe_menu"
+            android:name=".StoreActivity"
+            android:label="@string/title_activity_store"
             android:theme="@style/AppTheme" />
-        <activity android:name=".TestManagementActivity" />
-        <activity android:name=".SQLActivity" />
-        <activity android:name=".clothActivity" />
-        <activity android:name=".storeActivity" />
+        <activity android:name=".DBstoreActivity"/>
+        <activity android:name=".ExampleSwipeMenu"/>
     </application>
 
 </manifest>

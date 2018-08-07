@@ -50,7 +50,7 @@ public class StoreManagementFragment extends Fragment {
         mListView.setAdapter(mAdapter);
 
         Toast.makeText(getContext(), user_id + "님 안녕하세요!", Toast.LENGTH_LONG).show();
-        getStoreAll("http://192.168.219.103:3443/store");//AsyncTask 시작시킴
+        getStoreAll("http://192.168.43.77:3443/store");//AsyncTask 시작시킴
 
 
 

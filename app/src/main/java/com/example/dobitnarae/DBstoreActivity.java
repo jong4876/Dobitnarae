@@ -24,7 +24,7 @@ public class DBstoreActivity extends AppCompatActivity {
 
     TextView txtView;
     String user_id;
-   ArrayList<store> storeList = new ArrayList<store>();
+   ArrayList<StoreTmp> storeList = new ArrayList<StoreTmp>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,7 +109,7 @@ public class DBstoreActivity extends AppCompatActivity {
                     String explain = jo.getString("explain");
 
 
-                    store tmp = new store(store_ID, name, location, explain);
+                    StoreTmp tmp = new StoreTmp(store_ID, name, location, explain);
                     storeList.add(tmp);//accountList에 차례대로 삽입
 
                     sb.append(// test용 stringbuffer
@@ -132,45 +132,6 @@ public class DBstoreActivity extends AppCompatActivity {
     }
 }
 
-class store{//cloth의 sql문 결과를 담기위한 클래스
-
-
-    String store_ID;
-    String name;
-    int location;
-    String explain;
-
-
-
-    public store(String store_ID, String name, int location, String explain) {
-
-        this.store_ID = store_ID;
-        this.name = name;
-        this.location = location;
-        this.explain = explain;
-
-    }
-
-    public String getstore_ID (){
-        return store_ID ;
-    }
-    public String getname(){
-        return name;
-    }
-    public int getlocation(){
-        return location;
-    }
-
-    public String getexplain (){
-        return explain ;
-    }
-
-
-
-
-
-
-}
 
 
 

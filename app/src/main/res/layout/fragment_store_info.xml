@@ -4,10 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".StoreInfoFragment"
-    android:paddingHorizontal="@dimen/padding_horizontal"
-    android:paddingVertical="@dimen/padding_vertical"
+    android:paddingRight="@dimen/padding_horizontal"
+    android:paddingLeft="@dimen/padding_horizontal"
     android:scrollbars="none"
-    android:background="#fff">
+    android:background="#fff"
+    android:paddingBottom="20dp">
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/nestedScorllView_store"
@@ -21,7 +22,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginVertical="@dimen/content_margin_vertical">
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="@dimen/content_margin_vertical">
             <TextView
                 android:id="@+id/title_name"
                 android:layout_width="match_parent"
@@ -46,7 +48,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginVertical="@dimen/content_margin_vertical">
+            android:layout_marginTop="@dimen/content_margin_vertical"
+            android:layout_marginBottom="@dimen/content_margin_vertical">
             <TextView
                 android:id="@+id/title_intro"
                 android:layout_width="match_parent"
@@ -72,7 +75,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginVertical="@dimen/content_margin_vertical">
+            android:layout_marginTop="@dimen/content_margin_vertical"
+            android:layout_marginBottom="@dimen/content_margin_vertical">
             <TextView
                 android:id="@+id/title_info"
                 android:layout_width="match_parent"
@@ -98,7 +102,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginVertical="@dimen/content_margin_vertical">
+            android:layout_marginTop="@dimen/content_margin_vertical"
+            android:layout_marginBottom="@dimen/content_margin_vertical">
             <TextView
                 android:id="@+id/title_sales_info"
                 android:layout_width="match_parent"
@@ -124,7 +129,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginVertical="@dimen/content_margin_vertical">
+            android:layout_marginTop="@dimen/content_margin_vertical"
+            android:layout_marginBottom="@dimen/content_margin_vertical">
             <TextView
                 android:id="@+id/title_owner_info"
                 android:layout_width="match_parent"
@@ -150,7 +156,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginVertical="@dimen/content_margin_vertical">
+            android:layout_marginTop="@dimen/content_margin_vertical"
+            android:layout_marginBottom="@dimen/content_margin_vertical">
             <TextView
                 android:id="@+id/title_address"
                 android:layout_width="match_parent"

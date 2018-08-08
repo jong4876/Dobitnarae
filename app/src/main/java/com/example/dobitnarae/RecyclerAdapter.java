@@ -1,6 +1,7 @@
 package com.example.dobitnarae;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
@@ -13,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
@@ -39,12 +42,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         holder.image.setBackground(drawable);
         holder.name.setText(item.getName());
         holder.price.setText("" + item.getPrice());
-        holder.cardview.setTag("clothes_" + item.getId());
+        holder.cardview.setId(item.getId());
         holder.cardview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("saf", "" + v.getTag());
-                Toast.makeText(context, item.getName(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, ClothesReservationActivity.class);
+                intent.putExtra("clothes", item);
+                context.startActivity(intent);
             }
         });
     }

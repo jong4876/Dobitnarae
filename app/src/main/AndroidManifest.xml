@@ -22,8 +22,9 @@
             android:name=".StoreActivity"
             android:label="@string/title_activity_store"
             android:theme="@style/AppTheme" />
-        <activity android:name=".DBstoreActivity"/>
-        <activity android:name=".ExampleSwipeMenu"/>
+        <activity android:name=".DBstoreActivity" />
+        <activity android:name=".ExampleSwipeMenu" />
+        <activity android:name=".ClothesReservationActivity"></activity>
     </application>
 
 </manifest>

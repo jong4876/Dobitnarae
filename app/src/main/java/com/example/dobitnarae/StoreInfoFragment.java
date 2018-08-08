@@ -54,13 +54,13 @@ public class StoreInfoFragment extends Fragment {
         TextView name = (TextView)rootView.findViewById(R.id.content_name);
         name.setText(store.getName());
         TextView intro = (TextView)rootView.findViewById(R.id.content_intro);
-        intro.setText(store.getIntroduction());
+        intro.setText(store.getIntro());
         TextView info = (TextView)rootView.findViewById(R.id.content_info);
-        info.setText(store.getInformation());
+        info.setText(store.getInform());
         TextView sales_info = (TextView)rootView.findViewById(R.id.content_sales_info);
-        sales_info.setText(store.getPhoneNumber());
+        sales_info.setText(store.getTel());
         TextView owner_info = (TextView)rootView.findViewById(R.id.content_owner_info);
-        owner_info.setText(store.getOwnerName());
+        owner_info.setText(store.getAdmin_id());
         TextView address = (TextView)rootView.findViewById(R.id.content_address);
         address.setText(store.getAddress());
 
@@ -81,7 +81,7 @@ public class StoreInfoFragment extends Fragment {
         mMapContext.setupMapView(mMapView);
 
         mMapController = mMapView.getMapController();
-        mMapController.setMapCenter(new NGeoPoint(store.getLongitude(), store.getLatitude()), 12);
+        mMapController.setMapCenter(new NGeoPoint(/*store.getLongitude()*/21, /*store.getLatitude()*/12), 12);// 수정필요
     }
     @Override
     public void onStart(){

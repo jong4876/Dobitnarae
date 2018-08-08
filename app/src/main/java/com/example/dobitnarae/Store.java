@@ -3,55 +3,51 @@ package com.example.dobitnarae;
 public class Store {
     private int id;
     private String name;
+    private String admin_id;
     private String address;
-    private String introduction;
-    private String information;
-    private String  phoneNumber;
-    private String ownerName;
-    private double latitude, longitude;
+    private String tel;
+    private String intro;
+    private String inform;
+    private int sector;
 
-    public Store(String name, String address, String introduction,
-                 String information, String phoneNumber, String ownerName,
-                 double latitude, double longitude){
+    public Store(int id, String name,String admin_id, String address, String tel, String intro,
+                 String inform, int sector){
+        this.id=id;
         this.name = name;
+        this.admin_id= admin_id;
         this.address = address;
-        this.introduction = introduction;
-        this.information = information;
-        this.phoneNumber = phoneNumber;
-        this.ownerName = ownerName;
-        this.latitude = latitude;
-        this.longitude = longitude;
+        this.tel = tel;
+        this.intro = intro;
+        this.inform = inform;
+        this.sector = sector;
+
     }
 
-    public double getLatitude() {
-        return latitude;
-    }
-
-    public double getLongitude() {
-        return longitude;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public String getInformation() {
-        return information;
-    }
-
-    public String getIntroduction() {
-        return introduction;
+    public int getId() {
+        return id;
     }
 
     public String getName() {
         return name;
     }
-
-    public String getOwnerName() {
-        return ownerName;
+    public String getAdmin_id() {
+        return admin_id;
+    }
+    public String getAddress() {
+        return address;
+    }
+    public String getTel(){
+        return tel;
+    }
+    public String getIntro() {
+        return intro;
+    }
+    public String getInform() {
+        return inform;
+    }
+    public int getSector(){
+        return sector;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
+
 }

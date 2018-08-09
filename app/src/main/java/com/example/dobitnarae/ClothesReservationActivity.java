@@ -48,12 +48,12 @@ public class ClothesReservationActivity extends AppCompatActivity {
 
         // 옷 설명
         TextView description = findViewById(R.id.reserve_clothes_introduction);
-        description.setText("이 곱창은 왕십리에서부터 유래하여...");
+        description.setText(item.getIntro());
 
         // 옷 가격
         dc = new DecimalFormat("###,###,###,###");
         TextView price = findViewById(R.id.reserve_clothes_price);
-        String str = dc.format(item.getPrice());
+        String str = dc.format(item.getPrice()) + " 원";
         price.setText(str);
 
         // 총 가격
@@ -70,7 +70,7 @@ public class ClothesReservationActivity extends AppCompatActivity {
                 int cnt = Integer.parseInt((String) selectCnt.getText()) - 1;
                 if (cnt == 0)
                     btnReduce.setClickable(false);
-                selectCnt.setText("" + cnt);
+                selectCnt.setText( "" + cnt);
                 setTotalPrice(cnt);
             }
         });
@@ -91,7 +91,7 @@ public class ClothesReservationActivity extends AppCompatActivity {
 
     public void setTotalPrice(int cnt){
         totalPrice = findViewById(R.id.reserve_clothes_total_price);
-        String total = dc.format(item.getPrice() * cnt);
+        String total = dc.format(item.getPrice() * cnt) + " 원";
         totalPrice.setText(total);
     }
 }

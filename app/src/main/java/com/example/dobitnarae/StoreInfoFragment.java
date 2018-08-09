@@ -22,7 +22,6 @@ public class StoreInfoFragment extends Fragment {
     private NMapView mMapView;// 지도 화면 View
     private NMapContext mMapContext;
     private final String CLIENT_ID = "kq6ZsHG_bYYKmox3mPqw";// 애플리케이션 클라이언트 아이디 값
-    private NMapOverlayItem mOverlayItem;
 
     /**
      * The fragment argument representing the section number for this
@@ -54,13 +53,13 @@ public class StoreInfoFragment extends Fragment {
         TextView name = (TextView)rootView.findViewById(R.id.content_name);
         name.setText(store.getName());
         TextView intro = (TextView)rootView.findViewById(R.id.content_intro);
-        intro.setText(store.getIntroduction());
+        intro.setText(store.getIntro());
         TextView info = (TextView)rootView.findViewById(R.id.content_info);
-        info.setText(store.getInformation());
+        info.setText(store.getInform());
         TextView sales_info = (TextView)rootView.findViewById(R.id.content_sales_info);
-        sales_info.setText(store.getPhoneNumber());
+        sales_info.setText(store.getTel());
         TextView owner_info = (TextView)rootView.findViewById(R.id.content_owner_info);
-        owner_info.setText(store.getOwnerName());
+        owner_info.setText(store.getAdmin_id());
         TextView address = (TextView)rootView.findViewById(R.id.content_address);
         address.setText(store.getAddress());
 

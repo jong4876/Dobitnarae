@@ -53,13 +53,13 @@ public class StoreManagementFragment extends Fragment {
         edit_name = (EditText)rootView.findViewById(R.id.edit_name);
         edit_name.setText(store.getName());
         edit_intro = (EditText)rootView.findViewById(R.id.edit_intro);
-        edit_intro.setText(store.getIntroduction());
+        edit_intro.setText(store.getIntro());
         edit_info = (EditText)rootView.findViewById(R.id.edit_info);
-        edit_info.setText(store.getInformation());
+        edit_info.setText(store.getInform());
         edit_sales_info = (EditText)rootView.findViewById(R.id.edit_sales_info);
-        edit_sales_info.setText(store.getPhoneNumber());
+        edit_sales_info.setText(store.getTel());
         edit_owner_info = (EditText)rootView.findViewById(R.id.edit_owner_info);
-        edit_owner_info.setText(store.getOwnerName());
+        edit_owner_info.setText(store.getAdmin_id());
         edit_address = (EditText)rootView.findViewById(R.id.edit_address);
         edit_address.setText(store.getAddress());
 

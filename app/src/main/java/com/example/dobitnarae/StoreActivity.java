@@ -67,12 +67,12 @@ public class StoreActivity extends AppCompatActivity {
 
         // 특정 인덴트에서 store 키값을 받아와
         // 서버로 통신 하여 `가게정보, 판매중인 옷` 데이터 받아옴
-        store = new Store("세종대학교","서울특별시 광진구 군자동 능동로 209",
-                "세종대학교는 대한민국 서울특별시 광진구 군자동에 위치한 사립 종합대학이다." +
+        store = new Store(0, "세종대학교","Kuril","서울특별시 광진구 군자동 능동로 209",
+                "02-3408-3114","세종대학교는 대한민국 서울특별시 광진구 군자동에 위치한 사립 종합대학이다." +
                         " 세종대나 SJU의 약칭으로 불리기도 한다. 10개의 단과 대학, 1개의 교양 대학," +
                         " 1개의 독립학부, 1개의 일반대학원, 1개의 전문대학원, 5개의 특수대학원과 57개의 연구소," +
                         " 8개의 BK21사업팀으로 구성되어 있다. 학교법인 대양학원에 의해 운영된다. 현재 총장은 화학 박사 신구이다. ",
-                "24시간 영업","02-3408-3114", "신구",
+                "24시간 영업", 0,
                 37.550278,127.073114);
 
         // 옷 정보들 가져와서 초기화
@@ -80,8 +80,9 @@ public class StoreActivity extends AppCompatActivity {
         items = new ArrayList<>();
         Clothes[] item = new Clothes[ITEM_SIZE];
         for(int i=0; i<ITEM_SIZE; i++){
-            item[i] = new Clothes(i, R.drawable.gobchang, "불곱창" + (i + 1),
-                    1000 * (i + 1), i % Constant.category_cnt + 1);
+            item[i] = new Clothes(i, i, i % Constant.category_cnt + 1,
+                    "불곱창" + (i + 1), "이 곱창은 왕십리에서 시작하여...",
+                    1000 * (i + 1), 10,  0);
             items.add(item[i]);
         }
 

@@ -18,7 +18,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ExampleSwipeMenu"
+            android:name=".AdminActivity"
             android:label="@string/title_activity_example_swipe_menu"
             android:theme="@style/AppTheme"></activity>
     </application>

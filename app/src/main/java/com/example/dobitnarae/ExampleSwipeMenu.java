@@ -84,7 +84,7 @@ public class ExampleSwipeMenu extends AppCompatActivity {
 
 
         try {
-            String str = new JSONTask().execute("http://192.168.219.103:3443/store").get();// JSON형태로 store의값을 서버에서 가져옴
+            String str = new JSONTask().execute("http://192.168.43.77:3443/store").get();// JSON형태로 store의값을 서버에서 가져옴
             storeList = JSONTask.getStoreAll(str);// JSON형태의 store정보들을 분류하여 arrayList에 저장
             store = storeList.get(0);
         } catch(Exception E){

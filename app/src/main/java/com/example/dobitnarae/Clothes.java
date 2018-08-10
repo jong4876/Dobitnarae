@@ -1,5 +1,7 @@
 package com.example.dobitnarae;
 
+import android.support.annotation.NonNull;
+
 import java.io.Serializable;
 
 public class Clothes implements Serializable{
@@ -23,7 +25,42 @@ public class Clothes implements Serializable{
     int getCount() { return this.count; }
     int getSex() { return this.sex; }
 
-    Clothes(int cloth_id,int store_id, int type, String name, String intro, int price, int count, int sex) {
+    public Clothes() {
+    }
+
+    public void setCloth_id(int cloth_id) {
+        this.cloth_id = cloth_id;
+    }
+
+    public void setStore_id(int store_id) {
+        this.store_id = store_id;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setIntro(String intro) {
+        this.intro = intro;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public void setSex(int sex) {
+        this.sex = sex;
+    }
+
+    Clothes(int cloth_id, int store_id, int type, String name, String intro, int price, int count, int sex) {
         this.cloth_id = cloth_id;
         this.store_id = store_id;
         this.type = type;

@@ -6,7 +6,8 @@
     android:layout_marginBottom="20dp"
     android:layout_marginHorizontal="20dp"
     android:background="@android:color/background_light"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/listView_order">
 
 
     <LinearLayout

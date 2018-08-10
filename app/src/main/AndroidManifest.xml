@@ -21,6 +21,7 @@
             android:name=".AdminActivity"
             android:label="@string/title_activity_example_swipe_menu"
             android:theme="@style/AppTheme"></activity>
+        <activity android:name=".SpecificOrderActivity"/>
     </application>
 
 </manifest>

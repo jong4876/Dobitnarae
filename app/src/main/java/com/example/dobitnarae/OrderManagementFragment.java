@@ -2,17 +2,21 @@ package com.example.dobitnarae;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -66,8 +70,6 @@ public class OrderManagementFragment extends Fragment {
                     mAdapter.addItem(item);
                 }
 
-                mAdapter.viewChange(false, v);
-                mAdapter.layoutClear();
                 mAdapter.dataChange();
             }
         });
@@ -84,8 +86,6 @@ public class OrderManagementFragment extends Fragment {
                 for (Order item:confirmedDatas) {
                     mAdapter.addItem(item);
                 }
-                mAdapter.viewChange(true, v);
-                mAdapter.layoutClear();
                 mAdapter.dataChange();
             }
         });
@@ -94,25 +94,17 @@ public class OrderManagementFragment extends Fragment {
     }
 
     private class ViewHolder {
-        public TextView mNo;
-        public TextView mName;
+        public String mNo;
+        public ImageView imageView;
         public TextView mBasket;
         public TextView mDate;
-        public TextView mPrice;
-
-        public TextView confirmNo;
-        public TextView confirmName;
-        public TextView confirmBasket;
-        public TextView confirmDate;
-        public TextView confirmPrice;
+        public TextView mStore;
+        public LinearLayout linearLayout;
     }
 
     private class ListViewAdapter extends BaseAdapter {
         private Context mContext = null;
         private ArrayList<OrderInfoData> mListData = new ArrayList<OrderInfoData>();
-
-        public List<LinearLayout> linearLayout = new ArrayList<LinearLayout>();
-        public List<LinearLayout> linearLayout2 = new ArrayList<LinearLayout>();
 
         public ListViewAdapter(Context mContext) {
             super();
@@ -141,44 +133,41 @@ public class OrderManagementFragment extends Fragment {
                 holder = new ViewHolder();
 
                 LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = inflater.inflate(R.layout.listview_info_order, null);
+                convertView = inflater.inflate(R.layout.listview_info_confirmedorder, null);
 
-                holder.mNo = (TextView) convertView.findViewById(R.id.txt_order_no);
-                holder.mName = (TextView) convertView.findViewById(R.id.txt_order_name);
-                holder.mBasket = (TextView) convertView.findViewById(R.id.txt_order_basket);
-                holder.mDate = (TextView) convertView.findViewById(R.id.txt_order_date);
-                holder.mPrice = (TextView) convertView.findViewById(R.id.txt_order_price);
-
-                holder.confirmNo = (TextView) convertView.findViewById(R.id.txt_confirm_no);
-                holder.confirmName = (TextView) convertView.findViewById(R.id.txt_confirm_name);
-                holder.confirmBasket = (TextView) convertView.findViewById(R.id.txt_confirm_basket);
-                holder.confirmDate = (TextView) convertView.findViewById(R.id.txt_confirm_date);
-                holder.confirmPrice = (TextView) convertView.findViewById(R.id.txt_confirm_price);
+                holder.imageView = (ImageView) convertView.findViewById(R.id.imageView);
+                holder.mBasket = (TextView) convertView.findViewById(R.id.txt_basket);
+                holder.mDate = (TextView) convertView.findViewById(R.id.txt_date);
+                holder.mStore = (TextView) convertView.findViewById(R.id.txt_store);
+                holder.linearLayout = (LinearLayout) convertView.findViewById(R.id.listView_order);
 
                 convertView.setTag(holder);
             }else{
                 holder = (ViewHolder) convertView.getTag();
             }
 
-            OrderInfoData mData = mListData.get(position);
+            final OrderInfoData mData = mListData.get(position);
 
-            holder.mNo.setText(mData.getOrderNo());
-            holder.mName.setText(mData.getOrderName());
+            // 서버에서 이미지 받아야함
+            Drawable drawable = ContextCompat.getDrawable(mContext, R.drawable.sample);
+
+            holder.mNo = mData.getOrderNo();
+            holder.imageView.setBackground(drawable);
             holder.mBasket.setText(mData.getOrderBasket());
             holder.mDate.setText(mData.getOrderDate());
-            holder.mPrice.setText(mData.getOrderPrice());
+            // 매장이름필요
+            holder.mStore.setText(mData.getOrderNo());
+            holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, SpecificOrderActivity.class);
+                    intent.putExtra("orderinfo", mData);
+                    mContext.startActivity(intent);
+                }
+            });
 
-            holder.confirmNo.setText(mData.getOrderNo());
-            holder.confirmName.setText(mData.getOrderName());
-            holder.confirmBasket.setText(mData.getOrderBasket());
-            holder.confirmDate.setText(mData.getOrderDate());
-            holder.confirmPrice.setText(mData.getOrderPrice());
 
-
-            linearLayout.add((LinearLayout) convertView.findViewById(R.id.layout_nonConfirm));
-            linearLayout2.add((LinearLayout)convertView.findViewById(R.id.layout_confirm));
-
-
+            /*
             // 리스트뷰 버튼 이벤트
             // 승인 버튼 클릭 시
             Button btnRegister = (Button) convertView.findViewById(R.id.btn_confirm);
@@ -209,7 +198,7 @@ public class OrderManagementFragment extends Fragment {
                     mAdapter.dataChange();
                 }
             });
-
+            */
             return convertView;
         }
 
@@ -225,11 +214,11 @@ public class OrderManagementFragment extends Fragment {
             // 고객 주문데이터 총가격 수정필요
             // 고객 주문데이터 총가격 수정필요
             if(item.getAcceptStatus()==0)
-                addInfo.setOrderPrice("대기");
+                addInfo.setOrderPrice(30000);
             else if(item.getAcceptStatus()==1)
-                addInfo.setOrderPrice("승인");
+                addInfo.setOrderPrice(30000);
             else if(item.getAcceptStatus()==2)
-                addInfo.setOrderPrice("거절");
+                addInfo.setOrderPrice(30000);
             mListData.add(addInfo);
         }
 
@@ -246,36 +235,6 @@ public class OrderManagementFragment extends Fragment {
 
         public void dataChange(){
             mAdapter.notifyDataSetChanged();
-        }
-
-        public void layoutClear(){
-            linearLayout.clear();
-            linearLayout2.clear();
-        }
-
-        public void viewChange(boolean visible, View v){
-            // 승인 데이터 보기
-            if(visible){
-                //Snackbar.make(v, "승인버튼 클릭", Snackbar.LENGTH_LONG).show();
-                Log.d("visible1", String.valueOf(linearLayout.size()));
-                Log.d("visible2", String.valueOf(linearLayout2.size()));
-                for (LinearLayout item : linearLayout) {
-                    item.setVisibility(View.GONE);
-                }
-                for (LinearLayout item : linearLayout2) {
-                    item.setVisibility(View.VISIBLE);
-                }
-            } else { // 미승인 데이터 보기
-                //Snackbar.make(v, "거절버튼 클릭", Snackbar.LENGTH_LONG).show();
-                Log.d("invisible1", String.valueOf(linearLayout.size()));
-                Log.d("invisible2", String.valueOf(linearLayout2.size()));
-                for (LinearLayout item : linearLayout) {
-                    item.setVisibility(View.VISIBLE);
-                }
-                for (LinearLayout item : linearLayout2) {
-                    item.setVisibility(View.GONE);
-                }
-            }
         }
     }
 }

@@ -1,11 +1,13 @@
 package com.example.dobitnarae;
 
-public class OrderInfoData {
+import java.io.Serializable;
+
+public class OrderInfoData implements Serializable{
     private String orderNo;
     private String orderName;
     private String orderBasket;
     private String orderDate;
-    private String orderPrice;
+    private int orderPrice;
 
     public String getOrderNo() {
         return orderNo;
@@ -39,11 +41,11 @@ public class OrderInfoData {
         this.orderDate = orderDate;
     }
 
-    public String getOrderPrice() {
+    public int getOrderPrice() {
         return orderPrice;
     }
 
-    public void setOrderPrice(String orderPrice) {
+    public void setOrderPrice(int orderPrice) {
         this.orderPrice = orderPrice;
     }
 }

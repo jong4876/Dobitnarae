@@ -51,11 +51,9 @@ public class Store {
     public int getSector(){
         return sector;
     }
-
     public double getLatitude(){
         return latitude;
     }
-
     public double getLongitude(){
         return longitude;
     }

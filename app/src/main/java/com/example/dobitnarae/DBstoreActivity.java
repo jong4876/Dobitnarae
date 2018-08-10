@@ -38,8 +38,8 @@ public class DBstoreActivity extends AppCompatActivity {// db실험용
         txtView = (TextView) findViewById(R.id.txtView);
 
         try {
-           String str =  new JSONTask("1").execute("http://192.168.43.77:3443/clothes").get();
-           clothesList = JSONTask.getClothesAll(str);
+
+           clothesList = JSONTask.getClothesAll();
 
 
                 StringBuffer sb = new StringBuffer();

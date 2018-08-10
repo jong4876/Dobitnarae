@@ -81,12 +81,14 @@ public  class JSONTask extends AsyncTask<String, String, String> {
 
     }
 
-    public static ArrayList<Store> getStoreAll(String str){ // JSON.HTML넣어서 사용, 전송되는 user_id jong4876~~
+    public static ArrayList<Store> getStoreAll(){ // JSON.HTML넣어서 사용, 전송되는 user_id jong4876~~
         ArrayList<Store> storeList = new ArrayList<Store>();
         Store store;
 
 
-        try{
+        try {
+            String str = new JSONTask("jong4876").execute("http://192.168.43.77:3443/store").get();
+
             JSONArray ja = new JSONArray(str);
             // txtView.setText(str);
             for(int i=0; i<ja.length(); i++){
@@ -106,10 +108,12 @@ public  class JSONTask extends AsyncTask<String, String, String> {
                 store = new Store(id, name, admin_id,tel,intro, inform, address, sector, latitude, longitude);
                 storeList.add(store);//accountList 차례대로 삽입
 
+
+
             }
 
 
-        }catch(JSONException e){
+        }catch(Exception e){
             e.printStackTrace();
         }
 
@@ -117,13 +121,15 @@ public  class JSONTask extends AsyncTask<String, String, String> {
         return storeList;
     }
 
-    public static ArrayList<Clothes> getClothesAll(String str){ // JSON.HTML넣어서 사용, user_id값은 1,2,3,4,~~~~
+    public static ArrayList<Clothes> getClothesAll(){ // JSON.HTML넣어서 사용, user_id값은 1,2,3,4,~~~~
         ArrayList<Clothes> clothesList = new ArrayList<Clothes>();
         Clothes clothes;
 
         StringBuffer sb = new StringBuffer();
 
         try{
+            String str = new JSONTask("1").execute("http://192.168.43.77:3443/clothes").get();
+
             JSONArray ja = new JSONArray(str);
             for(int i=0; i<ja.length(); i++){
                 JSONObject jo = ja.getJSONObject(i);
@@ -141,9 +147,9 @@ public  class JSONTask extends AsyncTask<String, String, String> {
                 clothesList.add(clothes);//accountList 차례대로 삽입
 
             }
-            Log.e("err","???"+ clothesList.get(0).getStore_id());
 
-        }catch(JSONException e){
+
+        }catch(Exception e){
             e.printStackTrace();
         }
 

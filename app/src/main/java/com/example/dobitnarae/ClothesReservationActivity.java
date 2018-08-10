@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.util.Objects;
@@ -86,6 +87,21 @@ public class ClothesReservationActivity extends AppCompatActivity {
             }
         });
 
+        LinearLayout gotoBasket = (LinearLayout)findViewById(R.id.reserve_clothes_basket);
+        gotoBasket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "장바구니",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        LinearLayout gotoReserve = (LinearLayout)findViewById(R.id.reserve_clothes_reserve);
+        gotoReserve.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "예약하기",Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 

@@ -1,5 +1,6 @@
 package com.example.dobitnarae;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,15 +69,22 @@ public class StoreActivity extends AppCompatActivity {
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
+        LinearLayout gotoBasket = (LinearLayout)findViewById(R.id.store_basket);
+        gotoBasket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "장바구니",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // TODO
         // 특정 인덴트에서 store 키값을 받아와
-        // 서버로 통신 하여 `가게정보, 판매중인 옷` 데이터 받아옴
-        store = new Store(0, "세종대학교","Kuril","서울특별시 광진구 군자동 능동로 209",
-                "02-3408-3114","세종대학교는 대한민국 서울특별시 광진구 군자동에 위치한 사립 종합대학이다." +
-                        " 세종대나 SJU의 약칭으로 불리기도 한다. 10개의 단과 대학, 1개의 교양 대학," +
-                        " 1개의 독립학부, 1개의 일반대학원, 1개의 전문대학원, 5개의 특수대학원과 57개의 연구소," +
-                        " 8개의 BK21사업팀으로 구성되어 있다. 학교법인 대양학원에 의해 운영된다. 현재 총장은 화학 박사 신구이다. ",
-                "24시간 영업", 0,
-                37.550278,127.073114);
+        // 서버로 통신 하여 `판매중인 옷` 데이터 받아와야함
+        Intent intent = getIntent();
+        store = (Store) intent.getSerializableExtra("store");
+
+        TextView titleName = (TextView)findViewById(R.id.toolbar_title);
+        titleName.setText(store.getName());
 
         // 옷 정보들 가져와서 초기화
         int ITEM_SIZE = 8;

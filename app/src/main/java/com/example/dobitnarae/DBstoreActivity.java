@@ -20,11 +20,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class DBstoreActivity extends AppCompatActivity {
+public class DBstoreActivity extends AppCompatActivity {// db실험용
 
     TextView txtView;
     Store store;
     ArrayList<Store> storeList = new ArrayList<Store>();
+    ArrayList<Clothes> clothesList = new ArrayList<Clothes>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,37 +38,25 @@ public class DBstoreActivity extends AppCompatActivity {
         txtView = (TextView) findViewById(R.id.txtView);
 
         try {
-           String str =  new JSONTask().execute("http://192.168.219.103:3443/store").get();
-           StringBuffer sb = new StringBuffer();
-                JSONArray ja = new JSONArray(str);
-                // txtView.setText(str);
-                for(int i=0; i<ja.length(); i++){
-                    JSONObject jo = ja.getJSONObject(i);
-                    int id = jo.getInt("id");
-                    String name = jo.getString("name");
-                    String admin_id = jo.getString("admin_id");
-                    String tel = jo.getString("tel");
-                    String intro = jo.getString("intro");
-                    String inform = jo.getString("inform");
-                    String address = jo.getString("address");
-                    int sector = jo.getInt("sector");
+           String str =  new JSONTask("1").execute("http://192.168.43.77:3443/clothes").get();
+           clothesList = JSONTask.getClothesAll(str);
 
-                    this.store = new Store(id, name, admin_id,tel,intro, inform, address, sector);
-                    storeList.add(store);//accountList 차례대로 삽입
+
+                StringBuffer sb = new StringBuffer();
+
+                for(int i=0; i<clothesList.size(); i++){
 
                     sb.append(// test용 stringbuffer
-                            "id: " + storeList.get(0).getId()+
-                                    "\n\n매장명: " + name  +
-                                    "\n\n매장아이디: " + admin_id  +
-                                    "\n\n매장번호: " + tel  +
-                                    "\n\n매장소개: " + intro  +
-                                    "\n\n매장정보: " + inform  +
-                                    "\n\n매장주소: " + address  +
-                                    "\n\n매장구역: " + sector  +
-                                    "\n\n"
-
+                            "한복id: " + clothesList.get(i).getCloth_id()+
+                                    "\n\n매장명: " + clothesList.get(i).getStore_id()  +
+                                    "\n\n매장아이디: " + clothesList.get(i).getCategory()  +
+                                    "\n\n매장번호: " + clothesList.get(i).getName()  +
+                                    "\n\n매장소개: " + clothesList.get(i).getIntro()  +
+                                    "\n\n매장정보: " + clothesList.get(i).getPrice()  +
+                                    "\n\n매장주소: " + clothesList.get(i).getCount()  +
+                                    "\n\n매장구역: " + clothesList.get(i).getSex()  +
+                                    "\n\n\n"
                     );
-
                 }
                 txtView.setText(sb);
         }catch(Exception E){

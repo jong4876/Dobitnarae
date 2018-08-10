@@ -35,11 +35,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Clothes item = clothes.get(position);
-        Drawable drawable = ContextCompat.getDrawable(context, item.getImage());
+        Drawable drawable = ContextCompat.getDrawable(context, R.drawable.gobchang);
         holder.image.setBackground(drawable);
         holder.name.setText(item.getName());
         holder.price.setText("" + item.getPrice());
-        holder.cardview.setTag("clothes_" + item.getId());
+        holder.cardview.setTag("clothes_" + item.getCloth_id());
         holder.cardview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

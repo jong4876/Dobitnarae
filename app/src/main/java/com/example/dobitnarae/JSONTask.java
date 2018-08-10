@@ -18,10 +18,13 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public  class JSONTask extends AsyncTask<String, String, String> {
-    ArrayList<Store> storeList = new ArrayList<Store>();
-    String user_id="jong4876";
-    Store store;
-    String tmpStr;
+    String user_id;
+
+
+    public JSONTask(String user_id){
+        this.user_id = user_id;
+        Log.e("err",user_id);
+    }
 
 
 
@@ -78,11 +81,10 @@ public  class JSONTask extends AsyncTask<String, String, String> {
 
     }
 
-    public static ArrayList<Store> getStoreAll(String str){ // JSON.HTML넣어서 사용
+    public static ArrayList<Store> getStoreAll(String str){ // JSON.HTML넣어서 사용, 전송되는 user_id jong4876~~
         ArrayList<Store> storeList = new ArrayList<Store>();
         Store store;
 
-        StringBuffer sb = new StringBuffer();
 
         try{
             JSONArray ja = new JSONArray(str);
@@ -97,9 +99,11 @@ public  class JSONTask extends AsyncTask<String, String, String> {
                 String inform = jo.getString("inform");
                 String address = jo.getString("address");
                 int sector = jo.getInt("sector");
+                double latitude = jo.getDouble("latitude");
+                double longitude = jo.getDouble("longitude");
 
 
-                store = new Store(id, name, admin_id,tel,intro, inform, address, sector);
+                store = new Store(id, name, admin_id,tel,intro, inform, address, sector, latitude, longitude);
                 storeList.add(store);//accountList 차례대로 삽입
 
             }
@@ -112,4 +116,42 @@ public  class JSONTask extends AsyncTask<String, String, String> {
 
         return storeList;
     }
+
+    public static ArrayList<Clothes> getClothesAll(String str){ // JSON.HTML넣어서 사용, user_id값은 1,2,3,4,~~~~
+        ArrayList<Clothes> clothesList = new ArrayList<Clothes>();
+        Clothes clothes;
+
+        StringBuffer sb = new StringBuffer();
+
+        try{
+            JSONArray ja = new JSONArray(str);
+            for(int i=0; i<ja.length(); i++){
+                JSONObject jo = ja.getJSONObject(i);
+                int cloth_id = jo.getInt("cloth_id");
+                int store_id = jo.getInt("store_id");
+                int category = jo.getInt("category");
+                String name= jo.getString("name");
+                String intro = jo.getString("intro");
+                int price = jo.getInt("price");
+                int count = jo.getInt("count");
+                int sex = jo.getInt("sex");
+
+
+                clothes = new Clothes(cloth_id,store_id,category, name,intro, price, count, sex);
+                clothesList.add(clothes);//accountList 차례대로 삽입
+
+            }
+            Log.e("err","???"+ clothesList.get(0).getStore_id());
+
+        }catch(JSONException e){
+            e.printStackTrace();
+        }
+
+
+        return clothesList;
+    }
+
+
+
+
 }

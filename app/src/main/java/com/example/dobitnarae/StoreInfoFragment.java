@@ -81,7 +81,7 @@ public class StoreInfoFragment extends Fragment {
         mMapContext.setupMapView(mMapView);
 
         mMapController = mMapView.getMapController();
-        mMapController.setMapCenter(new NGeoPoint(/*store.getLongitude()*/21, /*store.getLatitude()*/12), 12);// 수정필요
+        mMapController.setMapCenter(new NGeoPoint(store.getLongitude(), store.getLatitude()), 12);// 수정필요
     }
     @Override
     public void onStart(){

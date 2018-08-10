@@ -9,9 +9,11 @@ public class Store {
     private String intro;
     private String inform;
     private int sector;
+    private double latitude;
+    private double longitude;
 
     public Store(int id, String name,String admin_id, String address, String tel, String intro,
-                 String inform, int sector){
+                 String inform, int sector, double latitude, double longitude){
         this.id=id;
         this.name = name;
         this.admin_id= admin_id;
@@ -20,7 +22,8 @@ public class Store {
         this.intro = intro;
         this.inform = inform;
         this.sector = sector;
-
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public int getId() {
@@ -48,6 +51,15 @@ public class Store {
     public int getSector(){
         return sector;
     }
+
+    public double getLatitude(){
+        return latitude;
+    }
+
+    public double getLongitude(){
+        return longitude;
+    }
+
 
 
 }

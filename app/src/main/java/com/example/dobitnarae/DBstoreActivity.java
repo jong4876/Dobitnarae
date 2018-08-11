@@ -39,22 +39,23 @@ public class DBstoreActivity extends AppCompatActivity {// db실험용
 
         try {
 
-           clothesList = JSONTask.getClothesAll();
+           clothesList = JSONTask.getClothesAll(1);
+           storeList = JSONTask.getStoreAll("jong4876");
 
 
                 StringBuffer sb = new StringBuffer();
 
-                for(int i=0; i<clothesList.size(); i++){
+                for(int i=0; i<storeList.size(); i++){
 
                     sb.append(// test용 stringbuffer
-                            "한복id: " + clothesList.get(i).getCloth_id()+
-                                    "\n\n매장명: " + clothesList.get(i).getStore_id()  +
-                                    "\n\n매장아이디: " + clothesList.get(i).getCategory()  +
-                                    "\n\n매장번호: " + clothesList.get(i).getName()  +
-                                    "\n\n매장소개: " + clothesList.get(i).getIntro()  +
-                                    "\n\n매장정보: " + clothesList.get(i).getPrice()  +
-                                    "\n\n매장주소: " + clothesList.get(i).getCount()  +
-                                    "\n\n매장구역: " + clothesList.get(i).getSex()  +
+                            "한복id: " + storeList.get(i).getId()+
+                                    "\n\n매장명: " + storeList.get(i).getName()  +
+                                    "\n\n매장아이디: " + storeList.get(i).getAdmin_id()  +
+                                    "\n\n매장번호: " + storeList.get(i).getTel()  +
+                                    "\n\n매장소개: " + storeList.get(i).getIntro()  +
+                                    "\n\n매장정보: " + storeList.get(i).getInform()  +
+                                    "\n\n매장주소: " + storeList.get(i).getAddress()  +
+                                    "\n\n매장구역: " + storeList.get(i).getSector()  +
                                     "\n\n\n"
                     );
                 }

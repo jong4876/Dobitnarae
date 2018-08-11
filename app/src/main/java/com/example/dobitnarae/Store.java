@@ -12,13 +12,13 @@ public class Store {
     private double latitude;
     private double longitude;
 
-    public Store(int id, String name,String admin_id, String address, String tel, String intro,
-                 String inform, int sector, double latitude, double longitude){
+    public Store(int id, String name,String admin_id, String tel, String intro, String inform,
+                 String address, int sector, double latitude, double longitude){
         this.id=id;
         this.name = name;
         this.admin_id= admin_id;
-        this.address = address;
         this.tel = tel;
+        this.address = address;
         this.intro = intro;
         this.inform = inform;
         this.sector = sector;

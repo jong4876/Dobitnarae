@@ -42,6 +42,7 @@ import java.util.Objects;
 public class ExampleSwipeMenu extends AppCompatActivity {
      Store store;
      ArrayList<Store> storeList = new ArrayList<Store>();
+     ArrayList<Clothes> clothesList = new ArrayList<Clothes>();
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -82,14 +83,12 @@ public class ExampleSwipeMenu extends AppCompatActivity {
         // 서버로 통신 하여 `가게정보, 판매중인 옷` 데이터 받아옴
         ////
 
-
-        try {
-            //String str = new JSONTask("jong4876").execute("http://192.168.43.77:3443/store").get();// JSON형태로 store의값을 서버에서 가져옴
-            storeList = JSONTask.getStoreAll();// JSON형태의 store정보들을 분류하여 arrayList에 저장
+            storeList = JSONTask.getStoreAll("jong4876");// JSON형태의 store정보들을 분류하여 arrayList에 저장
             store = storeList.get(0);
-        } catch(Exception E){
-            E.printStackTrace();
-        }
+
+            clothesList = JSONTask.getClothesAll(1);
+
+
 
     }
 
@@ -137,9 +136,9 @@ public class ExampleSwipeMenu extends AppCompatActivity {
 
             switch(position) {
                 case 0:
-                    return new StoreManagementFragment(store);// 태우
+                    return new StoreManagementFragment(store);
                 case 1:
-                    return new ItemManagementFragment();//인혁
+                    return new ItemManagementFragment();
                 case 2:
                     return new OrderManagementFragment();
                 default:

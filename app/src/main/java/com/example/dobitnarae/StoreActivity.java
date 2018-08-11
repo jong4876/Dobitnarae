@@ -72,17 +72,12 @@ public class StoreActivity extends AppCompatActivity {
         // 특정 인덴트에서 store 키값을 받아와
         // 서버로 통신 하여 `가게정보, 판매중인 옷` 데이터 받아옴
 
-            try {
-               // String str = new JSONTask("jong4876").execute("http://192.168.43.77:3443/store").get();// JSON형태로 store의값을 서버에서 가져옴
-                storeList = JSONTask.getStoreAll();// JSON형태의 store정보들을 분류하여 arrayList에 저장
-                store = storeList.get(0);
-            } catch(Exception E){
-              E.printStackTrace();
-            }
 
-        try {
-            //String str = new JSONTask("1").execute("http://192.168.43.77:3443/clothes").get();// JSON형태로 store의값을 서버에서 가져옴
-            items = JSONTask.getClothesAll();// JSON형태의 store정보들을 분류하여 arrayList에 저장
+        storeList = JSONTask.getStoreAll("jong4876");// JSON형태의 store정보들을 분류하여 arrayList에 저장
+        store = storeList.get(0);
+
+
+        items = JSONTask.getClothesAll(1);// JSON형태의 store정보들을 분류하여 arrayList에 저장
 
 
             // 옷 정보들 가져와서 초기화
@@ -95,9 +90,6 @@ public class StoreActivity extends AppCompatActivity {
                         1000 * (i + 1), i % Constant.category_cnt + 1);
                 items.add(item[i]);
             }*/
-        }catch(Exception E){
-                E.printStackTrace();
-        }
 
     }
 

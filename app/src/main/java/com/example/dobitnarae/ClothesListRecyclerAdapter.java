@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ public class ClothesListRecyclerAdapter extends RecyclerView.Adapter<ClothesList
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_cardview, null);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.component_store_list_view, null);
         return new ViewHolder(v);
     }
 
@@ -38,9 +39,9 @@ public class ClothesListRecyclerAdapter extends RecyclerView.Adapter<ClothesList
         Drawable drawable = ContextCompat.getDrawable(context, R.drawable.sejong);
         holder.image.setBackground(drawable);
         holder.name.setText(item.getName());
-        holder.price.setText("" + item.getAddress());
-        holder.cardview.setId(item.getId());
-        holder.cardview.setOnClickListener(new View.OnClickListener() {
+        holder.address.setText(item.getAddress());
+        holder.storeView.setId(item.getId());
+        holder.storeView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, StoreActivity.class);
@@ -57,15 +58,15 @@ public class ClothesListRecyclerAdapter extends RecyclerView.Adapter<ClothesList
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
-        TextView name, price;
-        CardView cardview;
+        TextView name, address;
+        LinearLayout storeView;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            image = (ImageView) itemView.findViewById(R.id.image);
-            name = (TextView) itemView.findViewById(R.id.clothes_name);
-            price = (TextView) itemView.findViewById(R.id.clothes_price);
-            cardview = (CardView) itemView.findViewById(R.id.cardview);
+            image = (ImageView) itemView.findViewById(R.id.store_list_img);
+            name = (TextView) itemView.findViewById(R.id.store_name);
+            address = (TextView) itemView.findViewById(R.id.store_address);
+            storeView = (LinearLayout)itemView.findViewById(R.id.store_list_item);
         }
     }
 

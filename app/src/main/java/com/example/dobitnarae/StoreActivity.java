@@ -91,7 +91,7 @@ public class StoreActivity extends AppCompatActivity {
         items = new ArrayList<>();
         Clothes[] item = new Clothes[ITEM_SIZE];
         for(int i=0; i<ITEM_SIZE; i++){
-            item[i] = new Clothes(i, i, i % Constant.category_cnt + 1,
+            item[i] = new Clothes(i, store.getId(), i % Constant.category_cnt + 1,
                     "불곱창" + (i + 1), "이 곱창은 왕십리에서 시작하여...",
                     1000 * (i + 1), 10,  0);
             items.add(item[i]);
@@ -143,7 +143,7 @@ public class StoreActivity extends AppCompatActivity {
                 case 0:
                     return StoreInfoFragment.newInstance(0, store);
                 case 1:
-                    return StoreClothesFragment.newInstance(1, items);
+                    return StoreClothesFragment.newInstance(1, items, store);
             }
             return null;
         }

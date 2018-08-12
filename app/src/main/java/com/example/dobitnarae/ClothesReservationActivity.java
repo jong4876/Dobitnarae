@@ -12,13 +12,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class ClothesReservationActivity extends AppCompatActivity {
-    DecimalFormat dc;
-    Clothes item;
-    LinearLayout btnReduce, btnAdd;
-    TextView totalPrice, selectCnt;
+    private DecimalFormat dc;
+    private Clothes item;
+    private LinearLayout btnReduce, btnAdd;
+    private TextView totalPrice, selectCnt;
+    private Store store;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,10 @@ public class ClothesReservationActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         item = (Clothes) intent.getSerializableExtra("clothes");
+        store = (Store) intent.getSerializableExtra("store");
+
+        TextView titleName = (TextView)findViewById(R.id.toolbar_title);
+        titleName.setText(store.getName());
 
         // 이미지
         // reserve_clothes_img
@@ -91,7 +97,13 @@ public class ClothesReservationActivity extends AppCompatActivity {
         gotoBasket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MainActivityTmp.basket.addClothes(v.getContext(), new BasketItem(item, Integer.parseInt((String) selectCnt.getText())));
                 Toast.makeText(getApplicationContext(), "장바구니",Toast.LENGTH_SHORT).show();
+
+                ArrayList<BasketItem> tmp = MainActivityTmp.basket.getBasket();
+                for(BasketItem a : tmp){
+                    Log.e(a.getClothes().getName(), "" + a.getCnt());
+                }
             }
         });
 

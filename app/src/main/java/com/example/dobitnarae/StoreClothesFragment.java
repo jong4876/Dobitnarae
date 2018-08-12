@@ -20,23 +20,25 @@ import java.util.List;
 public class StoreClothesFragment extends Fragment {
     List<Clothes> originItems, items;
     RecyclerAdapter mAdapter;
+    Store store;
     /**
      * The fragment argument representing the section number for this
      * fragment.
      */
     private static final String ARG_SECTION_NUMBER = "section_number";
 
-    public StoreClothesFragment(List<Clothes> items) {
+    public StoreClothesFragment(List<Clothes> items, Store store) {
         this.originItems = items;
         this.items = items;
+        this.store = store;
     }
 
     /**
      * Returns a new instance of this fragment for the given section
      * number.
      */
-    public static StoreClothesFragment newInstance(int sectionNumber, List<Clothes> items) {
-        StoreClothesFragment fragment = new StoreClothesFragment(items);
+    public static StoreClothesFragment newInstance(int sectionNumber, List<Clothes> items, Store store) {
+        StoreClothesFragment fragment = new StoreClothesFragment(items, store);
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);
@@ -54,7 +56,7 @@ public class StoreClothesFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
         //옷추가
-        mAdapter = new RecyclerAdapter(getContext(), items, R.layout.fragment_store);
+        mAdapter = new RecyclerAdapter(getContext(), items, store, R.layout.fragment_store);
         recyclerView.setAdapter(mAdapter);
 
         // 옷 종류 선택 메뉴

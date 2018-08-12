@@ -22,10 +22,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     Context context;
     List<Clothes> clothes;
     int item_layout;
+    Store store;
 
-    public RecyclerAdapter(Context context, List<Clothes> items, int item_layout) {
+    public RecyclerAdapter(Context context, List<Clothes> items, Store store, int item_layout) {
         this.context = context;
         this.clothes = items;
+        this.store = store;
         this.item_layout = item_layout;
     }
 
@@ -49,6 +51,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             public void onClick(View v) {
                 Intent intent = new Intent(context, ClothesReservationActivity.class);
                 intent.putExtra("clothes", item);
+                intent.putExtra("store", store);
                 context.startActivity(intent);
             }
         });

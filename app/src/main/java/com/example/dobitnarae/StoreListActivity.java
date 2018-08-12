@@ -2,23 +2,18 @@ package com.example.dobitnarae;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class StoreListActivity extends AppCompatActivity {
     ArrayList<Store> stores;
-    ClothesListRecyclerAdapter mAdapter;
+    StoreListRecyclerAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +32,7 @@ public class StoreListActivity extends AppCompatActivity {
         });
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_store_list);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
 
         recyclerView.setLayoutManager(layoutManager);
 
@@ -55,7 +50,7 @@ public class StoreListActivity extends AppCompatActivity {
             stores.add(item);
         }
 
-        mAdapter = new ClothesListRecyclerAdapter(getApplicationContext(), stores);
+        mAdapter = new StoreListRecyclerAdapter(getApplicationContext(), stores);
         recyclerView.setAdapter(mAdapter);
     }
 }

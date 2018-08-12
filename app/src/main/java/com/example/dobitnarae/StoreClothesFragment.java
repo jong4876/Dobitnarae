@@ -19,7 +19,7 @@ import java.util.List;
 @SuppressLint("ValidFragment")
 public class StoreClothesFragment extends Fragment {
     List<Clothes> originItems, items;
-    RecyclerAdapter mAdapter;
+    ClothesListRecyclerAdapter mAdapter;
     Store store;
     /**
      * The fragment argument representing the section number for this
@@ -56,7 +56,7 @@ public class StoreClothesFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
         //옷추가
-        mAdapter = new RecyclerAdapter(getContext(), items, store, R.layout.fragment_store);
+        mAdapter = new ClothesListRecyclerAdapter(getContext(), items, store, R.layout.fragment_store);
         recyclerView.setAdapter(mAdapter);
 
         // 옷 종류 선택 메뉴

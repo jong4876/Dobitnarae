@@ -104,7 +104,7 @@
                                 <include
                                     android:layout_height="wrap_content"
                                     android:layout_width="wrap_content"
-                                    layout="@layout/counting_button"/>
+                                    layout="@layout/component_counting_button"/>
                             </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
@@ -138,7 +138,7 @@
                 </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
         <include
-            layout="@layout/bottom_static_menu"/>
+            layout="@layout/component_bottom_static_menu"/>
     </android.support.design.widget.CoordinatorLayout>
 
 </LinearLayout>

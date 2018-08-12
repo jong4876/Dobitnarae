@@ -10,42 +10,44 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ClothesListRecyclerAdapter extends RecyclerView.Adapter<ClothesListRecyclerAdapter.ViewHolder> {
     Context context;
-    ArrayList<Store> stores;
+    List<Clothes> clothes;
+    int item_layout;
+    Store store;
 
-    public ClothesListRecyclerAdapter(Context context, ArrayList<Store> stores) {
+    public ClothesListRecyclerAdapter(Context context, List<Clothes> items, Store store, int item_layout) {
         this.context = context;
-        this.stores = stores;
+        this.clothes = items;
+        this.store = store;
+        this.item_layout = item_layout;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.component_store_list_view, null);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.component_item_cardview, null);
         return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        // TODO 뷰 형태 바꿔야함
-        final Store item = stores.get(position);
+        final Clothes item = clothes.get(position);
         // TODO  서버에서 이미지 받아야함
-        Drawable drawable = ContextCompat.getDrawable(context, R.drawable.sejong);
+        Drawable drawable = ContextCompat.getDrawable(context, R.drawable.gobchang);
         holder.image.setBackground(drawable);
         holder.name.setText(item.getName());
-        holder.address.setText(item.getAddress());
-        holder.storeView.setId(item.getId());
-        holder.storeView.setOnClickListener(new View.OnClickListener() {
+        holder.price.setText("" + item.getPrice());
+        holder.cardview.setId(item.getCloth_id());
+        holder.cardview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, StoreActivity.class);
-                intent.putExtra("store", item);
+                Intent intent = new Intent(context, ClothesReservationActivity.class);
+                intent.putExtra("clothes", item);
+                intent.putExtra("store", store);
                 context.startActivity(intent);
             }
         });
@@ -53,25 +55,25 @@ public class ClothesListRecyclerAdapter extends RecyclerView.Adapter<ClothesList
 
     @Override
     public int getItemCount() {
-        return this.stores.size();
+        return this.clothes.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
-        TextView name, address;
-        LinearLayout storeView;
+        TextView name, price;
+        CardView cardview;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            image = (ImageView) itemView.findViewById(R.id.store_list_img);
-            name = (TextView) itemView.findViewById(R.id.store_name);
-            address = (TextView) itemView.findViewById(R.id.store_address);
-            storeView = (LinearLayout)itemView.findViewById(R.id.store_list_item);
+            image = (ImageView) itemView.findViewById(R.id.image);
+            name = (TextView) itemView.findViewById(R.id.clothes_name);
+            price = (TextView) itemView.findViewById(R.id.clothes_price);
+            cardview = (CardView) itemView.findViewById(R.id.cardview);
         }
     }
 
-    public void setClothes(ArrayList<Store> stores) {
-        this.stores = stores;
+    public void setClothes(List<Clothes> clothes) {
+        this.clothes = clothes;
         this.notifyDataSetChanged();
     }
 }

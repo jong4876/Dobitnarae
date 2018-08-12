@@ -7,12 +7,17 @@ import android.support.v7.app.AlertDialog;
 import java.util.ArrayList;
 
 public class Basket {
+    private static Basket instance = new Basket();
     private ArrayList<BasketItem> basket;
     private int selectedStoreID;
 
-    public Basket(){
+    private Basket(){
         basket = new ArrayList<>();
         selectedStoreID = -1;
+    }
+
+    public static synchronized Basket getInstance(){
+        return instance;
     }
 
     public int getClothesCnt(){

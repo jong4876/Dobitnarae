@@ -12,9 +12,6 @@ import android.widget.Toast;
 import java.util.Objects;
 
 public class MainActivityTmp extends AppCompatActivity {
-
-    public static Basket basket;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,8 +43,6 @@ public class MainActivityTmp extends AppCompatActivity {
 
         LinearLayout sector2 = (LinearLayout)findViewById(R.id.store_sector_2);
         sector2.setOnClickListener(gotoStoreList);
-
-        basket = new Basket();
     }
 
 }

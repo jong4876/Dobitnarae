@@ -59,7 +59,7 @@ public class ClothesReservationActivity extends AppCompatActivity {
 
         // 옷 가격
         dc = new DecimalFormat("###,###,###,###");
-        TextView price = findViewById(R.id.reserve_clothes_price);
+        final TextView price = findViewById(R.id.reserve_clothes_price);
         String str = dc.format(item.getPrice()) + " 원";
         price.setText(str);
 
@@ -97,10 +97,12 @@ public class ClothesReservationActivity extends AppCompatActivity {
         gotoBasket.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivityTmp.basket.addClothes(v.getContext(), new BasketItem(item, Integer.parseInt((String) selectCnt.getText())));
+                Basket basket = Basket.getInstance();
+
+                basket.addClothes(v.getContext(), new BasketItem(item, Integer.parseInt((String) selectCnt.getText())));
                 Toast.makeText(getApplicationContext(), "장바구니",Toast.LENGTH_SHORT).show();
 
-                ArrayList<BasketItem> tmp = MainActivityTmp.basket.getBasket();
+                ArrayList<BasketItem> tmp = basket.getBasket();
                 for(BasketItem a : tmp){
                     Log.e(a.getClothes().getName(), "" + a.getCnt());
                 }

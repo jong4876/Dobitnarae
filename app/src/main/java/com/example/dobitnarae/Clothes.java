@@ -1,10 +1,12 @@
 package com.example.dobitnarae;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
 import java.io.Serializable;
 
-public class Clothes implements Serializable{
+public class Clothes implements Serializable, Parcelable{
     private int cloth_id;
     private int store_id;
     private int type;
@@ -26,6 +28,10 @@ public class Clothes implements Serializable{
     int getSex() { return this.sex; }
 
     public Clothes() {
+    }
+
+    public Clothes(Parcel in) {
+        readFromParcel(in);
     }
 
     public void setCloth_id(int cloth_id) {
@@ -70,4 +76,42 @@ public class Clothes implements Serializable{
         this.count = count;
         this.sex = sex;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.cloth_id);
+        dest.writeInt(this.store_id);
+        dest.writeInt(this.type);
+        dest.writeString(this.name);
+        dest.writeString(this.intro);
+        dest.writeInt(this.price);
+        dest.writeInt(this.count);
+        dest.writeInt(this.sex);
+    }
+
+    public void readFromParcel(Parcel in) {
+        this.cloth_id = in.readInt();
+        this.store_id = in.readInt();
+        this.type = in.readInt();
+        this.name = in.readString();
+        this.intro = in.readString();
+        this.price = in.readInt();
+        this.count = in.readInt();
+        this.sex = in.readInt();
+    }
+
+    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+        public Clothes createFromParcel(Parcel in) {
+            return new Clothes(in);
+        }
+
+        public Clothes[] newArray(int size) {
+            return new Clothes[size];
+        }
+    };
 }

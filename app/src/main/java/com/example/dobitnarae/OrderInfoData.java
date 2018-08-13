@@ -9,6 +9,7 @@ public class OrderInfoData implements Serializable{
     private String orderDate;
     private int orderPrice;
 
+
     public String getOrderNo() {
         return orderNo;
     }

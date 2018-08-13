@@ -14,12 +14,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
+
         <android.support.v4.widget.NestedScrollView
             android:id="@+id/nestedScrollView_order"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="60dp"
+            android:layout_marginBottom="170dp"
             android:fillViewport="true">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -28,41 +30,11 @@
                 <ListView
                     android:id="@+id/listview_specific"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp"
-                    android:background="#dcdcdc"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:paddingBottom="20dp"
-                    android:paddingTop="20dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="총 예상 대여비"
-                        android:textColor="#000"
-                        android:textSize="15dp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/reserve_clothes_total_price"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="16,000원"
-                        android:textColor="#ff8484"
-                        android:textSize="25dp"
-                        android:textStyle="bold" />
             </LinearLayout>
-        </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
         <include
-            layout="@layout/bottom_static_menu"/>
+            layout="@layout/bottom_static_menu2"/>
     </android.support.design.widget.CoordinatorLayout>
 </LinearLayout>

@@ -30,14 +30,16 @@ import java.util.List;
 
 @SuppressLint("ValidFragment")
 public class OrderManagementFragment extends Fragment {
-    private List<Order> items;
+    private ArrayList<Order> items;
     private List<Order> confirmedDatas;
     private ListView mListView = null;
     private ListViewAdapter mAdapter = null;
+    private ArrayList<Clothes> basketData;
 
-    public OrderManagementFragment(List<Order> items, List<Order> items2) {
+    public OrderManagementFragment(ArrayList<Order> items, List<Order> items2, ArrayList<Clothes> item3) {
         this.items = items;
         this.confirmedDatas = items2;
+        this.basketData = item3;
     }
 
     // 어댑터 2개쓰고 전환시키자
@@ -89,6 +91,8 @@ public class OrderManagementFragment extends Fragment {
                 mAdapter.dataChange();
             }
         });
+
+
 
         return rootView;
     }
@@ -161,44 +165,12 @@ public class OrderManagementFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(mContext, SpecificOrderActivity.class);
-                    intent.putExtra("orderinfo", mData);
+                    intent.putExtra("order", items.get(position));
+                    intent.putParcelableArrayListExtra("cloth", basketData);
                     mContext.startActivity(intent);
                 }
             });
 
-
-            /*
-            // 리스트뷰 버튼 이벤트
-            // 승인 버튼 클릭 시
-            Button btnRegister = (Button) convertView.findViewById(R.id.btn_confirm);
-            btnRegister.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Snackbar.make(v, items.get(position).getUserID() + "고객의 주문이 승인되었습니다.", Snackbar.LENGTH_LONG).show();
-                    items.get(position).setAcceptStatus(1); // 승인
-                    // 승인된 리스트에 삽입
-                    confirmedDatas.add(items.get(position));
-                    items.remove(position);
-                    mAdapter.remove(position);
-                    // 데이터 변경됨을 반영
-                    mAdapter.dataChange();
-                }
-            });
-
-            // 거절 버튼 클릭 시
-            Button btnReject = (Button) convertView.findViewById(R.id.btn_reject);
-            btnReject.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Snackbar.make(v, items.get(position).getUserID() + "고객의 주문이 거절되었습니다.", Snackbar.LENGTH_LONG).show();
-                    items.get(position).setAcceptStatus(2); // 거절
-                    confirmedDatas.add(items.get(position));
-                    items.remove(position);
-                    mAdapter.remove(position);
-                    mAdapter.dataChange();
-                }
-            });
-            */
             return convertView;
         }
 
@@ -211,14 +183,6 @@ public class OrderManagementFragment extends Fragment {
             // 고객 주문데이터로 수정필요
             addInfo.setOrderBasket(item.getAdminID());
             addInfo.setOrderDate(item.getOrderDate());
-            // 고객 주문데이터 총가격 수정필요
-            // 고객 주문데이터 총가격 수정필요
-            if(item.getAcceptStatus()==0)
-                addInfo.setOrderPrice(30000);
-            else if(item.getAcceptStatus()==1)
-                addInfo.setOrderPrice(30000);
-            else if(item.getAcceptStatus()==2)
-                addInfo.setOrderPrice(30000);
             mListData.add(addInfo);
         }
 

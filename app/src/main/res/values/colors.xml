@@ -7,4 +7,9 @@
     <color name="tabSelectedTextColor">#000000</color>
     <color name="tabTextColor">#606060</color>
     <color name="contentColor">#606060</color>
+    <color name="red">#ffff0000</color>
+    <color name="green">#ff00ff00</color>
+    <color name="blue">#ff0000ff</color>
+    <color name="black">#00ffffff</color>
+    <color name="darkergrey">#aaa</color>
 </resources>

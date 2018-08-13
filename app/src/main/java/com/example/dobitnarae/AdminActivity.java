@@ -19,10 +19,10 @@ import java.util.Objects;
 
 public class AdminActivity extends AppCompatActivity {
     private Store store;
-    private List<Order> orderedDatas;
+    private ArrayList<Order> orderedDatas;
     private List<Order> orderedDatas2;
     private List<Basket> baskets;
-    private List<Clothes> items;
+    private ArrayList<Clothes> basketData;
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -82,6 +82,16 @@ public class AdminActivity extends AppCompatActivity {
         int ITEM_SIZE2 = 1;
         orderedDatas2 = new ArrayList<>();
         Order[] item2 = new Order[ITEM_SIZE2];
+
+        int ITEM_SIZE3 = 8;
+        basketData = new ArrayList<Clothes>();
+        Clothes[] clothesItem = new Clothes[ITEM_SIZE];
+        for(int i=0; i<ITEM_SIZE; i++){
+            clothesItem[i] = new Clothes(i, i, i % Constant.category_cnt + 1,
+                    "불곱창" + (i + 1), "이 곱창은 왕십리에서 시작하여...",
+                    1000 * (i + 1), 1,  0);
+            basketData.add(clothesItem[i]);
+        }
     }
 
 
@@ -132,7 +142,7 @@ public class AdminActivity extends AppCompatActivity {
                 case 1:
                     return new ItemManagementFragment();
                 case 2:
-                    return new OrderManagementFragment(orderedDatas, orderedDatas2);
+                    return new OrderManagementFragment(orderedDatas, orderedDatas2, basketData);
                 default:
                     return null;
             }

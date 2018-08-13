@@ -2,9 +2,10 @@ package com.example.dobitnarae;
 
 import android.support.annotation.NonNull;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
-public class Order implements Comparable<Order>{
+public class Order implements Comparable<Order>, Serializable{
     private int orderNo;
     private String userID;
     private String adminID;

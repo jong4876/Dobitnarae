@@ -3,6 +3,7 @@ package com.example.dobitnarae;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -30,14 +32,17 @@ import java.util.Objects;
 
 public class SpecificOrderActivity extends AppCompatActivity {
     DecimalFormat dc;
-    OrderInfoData item;
-    List<Clothes> items;
+    Order item;
+    ArrayList<Clothes> basket;
     TextView totalPrice;
 
     private NestedScrollView mScrollView;
 
     private ListView mListView = null;
     private ListViewAdapter mAdapter = null;
+
+    private LinearLayout btnRegister;
+    private LinearLayout btnReject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,28 +63,24 @@ public class SpecificOrderActivity extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-        item = (OrderInfoData) intent.getSerializableExtra("orderinfo");
+        item = (Order) intent.getSerializableExtra("order");
 
-        // 인텐트로 옷 데이터 나중에 받아야함
-        int ITEM_SIZE = 8;
-        items = new ArrayList<Clothes>();
-        Clothes[] clothesItem = new Clothes[ITEM_SIZE];
-        for(int i=0; i<ITEM_SIZE; i++){
-            clothesItem[i] = new Clothes(i, i, i % Constant.category_cnt + 1,
-                    "불곱창" + (i + 1), "이 곱창은 왕십리에서 시작하여...",
-                    1000 * (i + 1), 10,  0);
-            items.add(clothesItem[i]);
-        }
+        // 인텐트로 옷 리스트를 넘겨받음
+        basket = intent.getParcelableArrayListExtra("cloth");
 
         mListView = (ListView) findViewById(R.id.listview_specific);
 
         mAdapter = new ListViewAdapter(this);
         mListView.setAdapter(mAdapter);
 
-        for (Clothes citem:items) {
+        for (Clothes citem:basket) {
             mAdapter.addItem(citem);
         }
 
+        // 총 가격 설정
+        setTotalPrice(basket);
+
+        // 스크롤뷰, 리스트뷰 중복 스크롤 허용
         mScrollView = (NestedScrollView) findViewById(R.id.nestedScrollView_order);
         mListView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -89,31 +90,49 @@ public class SpecificOrderActivity extends AppCompatActivity {
             }
         });
 
-        // 이미지
-        // reserve_clothes_img
-        /*
-        // 옷 이름
-        TextView name = findViewById(R.id.reserve_clothes_name);
-        name.setText(item.getOrderName());
+        // 승인 버튼 클릭 시
+        btnRegister = (LinearLayout) findViewById(R.id.order_clothes_register);
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar.make(v, item.getUserID() + "님의 주문이 승인되었습니다.", Snackbar.LENGTH_LONG).show();
+                item.setAcceptStatus(1); // 승인
+                btnRegister.setEnabled(false);
+                btnReject.setEnabled(false);
+                btnRegister.setBackgroundResource(R.color.darkergrey);
+                btnReject.setBackgroundResource(R.color.darkergrey);
+                // 데이터 변경됨을 반영
+                //mAdapter.dataChange();
+            }
+        });
 
-        // 옷 설명
-        TextView description = findViewById(R.id.reserve_clothes_introduction);
-        description.setText(item.getOrderBasket());
-
-        // 옷 가격
-        dc = new DecimalFormat("###,###,###,###");
-        TextView price = findViewById(R.id.reserve_clothes_price);
-        String str = dc.format(item.getOrderPrice()) + " 원";
-        price.setText(str);
-
-        // 총 가격
-        setTotalPrice(1);
-        */
+        // 거절 버튼 클릭 시
+        btnReject = (LinearLayout) findViewById(R.id.order_clothes_reject);
+        btnReject.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar.make(v, item.getUserID() + "고객의 주문이 거절되었습니다.", Snackbar.LENGTH_LONG).show();
+                item.setAcceptStatus(2); // 거절
+                btnRegister.setEnabled(false);
+                btnReject.setEnabled(false);
+                btnRegister.setBackgroundResource(R.color.darkergrey);
+                btnReject.setBackgroundResource(R.color.darkergrey);
+                //mAdapter.dataChange();
+            }
+        });
     }
 
-    public void setTotalPrice(int cnt){
+    public void setTotalPrice(List<Clothes> citems){
         totalPrice = findViewById(R.id.reserve_clothes_total_price);
-        String total = dc.format(item.getOrderPrice() * cnt) + " 원";
+        String total;
+        int sum = 0;
+
+        for (Clothes citem: citems) {
+            sum += citem.getPrice() * citem.getCount();
+        }
+
+        dc = new DecimalFormat("###,###,###,###");
+        total = dc.format(sum) + " 원";
         totalPrice.setText(total);
     }
 
@@ -184,38 +203,6 @@ public class SpecificOrderActivity extends AppCompatActivity {
 
             holder.mCnt.setText(""+mData.getCount());
 
-            /*
-            // 리스트뷰 버튼 이벤트
-            // 승인 버튼 클릭 시
-            Button btnRegister = (Button) convertView.findViewById(R.id.btn_confirm);
-            btnRegister.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Snackbar.make(v, items.get(position).getUserID() + "고객의 주문이 승인되었습니다.", Snackbar.LENGTH_LONG).show();
-                    items.get(position).setAcceptStatus(1); // 승인
-                    // 승인된 리스트에 삽입
-                    confirmedDatas.add(items.get(position));
-                    items.remove(position);
-                    mAdapter.remove(position);
-                    // 데이터 변경됨을 반영
-                    mAdapter.dataChange();
-                }
-            });
-
-            // 거절 버튼 클릭 시
-            Button btnReject = (Button) convertView.findViewById(R.id.btn_reject);
-            btnReject.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Snackbar.make(v, items.get(position).getUserID() + "고객의 주문이 거절되었습니다.", Snackbar.LENGTH_LONG).show();
-                    items.get(position).setAcceptStatus(2); // 거절
-                    confirmedDatas.add(items.get(position));
-                    items.remove(position);
-                    mAdapter.remove(position);
-                    mAdapter.dataChange();
-                }
-            });
-            */
             return convertView;
         }
 

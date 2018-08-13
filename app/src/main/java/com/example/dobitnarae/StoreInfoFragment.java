@@ -23,6 +23,9 @@ public class StoreInfoFragment extends Fragment {
     private NMapContext mMapContext;
     private final String CLIENT_ID = "kq6ZsHG_bYYKmox3mPqw";// 애플리케이션 클라이언트 아이디 값
 
+    private NMapOverlayItem mOverlayItem;
+
+
     /**
      * The fragment argument representing the section number for this
      * fragment.

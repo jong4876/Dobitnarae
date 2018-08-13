@@ -19,11 +19,18 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".AdminActivity"
+            android:label="@string/title_activity_example_swipe_menu"
+            android:theme="@style/AppTheme"/>
+        <activity android:name=".SpecificOrderActivity"/>
+        <activity
             android:name=".StoreActivity"
             android:label="@string/title_activity_store"
             android:theme="@style/AppTheme" />
-        <activity android:name=".DBstoreActivity"/>
-        <activity android:name=".ExampleSwipeMenu"/>
+        <activity android:name=".DBstoreActivity" />
+        <activity android:name=".ClothesReservationActivity" />
+        <activity android:name=".MainActivityTmp" />
+        <activity android:name=".StoreListActivity"/>
     </application>
 
 </manifest>

@@ -4,184 +4,191 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".StoreInfoFragment"
-    android:paddingHorizontal="@dimen/padding_horizontal"
-    android:paddingVertical="@dimen/padding_vertical"
+    android:paddingRight="@dimen/padding_horizontal"
+    android:paddingLeft="@dimen/padding_horizontal"
     android:scrollbars="none"
-    android:background="#fff">
+    android:background="#fff"
+    android:paddingBottom="20dp">
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/nestedScorllView_store"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginVertical="@dimen/content_margin_vertical">
-            <TextView
-                android:id="@+id/title_name"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="가게 이름"
-                android:textColor="#000"
-                android:textStyle="bold"
-                android:textSize="@dimen/info_title"
-                android:layout_marginBottom="5dp"
-                />
-            <TextView
-                android:id="@+id/content_name"
+                android:orientation="vertical"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="@dimen/content_margin_vertical">
+                <TextView
+                    android:id="@+id/title_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="가게 이름"
+                    android:textColor="#000"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/info_title"
+                    android:layout_marginBottom="5dp"
+                    />
+                <TextView
+                    android:id="@+id/content_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="내용없음"
+                    android:textColor="@color/contentColor"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/info_content"
+                    />
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="내용없음"
-                android:textColor="@color/contentColor"
-                android:textStyle="bold"
-                android:textSize="@dimen/info_content"
-                />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginVertical="@dimen/content_margin_vertical">
-            <TextView
-                android:id="@+id/title_intro"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="가게 소개"
-                android:textColor="#000"
-                android:textStyle="bold"
-                android:textSize="@dimen/info_title"
-                android:layout_marginBottom="5dp"
-                />
-            <TextView
-                android:id="@+id/content_intro"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="내용없음"
-                android:textColor="@color/contentColor"
-                android:textStyle="bold"
-                android:textSize="@dimen/info_content"
-                />
-        </LinearLayout>
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/content_margin_vertical"
+                android:layout_marginBottom="@dimen/content_margin_vertical">
+                <TextView
+                    android:id="@+id/title_intro"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="가게 소개"
+                    android:textColor="#000"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/info_title"
+                    android:layout_marginBottom="5dp"
+                    />
+                <TextView
+                    android:id="@+id/content_intro"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="내용없음"
+                    android:textColor="@color/contentColor"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/info_content"
+                    />
+            </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginVertical="@dimen/content_margin_vertical">
-            <TextView
-                android:id="@+id/title_info"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="가게 정보"
-                android:textColor="#000"
-                android:textStyle="bold"
-                android:textSize="@dimen/info_title"
-                android:layout_marginBottom="5dp"
-                />
-            <TextView
-                android:id="@+id/content_info"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="내용없음"
-                android:textColor="@color/contentColor"
-                android:textStyle="bold"
-                android:textSize="@dimen/info_content"
-                />
-        </LinearLayout>
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/content_margin_vertical"
+                android:layout_marginBottom="@dimen/content_margin_vertical">
+                <TextView
+                    android:id="@+id/title_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="가게 정보"
+                    android:textColor="#000"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/info_title"
+                    android:layout_marginBottom="5dp"
+                    />
+                <TextView
+                    android:id="@+id/content_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="내용없음"
+                    android:textColor="@color/contentColor"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/info_content"
+                    />
+            </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginVertical="@dimen/content_margin_vertical">
-            <TextView
-                android:id="@+id/title_sales_info"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="전화번호"
-                android:textColor="#000"
-                android:textStyle="bold"
-                android:textSize="@dimen/info_title"
-                android:layout_marginBottom="5dp"
-                />
-            <TextView
-                android:id="@+id/content_sales_info"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="내용없음"
-                android:textColor="@color/contentColor"
-                android:textStyle="bold"
-                android:textSize="@dimen/info_content"
-                />
-        </LinearLayout>
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/content_margin_vertical"
+                android:layout_marginBottom="@dimen/content_margin_vertical">
+                <TextView
+                    android:id="@+id/title_sales_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="전화번호"
+                    android:textColor="#000"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/info_title"
+                    android:layout_marginBottom="5dp"
+                    />
+                <TextView
+                    android:id="@+id/content_sales_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="내용없음"
+                    android:textColor="@color/contentColor"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/info_content"
+                    />
+            </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginVertical="@dimen/content_margin_vertical">
-            <TextView
-                android:id="@+id/title_owner_info"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="사업자 정보"
-                android:textColor="#000"
-                android:textStyle="bold"
-                android:textSize="@dimen/info_title"
-                android:layout_marginBottom="5dp"
-                />
-            <TextView
-                android:id="@+id/content_owner_info"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="내용없음"
-                android:textColor="@color/contentColor"
-                android:textStyle="bold"
-                android:textSize="@dimen/info_content"
-                />
-        </LinearLayout>
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/content_margin_vertical"
+                android:layout_marginBottom="@dimen/content_margin_vertical">
+                <TextView
+                    android:id="@+id/title_owner_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="사업자 정보"
+                    android:textColor="#000"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/info_title"
+                    android:layout_marginBottom="5dp"
+                    />
+                <TextView
+                    android:id="@+id/content_owner_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="내용없음"
+                    android:textColor="@color/contentColor"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/info_content"
+                    />
+            </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginVertical="@dimen/content_margin_vertical">
-            <TextView
-                android:id="@+id/title_address"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="위치 정보"
-                android:textColor="#000"
-                android:textStyle="bold"
-                android:textSize="@dimen/info_title"
-                android:layout_marginBottom="5dp"
-                />
-            <TextView
-                android:id="@+id/content_address"
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/content_margin_vertical"
+                android:layout_marginBottom="@dimen/content_margin_vertical">
+                <TextView
+                    android:id="@+id/title_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="위치 정보"
+                    android:textColor="#000"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/info_title"
+                    android:layout_marginBottom="5dp"
+                    />
+                <TextView
+                    android:id="@+id/content_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="내용없음"
+                    android:textColor="@color/contentColor"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/info_content"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="내용없음"
-                android:textColor="@color/contentColor"
-                android:textStyle="bold"
-                android:textSize="@dimen/info_content"
-                />
+                android:gravity="center">
+                <com.nhn.android.maps.NMapView
+                    android:layout_width="300dp"
+                    android:layout_height="200dp"
+                    android:id="@+id/mapView" />
+            </LinearLayout>
         </LinearLayout>
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center">
-            <com.nhn.android.maps.NMapView
-                android:layout_width="300dp"
-                android:layout_height="200dp"
-                android:id="@+id/mapView" />
-        </LinearLayout>
-    </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </android.support.constraint.ConstraintLayout>

@@ -30,11 +30,12 @@ public class StoreManagementFragment extends Fragment {
     private Button btn_edit;
     private Button btn_register;
     private EditText edit_name;
+    private EditText edit_admin_id;
+    private EditText edit_tel;
     private EditText edit_intro;
     private EditText edit_info;
-    private EditText edit_sales_info;
-    private EditText edit_owner_info;
     private EditText edit_address;
+    private EditText edit_sector;
 
     private InputMethodManager imm; //전역변수
 
@@ -47,21 +48,22 @@ public class StoreManagementFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_store_admin, container, false);
 
-
         imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE); //onCreate 이후,,
 
         edit_name = (EditText)rootView.findViewById(R.id.edit_name);
         edit_name.setText(store.getName());
+        edit_admin_id = (EditText)rootView.findViewById(R.id.edit_admin_id);
+        edit_admin_id.setText(store.getAdmin_id());
+        edit_tel = (EditText)rootView.findViewById(R.id.edit_tel);
+        edit_tel.setText(store.getTel());
         edit_intro = (EditText)rootView.findViewById(R.id.edit_intro);
-        edit_intro.setText(store.getIntroduction());
+        edit_intro.setText(store.getIntro());
         edit_info = (EditText)rootView.findViewById(R.id.edit_info);
-        edit_info.setText(store.getInformation());
-        edit_sales_info = (EditText)rootView.findViewById(R.id.edit_sales_info);
-        edit_sales_info.setText(store.getPhoneNumber());
-        edit_owner_info = (EditText)rootView.findViewById(R.id.edit_owner_info);
-        edit_owner_info.setText(store.getOwnerName());
+        edit_info.setText(store.getInform());
         edit_address = (EditText)rootView.findViewById(R.id.edit_address);
         edit_address.setText(store.getAddress());
+        edit_sector = (EditText)rootView.findViewById(R.id.edit_sector);
+        edit_sector.setText(""+store.getSector());
 
         btn_edit = (Button) rootView.findViewById(R.id.btn_edit);
         btn_edit.setOnClickListener(new View.OnClickListener() {
@@ -71,32 +73,36 @@ public class StoreManagementFragment extends Fragment {
                 btn_edit.setVisibility(View.GONE);
 
                 edit_name.setFocusableInTouchMode(true);
+                edit_admin_id.setFocusableInTouchMode(true);
+                edit_tel.setFocusableInTouchMode(true);
                 edit_intro.setFocusableInTouchMode(true);
                 edit_info.setFocusableInTouchMode(true);
-                edit_sales_info.setFocusableInTouchMode(true);
-                edit_owner_info.setFocusableInTouchMode(true);
                 edit_address.setFocusableInTouchMode(true);
+                edit_sector.setFocusableInTouchMode(true);
 
                 edit_name.setClickable(true);
+                edit_admin_id.setClickable(true);
+                edit_tel.setClickable(true);
                 edit_intro.setClickable(true);
                 edit_info.setClickable(true);
-                edit_sales_info.setClickable(true);
-                edit_owner_info.setClickable(true);
                 edit_address.setClickable(true);
+                edit_sector.setClickable(true);
 
                 edit_name.setFocusable(true);
+                edit_admin_id.setFocusable(true);
+                edit_tel.setFocusable(true);
                 edit_intro.setFocusable(true);
                 edit_info.setFocusable(true);
-                edit_sales_info.setFocusable(true);
-                edit_owner_info.setFocusable(true);
                 edit_address.setFocusable(true);
+                edit_sector.setFocusable(true);
 
                 showKeyboard(edit_name);
+                showKeyboard(edit_address);
+                showKeyboard(edit_tel);
                 showKeyboard(edit_intro);
                 showKeyboard(edit_info);
-                showKeyboard(edit_sales_info);
-                showKeyboard(edit_owner_info);
                 showKeyboard(edit_address);
+                showKeyboard(edit_sector);
             }
         });
 
@@ -108,32 +114,37 @@ public class StoreManagementFragment extends Fragment {
                 btn_register.setVisibility(View.GONE);
 
                 edit_name.setFocusableInTouchMode(false);
+                edit_admin_id.setFocusableInTouchMode(false);
+                edit_tel.setFocusableInTouchMode(false);
                 edit_intro.setFocusableInTouchMode(false);
                 edit_info.setFocusableInTouchMode(false);
-                edit_sales_info.setFocusableInTouchMode(false);
-                edit_owner_info.setFocusableInTouchMode(false);
                 edit_address.setFocusableInTouchMode(false);
+                edit_sector.setFocusableInTouchMode(false);
+
 
                 edit_name.setClickable(false);
+                edit_admin_id.setClickable(false);
+                edit_tel.setClickable(false);
                 edit_intro.setClickable(false);
                 edit_info.setClickable(false);
-                edit_sales_info.setClickable(false);
-                edit_owner_info.setClickable(false);
                 edit_address.setClickable(false);
+                edit_sector.setClickable(false);
 
                 edit_name.setFocusable(false);
+                edit_admin_id.setFocusable(false);
+                edit_tel.setFocusable(false);
                 edit_intro.setFocusable(false);
                 edit_info.setFocusable(false);
-                edit_sales_info.setFocusable(false);
-                edit_owner_info.setFocusable(false);
                 edit_address.setFocusable(false);
+                edit_sector.setFocusable(false);
 
                 hideKeyboard(edit_name);
+                hideKeyboard(edit_admin_id);
+                hideKeyboard(edit_tel);
                 hideKeyboard(edit_intro);
                 hideKeyboard(edit_info);
-                hideKeyboard(edit_sales_info);
-                hideKeyboard(edit_owner_info);
                 hideKeyboard(edit_address);
+                hideKeyboard(edit_sector);
             }
         });
 

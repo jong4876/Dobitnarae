@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         gotoStore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, StoreActivity.class);
+                Intent intent = new Intent(MainActivity.this, MainActivityTmp.class);
                 startActivity(intent);
             }
         });
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         gotoAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ExampleSwipeMenu.class);
+                Intent intent = new Intent(MainActivity.this, AdminActivity.class);
                 startActivity(intent);
             }
         });

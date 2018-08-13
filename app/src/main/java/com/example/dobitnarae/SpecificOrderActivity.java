@@ -44,6 +44,12 @@ public class SpecificOrderActivity extends AppCompatActivity {
     private LinearLayout btnRegister;
     private LinearLayout btnReject;
 
+    private Basket basket;
+
+    public SpecificOrderActivity() {
+        this.basket = Basket.getInstance();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,13 +79,13 @@ public class SpecificOrderActivity extends AppCompatActivity {
         mAdapter = new ListViewAdapter(this);
         mListView.setAdapter(mAdapter);
 
-        /*
-        for (Clothes citem:basket) {
+
+        for (BasketItem citem:basket.getBasket()) {
             mAdapter.addItem(citem);
         }
-        */
+
         // 총 가격 설정
-        //setTotalPrice(basket);
+        setTotalPrice(basket.getBasket());
 
         // 스크롤뷰, 리스트뷰 중복 스크롤 허용
         mScrollView = (NestedScrollView) findViewById(R.id.nestedScrollView_order);
@@ -123,21 +129,19 @@ public class SpecificOrderActivity extends AppCompatActivity {
         });
     }
 
-    /*
-    public void setTotalPrice(List<Clothes> citems){
+    public void setTotalPrice(List<BasketItem> citems){
         totalPrice = findViewById(R.id.reserve_clothes_total_price);
         String total;
         int sum = 0;
 
-        for (Clothes citem: citems) {
-            sum += citem.getPrice() * citem.getCount();
+        for (BasketItem citem: citems) {
+            sum += citem.getClothes().getPrice() * citem.getCnt();
         }
 
         dc = new DecimalFormat("###,###,###,###");
         total = dc.format(sum) + " 원";
         totalPrice.setText(total);
     }
-    */
 
     private class ViewHolder {
         public ImageView imageView;
@@ -194,7 +198,7 @@ public class SpecificOrderActivity extends AppCompatActivity {
             Clothes mData = mListData.get(position);
 
             // 서버에서 이미지 받아야함
-            Drawable drawable = ContextCompat.getDrawable(mContext, R.drawable.sample);
+            Drawable drawable = ContextCompat.getDrawable(mContext, R.drawable.gobchang);
 
             holder.imageView.setBackground(drawable);
             holder.mName.setText(mData.getName());
@@ -209,14 +213,14 @@ public class SpecificOrderActivity extends AppCompatActivity {
             return convertView;
         }
 
-        public void addItem(Clothes item){
+        public void addItem(BasketItem item){
             Clothes addInfo = null;
             addInfo = new Clothes();
             // 이미지는 디렉토리에서 불러올예정
-            addInfo.setName(item.getName());
-            addInfo.setIntro(item.getIntro());
-            addInfo.setPrice(item.getPrice());
-            addInfo.setCount(item.getCount());
+            addInfo.setName(item.getClothes().getName());
+            addInfo.setIntro(item.getClothes().getIntro());
+            addInfo.setPrice(item.getClothes().getPrice());
+            addInfo.setCount(item.getCnt());
             mListData.add(addInfo);
         }
 

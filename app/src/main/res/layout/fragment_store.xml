@@ -4,8 +4,8 @@
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".StoreActivity">
-
+    tools:context=".StoreActivity"
+    android:background="#fff">
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -22,6 +22,8 @@
     </HorizontalScrollView>
 
     <android.support.v7.widget.RecyclerView
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
         android:layout_marginTop="50dp"
         android:orientation="horizontal"
         android:id="@+id/recyclerview_clothes"

@@ -34,12 +34,12 @@ public class OrderManagementFragment extends Fragment {
     private List<Order> confirmedDatas;
     private ListView mListView = null;
     private ListViewAdapter mAdapter = null;
-    private ArrayList<Clothes> basketData;
+    //private ArrayList<Clothes> basketData;
 
     public OrderManagementFragment(ArrayList<Order> items, List<Order> items2, ArrayList<Clothes> item3) {
         this.items = items;
         this.confirmedDatas = items2;
-        this.basketData = item3;
+        //this.basketData = item3;
     }
 
     // 어댑터 2개쓰고 전환시키자
@@ -91,9 +91,6 @@ public class OrderManagementFragment extends Fragment {
                 mAdapter.dataChange();
             }
         });
-
-
-
         return rootView;
     }
 
@@ -166,7 +163,7 @@ public class OrderManagementFragment extends Fragment {
                 public void onClick(View v) {
                     Intent intent = new Intent(mContext, SpecificOrderActivity.class);
                     intent.putExtra("order", items.get(position));
-                    intent.putParcelableArrayListExtra("cloth", basketData);
+                    //intent.putParcelableArrayListExtra("cloth", basketData);
                     mContext.startActivity(intent);
                 }
             });

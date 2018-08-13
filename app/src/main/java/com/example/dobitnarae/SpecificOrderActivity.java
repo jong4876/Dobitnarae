@@ -33,7 +33,7 @@ import java.util.Objects;
 public class SpecificOrderActivity extends AppCompatActivity {
     DecimalFormat dc;
     Order item;
-    ArrayList<Clothes> basket;
+    //ArrayList<Clothes> basket;
     TextView totalPrice;
 
     private NestedScrollView mScrollView;
@@ -66,19 +66,20 @@ public class SpecificOrderActivity extends AppCompatActivity {
         item = (Order) intent.getSerializableExtra("order");
 
         // 인텐트로 옷 리스트를 넘겨받음
-        basket = intent.getParcelableArrayListExtra("cloth");
+        //basket = intent.getParcelableArrayListExtra("cloth");
 
         mListView = (ListView) findViewById(R.id.listview_specific);
 
         mAdapter = new ListViewAdapter(this);
         mListView.setAdapter(mAdapter);
 
+        /*
         for (Clothes citem:basket) {
             mAdapter.addItem(citem);
         }
-
+        */
         // 총 가격 설정
-        setTotalPrice(basket);
+        //setTotalPrice(basket);
 
         // 스크롤뷰, 리스트뷰 중복 스크롤 허용
         mScrollView = (NestedScrollView) findViewById(R.id.nestedScrollView_order);
@@ -122,6 +123,7 @@ public class SpecificOrderActivity extends AppCompatActivity {
         });
     }
 
+    /*
     public void setTotalPrice(List<Clothes> citems){
         totalPrice = findViewById(R.id.reserve_clothes_total_price);
         String total;
@@ -135,6 +137,7 @@ public class SpecificOrderActivity extends AppCompatActivity {
         total = dc.format(sum) + " 원";
         totalPrice.setText(total);
     }
+    */
 
     private class ViewHolder {
         public ImageView imageView;
@@ -221,7 +224,6 @@ public class SpecificOrderActivity extends AppCompatActivity {
             mListData.remove(position);
             dataChange();
         }
-
 
         public void clear(){
             mListData.clear();

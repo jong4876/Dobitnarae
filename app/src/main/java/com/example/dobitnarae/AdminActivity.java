@@ -21,7 +21,7 @@ public class AdminActivity extends AppCompatActivity {
     private Store store;
     private ArrayList<Order> orderedDatas;
     private List<Order> orderedDatas2;
-    private List<Basket> baskets;
+    //private List<Basket> baskets;
     private ArrayList<Clothes> basketData;
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide

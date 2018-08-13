@@ -1,6 +1,8 @@
 package com.example.dobitnarae;
 
-public class Store {
+import java.io.Serializable;
+
+public class Store implements Serializable{
     private int id;
     private String name;
     private String admin_id;
@@ -9,21 +11,22 @@ public class Store {
     private String intro;
     private String inform;
     private int sector;
-    private double latitude;
     private double longitude;
+    private double latitude;
 
-    public Store(int id, String name,String admin_id, String tel, String intro, String inform,
+    public Store(int id, String name, String admin_id, String tel, String intro, String inform,
                  String address, int sector, double latitude, double longitude){
-        this.id=id;
+            this.id=id;
         this.name = name;
         this.admin_id= admin_id;
-        this.tel = tel;
         this.address = address;
+        this.tel = tel;
         this.intro = intro;
         this.inform = inform;
         this.sector = sector;
-        this.latitude = latitude;
         this.longitude = longitude;
+        this.latitude = latitude;
+
     }
 
     public int getId() {
@@ -51,13 +54,10 @@ public class Store {
     public int getSector(){
         return sector;
     }
-    public double getLatitude(){
-        return latitude;
-    }
     public double getLongitude(){
         return longitude;
     }
-
-
-
+    public double getLatitude(){
+        return latitude;
+    }
 }

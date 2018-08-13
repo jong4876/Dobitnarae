@@ -14,12 +14,22 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import java.util.ArrayList;
+
+import java.util.List;
 import java.util.Objects;
 
+
+
+
 public class AdminActivity extends AppCompatActivity {
-     Store store;
-     ArrayList<Store> storeList = new ArrayList<Store>();
-     ArrayList<Clothes> clothesList = new ArrayList<Clothes>();
+     private Store store;
+     private ArrayList<Store> storeList = new ArrayList<Store>();
+     private ArrayList<Clothes> clothesList = new ArrayList<Clothes>();
+     private ArrayList<Order> orderedDatas;
+     private List<Order> orderedDatas2;
+
+
+
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -58,12 +68,28 @@ public class AdminActivity extends AppCompatActivity {
 
         // 특정 인덴트에서 store 키값을 받아와
         // 서버로 통신 하여 `가게정보, 판매중인 옷` 데이터 받아옴
-        ////
 
-            storeList = JSONTask.getStoreAll("jong4876");// JSON형태의 store정보들을 분류하여 arrayList에 저장
-            store = storeList.get(0);
 
-            clothesList = JSONTask.getClothesAll(1);
+        storeList = JSONTask.getStoreAll("jong4876");// JSON형태의 store정보들을 분류하여 arrayList에 저장
+        store = storeList.get(0);
+        clothesList = JSONTask.getClothesAll(1);
+
+
+
+        // 예약정보
+        int ITEM_SIZE = 8;
+        orderedDatas = new ArrayList<>();
+        Order[] item = new Order[ITEM_SIZE];
+        for(int i=0; i<ITEM_SIZE; i++){
+            item[i] = new Order(i,"kang123"+i, "jong123", 0, "2018-08-08");
+            orderedDatas.add(item[i]);
+        }
+
+        // 예약정보
+        int ITEM_SIZE2 = 1;
+        orderedDatas2 = new ArrayList<>();
+        Order[] item2 = new Order[ITEM_SIZE2];
+
 
 
 
@@ -117,7 +143,7 @@ public class AdminActivity extends AppCompatActivity {
                 case 1:
                     return new ItemManagementFragment();
                 case 2:
-                    return new OrderManagementFragment();
+                    return new OrderManagementFragment(orderedDatas, orderedDatas2);
                 default:
                     return null;
             }

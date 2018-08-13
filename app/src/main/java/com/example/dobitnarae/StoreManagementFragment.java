@@ -48,35 +48,22 @@ public class StoreManagementFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_store_admin, container, false);
 
-
         imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE); //onCreate 이후,,
 
         edit_name = (EditText)rootView.findViewById(R.id.edit_name);
         edit_name.setText(store.getName());
-        edit_name = (EditText)rootView.findViewById(R.id.edit_name);
-        edit_name.setText(store.getName());
-
         edit_admin_id = (EditText)rootView.findViewById(R.id.edit_admin_id);
         edit_admin_id.setText(store.getAdmin_id());
-
         edit_tel = (EditText)rootView.findViewById(R.id.edit_tel);
         edit_tel.setText(store.getTel());
-
         edit_intro = (EditText)rootView.findViewById(R.id.edit_intro);
         edit_intro.setText(store.getIntro());
-
         edit_info = (EditText)rootView.findViewById(R.id.edit_info);
         edit_info.setText(store.getInform());
-
         edit_address = (EditText)rootView.findViewById(R.id.edit_address);
         edit_address.setText(store.getAddress());
-
-       edit_sector = (EditText)rootView.findViewById(R.id.edit_sector);
-       edit_sector.setText(""+store.getSector());
-
-
-
-
+        edit_sector = (EditText)rootView.findViewById(R.id.edit_sector);
+        edit_sector.setText(""+store.getSector());
 
         btn_edit = (Button) rootView.findViewById(R.id.btn_edit);
         btn_edit.setOnClickListener(new View.OnClickListener() {

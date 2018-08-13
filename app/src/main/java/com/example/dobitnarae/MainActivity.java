@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         gotoStore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, StoreActivity.class);
+                Intent intent = new Intent(MainActivity.this, MainActivityTmp.class);
                 startActivity(intent);
             }
         });

@@ -1,5 +1,6 @@
 package com.example.dobitnarae;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -13,8 +14,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,9 +50,9 @@ public class StoreActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
 
-        ImageButton backButton = (ImageButton)findViewById(R.id.backButton);
-        backButton.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
+        ImageButton backButton = (ImageButton) findViewById(R.id.backButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
                 finish();
             }
         });
@@ -69,6 +71,25 @@ public class StoreActivity extends AppCompatActivity {
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
+
+        LinearLayout gotoBasket = (LinearLayout) findViewById(R.id.store_basket);
+        gotoBasket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "장바구니", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // TODO
+        // 특정 인덴트에서 store 키값을 받아와
+        // 서버로 통신 하여 `판매중인 옷` 데이터 받아와야함
+        Intent intent = getIntent();
+        store = (Store) intent.getSerializableExtra("store");
+
+        TextView titleName = (TextView) findViewById(R.id.toolbar_title);
+        titleName.setText(store.getName());
+
+
         // 특정 인덴트에서 store 키값을 받아와
         // 서버로 통신 하여 `가게정보, 판매중인 옷` 데이터 받아옴
 
@@ -80,7 +101,7 @@ public class StoreActivity extends AppCompatActivity {
         items = JSONTask.getClothesAll(1);// JSON형태의 store정보들을 분류하여 arrayList에 저장
 
 
-            // 옷 정보들 가져와서 초기화
+        // 옷 정보들 가져와서 초기화
             /* //  태우 샘플데이터
             int ITEM_SIZE = 8;
             items = new ArrayList<>();
@@ -90,6 +111,7 @@ public class StoreActivity extends AppCompatActivity {
                         1000 * (i + 1), i % Constant.category_cnt + 1);
                 items.add(item[i]);
             }*/
+
 
     }
 
@@ -133,27 +155,22 @@ public class StoreActivity extends AppCompatActivity {
             // 액티비티 만들어서 케이스 문에다가 넣어주면 됩니다
             // 탭 이름은 values/string 에 들어있어요
 
-            switch(position) {
+            switch (position) {
                 case 0:
                     return StoreInfoFragment.newInstance(0, store);
                 case 1:
-                    return StoreClothesFragment.newInstance(1, items);
+                    return StoreClothesFragment.newInstance(1, items, store);
             }
-            return null;
-        }
+                return null;
+            }
 
-        @Override
-        public int getCount() {
-            // Show 3 total pages.
-            return 2;
+
+            public int getCount () {
+                // Show 3 total pages.
+                return 2;
+            }
         }
     }
 
 
 
-
-
-
-
-
-}

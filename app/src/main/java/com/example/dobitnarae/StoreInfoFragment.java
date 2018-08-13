@@ -22,7 +22,9 @@ public class StoreInfoFragment extends Fragment {
     private NMapView mMapView;// 지도 화면 View
     private NMapContext mMapContext;
     private final String CLIENT_ID = "kq6ZsHG_bYYKmox3mPqw";// 애플리케이션 클라이언트 아이디 값
+
     private NMapOverlayItem mOverlayItem;
+
 
     /**
      * The fragment argument representing the section number for this
@@ -81,7 +83,7 @@ public class StoreInfoFragment extends Fragment {
         mMapContext.setupMapView(mMapView);
 
         mMapController = mMapView.getMapController();
-        mMapController.setMapCenter(new NGeoPoint(store.getLongitude(), store.getLatitude()), 12);// 수정필요
+        mMapController.setMapCenter(new NGeoPoint(store.getLongitude(), store.getLatitude()), 12);
     }
     @Override
     public void onStart(){

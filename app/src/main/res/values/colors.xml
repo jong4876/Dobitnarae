@@ -13,5 +13,6 @@
     <color name="black">#00ffffff</color>
     <color name="darkergrey">#aaa</color>
     <color name="appMainColor">#ff8484</color>
+    <color name="storeOpeningColor">#339738</color>
 
 </resources>

@@ -93,24 +93,16 @@ public class StoreActivity extends AppCompatActivity {
         // 특정 인덴트에서 store 키값을 받아와
         // 서버로 통신 하여 `가게정보, 판매중인 옷` 데이터 받아옴
 
-
-        storeList = JSONTask.getStoreAll("jong4876");// JSON형태의 store정보들을 분류하여 arrayList에 저장
-        store = storeList.get(0);
-
-
-        items = JSONTask.getClothesAll(1);// JSON형태의 store정보들을 분류하여 arrayList에 저장
-
-
         // 옷 정보들 가져와서 초기화
-            /* //  태우 샘플데이터
-            int ITEM_SIZE = 8;
-            items = new ArrayList<>();
-            Clothes[] item = new Clothes[ITEM_SIZE];
-            for (int i = 0; i < ITEM_SIZE; i++) {
-                item[i] = new Clothes(i, R.drawable.gobchang, "불곱창" + (i + 1),
-                        1000 * (i + 1), i % Constant.category_cnt + 1);
-                items.add(item[i]);
-            }*/
+        int ITEM_SIZE = 8;
+        items = new ArrayList<>();
+        Clothes[] item = new Clothes[ITEM_SIZE];
+        for(int i=0; i<ITEM_SIZE; i++){
+            item[i] = new Clothes(i, store.getId(), i % Constant.category_cnt + 1,
+                    "불곱창" + (i + 1), "이 곱창은 왕십리에서 시작하여...",
+                    1000 * (i + 1), 10,  0);
+            items.add(item[i]);
+        }
 
 
     }

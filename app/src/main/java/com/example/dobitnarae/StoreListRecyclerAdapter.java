@@ -58,14 +58,14 @@ public class StoreListRecyclerAdapter extends RecyclerView.Adapter<StoreListRecy
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
         TextView name, address;
-        CardView storeView;
+        LinearLayout storeView;
 
         public ViewHolder(View itemView) {
             super(itemView);
             image = (ImageView) itemView.findViewById(R.id.store_list_img);
             name = (TextView) itemView.findViewById(R.id.store_name);
             address = (TextView) itemView.findViewById(R.id.store_address);
-            storeView = (CardView) itemView.findViewById(R.id.store_list_item);
+            storeView = (LinearLayout) itemView.findViewById(R.id.store_list_item);
         }
     }
 

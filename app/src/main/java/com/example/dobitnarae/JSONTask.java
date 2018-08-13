@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 public  class JSONTask extends AsyncTask<String, String, String> {
     String user_id;
-    String URL = "http://192.168.219.103:3443/";
+    String URL = "http://13.209.89.187:3443/";
 
 
     public JSONTask(String user_id){
@@ -88,7 +88,7 @@ public  class JSONTask extends AsyncTask<String, String, String> {
 
 
         try {
-            String str = new JSONTask(user_id).execute("http://192.168.43.77:3443/store").get();
+            String str = new JSONTask(user_id).execute("http://13.209.89.187:3443/store").get();
 
             JSONArray ja = new JSONArray(str);
             // txtView.setText(str);
@@ -129,7 +129,7 @@ public  class JSONTask extends AsyncTask<String, String, String> {
         StringBuffer sb = new StringBuffer();
 
         try{
-            String str = new JSONTask("1").execute("http://192.168.43.77:3443/clothes").get();
+            String str = new JSONTask("1").execute("http://13.209.89.187:3443/clothes").get();
 
             JSONArray ja = new JSONArray(str);
             for(int i=0; i<ja.length(); i++){

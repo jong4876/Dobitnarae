@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class ClothesListRecyclerAdapter extends RecyclerView.Adapter<ClothesListRecyclerAdapter.ViewHolder> {
@@ -40,7 +41,8 @@ public class ClothesListRecyclerAdapter extends RecyclerView.Adapter<ClothesList
         Drawable drawable = ContextCompat.getDrawable(context, R.drawable.gobchang);
         holder.image.setBackground(drawable);
         holder.name.setText(item.getName());
-        holder.price.setText("" + item.getPrice());
+        DecimalFormat dc = new DecimalFormat("###,###,###,###");
+        holder.price.setText(dc.format(item.getPrice()) + " 원");
         holder.cardview.setId(item.getCloth_id());
         holder.cardview.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -48,7 +48,7 @@ public class StoreClothesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final View rootView = inflater.inflate(R.layout.fragment_store, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_store_clothes_list, container, false);
 
         final RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerview_clothes);
         LinearLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
@@ -56,7 +56,7 @@ public class StoreClothesFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
         //옷추가
-        mAdapter = new ClothesListRecyclerAdapter(getContext(), items, store, R.layout.fragment_store);
+        mAdapter = new ClothesListRecyclerAdapter(getContext(), items, store, R.layout.fragment_store_clothes_list);
         recyclerView.setAdapter(mAdapter);
 
         // 옷 종류 선택 메뉴

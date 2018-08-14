@@ -1,33 +1,39 @@
 package com.example.dobitnarae;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-import android.support.annotation.NonNull;
-
 import java.io.Serializable;
 
 public class Clothes implements Serializable{
     private int cloth_id;
     private int store_id;
-    private int type;
+    private int category;
     private String name;
     private String intro;
     private int price;
     private int count;
     private int sex;
 
-    int getCloth_id() { return this.cloth_id; }
-    int getStore_id() { return this.store_id; }
-    int getType(){ return this.type; }
-    String getName() {
-        return this.name;
-    }
-    String getIntro(){return this.intro;}
-    int getPrice() { return  this.price; }
-    int getCount() { return this.count; }
-    int getSex() { return this.sex; }
+    public Clothes(){ }
 
-    public Clothes() {
+    public int getCloth_id() { return this.cloth_id; }
+    public int getStore_id() { return this.store_id; }
+    public int getCategory() {
+        return category;
+    }
+    public String getName() { return this.name; }
+    public String getIntro(){return this.intro;}
+    public int getPrice() { return  this.price; }
+    public int getCount() { return this.count; }
+    public int getSex() { return this.sex; }
+
+    Clothes(int cloth_id, int store_id, int category, String name, String intro, int price, int count, int sex) {
+        this.cloth_id = cloth_id;
+        this.store_id = store_id;
+        this.category = category;
+        this.name = name;
+        this.intro = intro;
+        this.price = price;
+        this.count = count;
+        this.sex = sex;
     }
 
     public void setCloth_id(int cloth_id) {
@@ -38,8 +44,8 @@ public class Clothes implements Serializable{
         this.store_id = store_id;
     }
 
-    public void setType(int type) {
-        this.type = type;
+    public void setCategory(int category) {
+        this.category = category;
     }
 
     public void setName(String name) {
@@ -59,17 +65,6 @@ public class Clothes implements Serializable{
     }
 
     public void setSex(int sex) {
-        this.sex = sex;
-    }
-
-    Clothes(int cloth_id, int store_id, int type, String name, String intro, int price, int count, int sex) {
-        this.cloth_id = cloth_id;
-        this.store_id = store_id;
-        this.type = type;
-        this.name = name;
-        this.intro = intro;
-        this.price = price;
-        this.count = count;
         this.sex = sex;
     }
 }

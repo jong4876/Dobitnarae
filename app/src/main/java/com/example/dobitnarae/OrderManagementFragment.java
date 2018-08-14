@@ -34,12 +34,13 @@ public class OrderManagementFragment extends Fragment {
     private List<Order> confirmedDatas;
     private ListView mListView = null;
     private ListViewAdapter mAdapter = null;
-    //private ArrayList<Clothes> basketData;
 
-    public OrderManagementFragment(ArrayList<Order> items, List<Order> items2, ArrayList<Clothes> item3) {
+    private Basket basket;
+
+    public OrderManagementFragment(ArrayList<Order> items, List<Order> items2) {
         this.items = items;
         this.confirmedDatas = items2;
-        //this.basketData = item3;
+        this.basket = Basket.getInstance();
     }
 
     // 어댑터 2개쓰고 전환시키자
@@ -54,7 +55,7 @@ public class OrderManagementFragment extends Fragment {
         mListView.setAdapter(mAdapter);
 
         // 내림차순 정렬된 순서로 데이터 삽입
-        Collections.sort(items);
+        //Collections.sort(items);
 
         for (Order item:items) {
             mAdapter.addItem(item);
@@ -150,7 +151,12 @@ public class OrderManagementFragment extends Fragment {
             final OrderInfoData mData = mListData.get(position);
 
             // 서버에서 이미지 받아야함
-            Drawable drawable = ContextCompat.getDrawable(mContext, R.drawable.sample);
+            Drawable drawable = ContextCompat.getDrawable(mContext, R.drawable.gobchang);
+
+            //holder.mNo = mData.getOrderNo();
+            //holder.imageView.setBackground(drawable);
+            //holder.mBasket.setText(basket.getBasket().get(position).getClothes().getName() + " 외 " + basket.getBasket().get(position).getClothes().getCount()+ "벌");
+            //holder.mDate.setText(basket.getRentalDate());
 
             holder.mNo = mData.getOrderNo();
             holder.imageView.setBackground(drawable);
@@ -163,7 +169,6 @@ public class OrderManagementFragment extends Fragment {
                 public void onClick(View v) {
                     Intent intent = new Intent(mContext, SpecificOrderActivity.class);
                     intent.putExtra("order", items.get(position));
-                    //intent.putParcelableArrayListExtra("cloth", basketData);
                     mContext.startActivity(intent);
                 }
             });

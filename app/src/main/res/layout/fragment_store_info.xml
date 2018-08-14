@@ -3,10 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".StoreManagementFragment"
-    android:paddingHorizontal="@dimen/padding_horizontal"
-    android:paddingVertical="@dimen/padding_vertical"
-    android:scrollbars="none">
+    tools:context=".StoreInfoFragment"
+    android:paddingRight="@dimen/padding_horizontal"
+    android:paddingLeft="@dimen/padding_horizontal"
+    android:scrollbars="none"
+    android:background="#fff"
+    android:paddingBottom="20dp">
+
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/nestedScorllView_store"
         android:layout_width="match_parent"
@@ -19,7 +22,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginVertical="@dimen/content_margin_vertical">
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="@dimen/content_margin_vertical">
                 <TextView
                     android:id="@+id/title_name"
                     android:layout_width="match_parent"
@@ -30,86 +34,22 @@
                     android:textSize="@dimen/info_title"
                     android:layout_marginBottom="5dp"
                     />
-
-                <EditText
-                    android:id="@+id/edit_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:focusableInTouchMode="false"
-                    android:inputType="textPersonName"
-                    android:text="내용없음"
-                    android:visibility="visible"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:background="@null"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginVertical="@dimen/content_margin_vertical">
                 <TextView
-                    android:id="@+id/title_admin_id"
+                    android:id="@+id/content_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="관리자 ID"
-                    android:textColor="#000"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/info_title"
-                    android:layout_marginBottom="5dp"
-                    />
-
-                <EditText
-                    android:id="@+id/edit_admin_id"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textPersonName"
                     android:text="내용없음"
-                    android:visibility="visible"
-                    android:focusableInTouchMode="false"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:background="@null"/>
+                    android:textColor="@color/contentColor"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/info_content"
+                    />
             </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginVertical="@dimen/content_margin_vertical">
-                <TextView
-                    android:id="@+id/title_tel"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="가게 번호"
-                    android:textColor="#000"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/info_title"
-                    android:layout_marginBottom="5dp"
-                    />
-
-                <EditText
-                    android:id="@+id/edit_tel"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="내용없음"
-                    android:visibility="visible"
-                    android:focusableInTouchMode="false"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:background="@null"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginVertical="@dimen/content_margin_vertical">
+                android:layout_marginTop="@dimen/content_margin_vertical"
+                android:layout_marginBottom="@dimen/content_margin_vertical">
                 <TextView
                     android:id="@+id/title_intro"
                     android:layout_width="match_parent"
@@ -120,26 +60,23 @@
                     android:textSize="@dimen/info_title"
                     android:layout_marginBottom="5dp"
                     />
-
-                <EditText
-                    android:id="@+id/edit_intro"
+                <TextView
+                    android:id="@+id/content_intro"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textPersonName"
                     android:text="내용없음"
-                    android:visibility="visible"
-                    android:focusableInTouchMode="false"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:background="@null"/>
+                    android:textColor="@color/contentColor"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/info_content"
+                    />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginVertical="@dimen/content_margin_vertical">
+                android:layout_marginTop="@dimen/content_margin_vertical"
+                android:layout_marginBottom="@dimen/content_margin_vertical">
                 <TextView
                     android:id="@+id/title_info"
                     android:layout_width="match_parent"
@@ -150,102 +87,107 @@
                     android:textSize="@dimen/info_title"
                     android:layout_marginBottom="5dp"
                     />
-
-                <EditText
-                    android:id="@+id/edit_info"
+                <TextView
+                    android:id="@+id/content_info"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textPersonName"
                     android:text="내용없음"
-                    android:visibility="visible"
-                    android:focusableInTouchMode="false"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:background="@null"/>
+                    android:textColor="@color/contentColor"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/info_content"
+                    />
             </LinearLayout>
-
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginVertical="@dimen/content_margin_vertical">
+                android:layout_marginTop="@dimen/content_margin_vertical"
+                android:layout_marginBottom="@dimen/content_margin_vertical">
+                <TextView
+                    android:id="@+id/title_sales_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="전화번호"
+                    android:textColor="#000"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/info_title"
+                    android:layout_marginBottom="5dp"
+                    />
+                <TextView
+                    android:id="@+id/content_sales_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="내용없음"
+                    android:textColor="@color/contentColor"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/info_content"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/content_margin_vertical"
+                android:layout_marginBottom="@dimen/content_margin_vertical">
+                <TextView
+                    android:id="@+id/title_owner_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="사업자 정보"
+                    android:textColor="#000"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/info_title"
+                    android:layout_marginBottom="5dp"
+                    />
+                <TextView
+                    android:id="@+id/content_owner_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="내용없음"
+                    android:textColor="@color/contentColor"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/info_content"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/content_margin_vertical"
+                android:layout_marginBottom="@dimen/content_margin_vertical">
                 <TextView
                     android:id="@+id/title_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="가게 위치"
+                    android:text="위치 정보"
                     android:textColor="#000"
                     android:textStyle="bold"
                     android:textSize="@dimen/info_title"
                     android:layout_marginBottom="5dp"
                     />
-
-                <EditText
-                    android:id="@+id/edit_address"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="내용없음"
-                    android:visibility="visible"
-                    android:focusableInTouchMode="false"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:background="@null"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginVertical="@dimen/content_margin_vertical">
                 <TextView
-                    android:id="@+id/title_sector"
+                    android:id="@+id/content_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="가게 구역"
-                    android:textColor="#000"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/info_title"
-                    android:layout_marginBottom="5dp"
-                    />
-
-                <EditText
-                    android:id="@+id/edit_sector"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textPersonName"
                     android:text="내용없음"
-                    android:visibility="visible"
-                    android:focusableInTouchMode="false"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:background="@null"/>
+                    android:textColor="@color/contentColor"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/info_content"
+                    />
             </LinearLayout>
-
             <LinearLayout
                 android:layout_marginTop="10dp"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center">
-
-                <Button
-                    android:id="@+id/btn_edit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="수정" />
-
-                <Button
-                    android:id="@+id/btn_register"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="등록"
-                    android:visibility="gone"
-                    />
+                <com.nhn.android.maps.NMapView
+                    android:layout_width="300dp"
+                    android:layout_height="200dp"
+                    android:id="@+id/mapView" />
             </LinearLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

@@ -4,10 +4,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Basket {
+public class Basket{
     private static Basket instance = new Basket();
     private ArrayList<BasketItem> basket;
     private int selectedStoreID;

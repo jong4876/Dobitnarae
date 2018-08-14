@@ -43,6 +43,15 @@ public class StoreManagementFragment extends Fragment {
         this.store = store;
     }
 
+    private static final String ARG_SECTION_NUMBER = "section_number";
+    public static StoreManagementFragment newInstance(int sectionNumber, Store store) {
+        StoreManagementFragment fragment = new StoreManagementFragment(store);
+        Bundle args = new Bundle();
+        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

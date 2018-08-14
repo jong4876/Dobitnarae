@@ -25,6 +25,15 @@ public class ItemManagementFragment extends Fragment {
 
     public ItemManagementFragment(){}
 
+    private static final String ARG_SECTION_NUMBER = "section_number";
+    public static ItemManagementFragment newInstance(int sectionNumber) {
+        ItemManagementFragment fragment = new ItemManagementFragment();
+        Bundle args = new Bundle();
+        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

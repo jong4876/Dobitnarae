@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -31,9 +32,12 @@ import java.util.Objects;
 import java.util.Objects;
 
 public class SpecificOrderActivity extends AppCompatActivity {
+
+    private Order item;
+    private ArrayList<Order> confirm;
+    private ArrayList<Order> nConfirm;
     DecimalFormat dc;
-    Order item;
-    //ArrayList<Clothes> basket;
+    int index;
     TextView totalPrice;
 
     private NestedScrollView mScrollView;
@@ -48,6 +52,8 @@ public class SpecificOrderActivity extends AppCompatActivity {
 
     public SpecificOrderActivity() {
         this.basket = Basket.getInstance();
+        this.nConfirm = Order.getncInstanceList();
+        this.confirm = Order.getocInstanceList();
     }
 
     @Override
@@ -68,17 +74,20 @@ public class SpecificOrderActivity extends AppCompatActivity {
             }
         });
 
-        Intent intent = getIntent();
-        item = (Order) intent.getSerializableExtra("order");
 
-        // 인텐트로 옷 리스트를 넘겨받음
-        //basket = intent.getParcelableArrayListExtra("cloth");
+        Intent intent = getIntent();
+        index = (int) intent.getIntExtra("order", 0);
+
+        this.item = Order.getncInstanceList().get(index);
 
         mListView = (ListView) findViewById(R.id.listview_specific);
 
         mAdapter = new ListViewAdapter(this);
         mListView.setAdapter(mAdapter);
 
+        if(basket.getBasket().size()==0){
+            Toast.makeText(getApplicationContext(), "장바구니가 비었습니다.", Toast.LENGTH_SHORT).show();
+        }
 
         for (BasketItem citem:basket.getBasket()) {
             mAdapter.addItem(citem);
@@ -102,14 +111,15 @@ public class SpecificOrderActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.make(v, item.getUserID() + "님의 주문이 승인되었습니다.", Snackbar.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), item.getUserID() + "님의 주문이 승인되었습니다.", Toast.LENGTH_SHORT).show();
                 item.setAcceptStatus(1); // 승인
                 btnRegister.setEnabled(false);
                 btnReject.setEnabled(false);
                 btnRegister.setBackgroundResource(R.color.darkergrey);
                 btnReject.setBackgroundResource(R.color.darkergrey);
-                // 데이터 변경됨을 반영
-                //mAdapter.dataChange();
+
+                confirm.add(item);
+                nConfirm.remove(item);
             }
         });
 
@@ -118,13 +128,15 @@ public class SpecificOrderActivity extends AppCompatActivity {
         btnReject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.make(v, item.getUserID() + "고객의 주문이 거절되었습니다.", Snackbar.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), item.getUserID() + "님의 주문이 거절되었습니다.", Toast.LENGTH_SHORT).show();
                 item.setAcceptStatus(2); // 거절
                 btnRegister.setEnabled(false);
                 btnReject.setEnabled(false);
                 btnRegister.setBackgroundResource(R.color.darkergrey);
                 btnReject.setBackgroundResource(R.color.darkergrey);
-                //mAdapter.dataChange();
+
+                confirm.add(item);
+                nConfirm.remove(item);
             }
         });
     }

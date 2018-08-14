@@ -1,7 +1,9 @@
 package com.example.dobitnarae;
 
+import android.app.FragmentTransaction;
 import android.content.res.Configuration;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -12,23 +14,21 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import java.util.List;
 import java.util.Objects;
 
-
-
-
 public class AdminActivity extends AppCompatActivity {
      private Store store;
      private ArrayList<Store> storeList = new ArrayList<Store>();
      private ArrayList<Clothes> clothesList = new ArrayList<Clothes>();
-     private ArrayList<Order> orderedDatas;
-     private List<Order> orderedDatas2;
 
+    public AdminActivity() {
 
+    }
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -38,6 +38,7 @@ public class AdminActivity extends AppCompatActivity {
      * may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
+
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
     /**
@@ -53,11 +54,9 @@ public class AdminActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
+
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-        // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
@@ -68,33 +67,14 @@ public class AdminActivity extends AppCompatActivity {
 
         // 특정 인덴트에서 store 키값을 받아와
         // 서버로 통신 하여 `가게정보, 판매중인 옷` 데이터 받아옴
-
-
         storeList = JSONTask.getStoreAll("jong4876");// JSON형태의 store정보들을 분류하여 arrayList에 저장
         store = storeList.get(0);
         clothesList = JSONTask.getClothesAll(1);
 
 
-
-        // 예약정보
-        int ITEM_SIZE = 8;
-        orderedDatas = new ArrayList<>();
-        Order[] item = new Order[ITEM_SIZE];
-        for(int i=0; i<ITEM_SIZE; i++){
-            item[i] = new Order(i,"kang123"+i, "jong123", 0, "2018-08-08");
-            orderedDatas.add(item[i]);
-        }
-
-        // 예약정보
-        int ITEM_SIZE2 = 1;
-        orderedDatas2 = new ArrayList<>();
-        Order[] item2 = new Order[ITEM_SIZE2];
-
-
-
-
+        TextView textView = (TextView) findViewById(R.id.toolbar_title);
+        textView.setText(store.getName());
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -139,11 +119,11 @@ public class AdminActivity extends AppCompatActivity {
 
             switch(position) {
                 case 0:
-                    return new StoreManagementFragment(store);
+                    return StoreManagementFragment.newInstance(0, store);
                 case 1:
-                    return new ItemManagementFragment();
+                    return ItemManagementFragment.newInstance(1);
                 case 2:
-                    return new OrderManagementFragment(orderedDatas, orderedDatas2);
+                    return OrderManagementFragment.newInstance(2);
                 default:
                     return null;
             }
@@ -155,18 +135,4 @@ public class AdminActivity extends AppCompatActivity {
             return 3;
         }
     }
-
-    // 액티비티는 새로만들어지지 않고 유지
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-
-        if(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            //Toast.makeText(this, "가로방향", Toast.LENGTH_LONG).show();
-        } else if(newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            //Toast.makeText(this, "세로방향", Toast.LENGTH_LONG).show();
-        }
-    }
-
-
 }

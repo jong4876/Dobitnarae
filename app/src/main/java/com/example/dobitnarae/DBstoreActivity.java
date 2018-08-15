@@ -25,6 +25,7 @@ public class DBstoreActivity extends AppCompatActivity {// db실험용
     TextView txtView;
     Store store;
     ArrayList<Store> storeList = new ArrayList<Store>();
+
     ArrayList<Clothes> clothesList = new ArrayList<Clothes>();
 
     @Override
@@ -39,12 +40,13 @@ public class DBstoreActivity extends AppCompatActivity {// db실험용
 
         try {
 
-            clothesList = JSONTask.getClothesAll(1);
+            //clothesList = JSONTask.getClothesAll(1);
             storeList = JSONTask.getStoreAll("jong4876");
+            storeList.get(0).setSector(3);
+            JSONTask.updateStore(storeList.get(0),"jong4876");// 2번째 생성자에 업데이트 할 클래스와 함께 전달
 
 
             StringBuffer sb = new StringBuffer();
-
             for(int i=0; i<storeList.size(); i++){
 
                 sb.append(// test용 stringbuffer

@@ -19,12 +19,20 @@ import java.util.ArrayList;
 
 public  class JSONTask extends AsyncTask<String, String, String> {
     String user_id;
-    String URL = "http://192.168.219.103:3443/";
-
+    String URL = "http://192.168.219.104:3443/";
+    Store upStore = new Store(0,"example","example","example","example","example","example",0,0.0,0.0);
+    int Uflag = 0;
 
     public JSONTask(String user_id){
         this.user_id = user_id;
-        Log.e("err",user_id);
+       // Log.e("err",user_id);
+    }
+
+    public JSONTask(Store upStore, String user_id){//store 수정을 위한 생성자, admin_id로 수정데이터 선택
+        this.upStore = upStore;
+        this.user_id = user_id;
+
+        Uflag = 1;
     }
 
 
@@ -34,15 +42,31 @@ public  class JSONTask extends AsyncTask<String, String, String> {
 
         StringBuilder jsonHtml = new StringBuilder();
         try {
+
             // 연결 url 설정
+            Log.e("err","?? "+upStore.getName());
 
             JSONObject jsonObject = new JSONObject();
             jsonObject.accumulate("user_id", user_id);
-            jsonObject.accumulate("name", "yun");// 서버로 보낼 데이터들 req.on
 
+            if(Uflag == 1) {
+
+                jsonObject.accumulate("name", upStore.getName());//update를 위해 서버로 보낼 데이터들 req.on
+                jsonObject.accumulate("admin_id", upStore.getAdmin_id());
+                jsonObject.accumulate("tel", upStore.getTel());
+                jsonObject.accumulate("intro", upStore.getIntro());
+                jsonObject.accumulate("inform", upStore.getInform());
+                jsonObject.accumulate("address", upStore.getAddress());
+                jsonObject.accumulate("sector", upStore.getSector());
+                jsonObject.accumulate("longitude", upStore.getLongitude());
+                jsonObject.accumulate("latitude", upStore.getLatitude());
+                Uflag = 0;
+            }
+
+            //jsonObject.accumulate("upStore", upStore);// 서버로 보낼 데이터들 req.on
 
             URL url = new URL(urls[0]);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();//이거문제
 
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Cache-Control", "no-cache");//캐시 설정
@@ -61,7 +85,9 @@ public  class JSONTask extends AsyncTask<String, String, String> {
             //////////서버로 데이터 전송
 
             // 연결되었으면.
+
             BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+
             for (; ; ) {
                 // 웹상에 보여지는 텍스트를 라인단위로 읽어 저장.
                 String line = br.readLine();
@@ -88,7 +114,7 @@ public  class JSONTask extends AsyncTask<String, String, String> {
 
 
         try {
-            String str = new JSONTask(user_id).execute("http://192.168.43.77:3443/store").get();
+            String str = new JSONTask(user_id).execute("http://192.168.219.104:3443/store").get();
 
             JSONArray ja = new JSONArray(str);
             // txtView.setText(str);
@@ -129,7 +155,7 @@ public  class JSONTask extends AsyncTask<String, String, String> {
         StringBuffer sb = new StringBuffer();
 
         try{
-            String str = new JSONTask("1").execute("http://192.168.43.77:3443/clothes").get();
+            String str = new JSONTask("1").execute("http://192.168.219.104:3443/clothes").get();
 
             JSONArray ja = new JSONArray(str);
             for(int i=0; i<ja.length(); i++){
@@ -159,6 +185,22 @@ public  class JSONTask extends AsyncTask<String, String, String> {
     }
 
 
+    public static void updateStore(Store upStore, String user_id){ // JSON.HTML넣어서 사용, 전송되는 user_id jong4876~~
+
+
+
+        try {
+            Log.e("err",upStore.getName()+"asd");
+         new JSONTask(upStore, user_id).execute("http://192.168.219.104:3443/updateStore");// 수정되야 할 store 클래스 전달(upStore)
+
+
+             Log.e("err","Update Success!!");
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+
+    }
 
 
 }

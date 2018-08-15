@@ -2,6 +2,7 @@ package com.example.dobitnarae;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,15 +12,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @SuppressLint("ValidFragment")
 public class StoreClothesFragment extends Fragment {
     List<Clothes> originItems, items;
     ClothesListRecyclerAdapter mAdapter;
+    ClothesCategoryListRecyclerAdapter cAdapter;
     Store store;
     /**
      * The fragment argument representing the section number for this
@@ -50,7 +54,7 @@ public class StoreClothesFragment extends Fragment {
                              Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_store_clothes_list, container, false);
 
-        final RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerview_clothes);
+        RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerview_clothes);
         LinearLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
 
         recyclerView.setHasFixedSize(true);
@@ -60,41 +64,25 @@ public class StoreClothesFragment extends Fragment {
         recyclerView.setAdapter(mAdapter);
 
         // 옷 종류 선택 메뉴
-        LinearLayout clothesCategory = (LinearLayout) rootView.findViewById(R.id.clothes_category);
+        RecyclerView recyclerViewCategory = (RecyclerView) rootView.findViewById(R.id.clothes_category);
+        LinearLayoutManager layoutManagerCategory = new LinearLayoutManager(getContext());
 
-        final String category[] = {"전체", "상의", "하의", "모자", "신발", "장신구"};
-        ImageView[] imageViews = new ImageView[Constant.category_cnt];
+        layoutManagerCategory.setOrientation(LinearLayoutManager.HORIZONTAL);
+        recyclerViewCategory.setLayoutManager(layoutManagerCategory);
 
-        for(int i = 0; i< Constant.category_cnt; i++){
-            imageViews[i] = new ImageView(getContext());
-            imageViews[i].setImageResource(R.drawable.ic_clothes_list);
-            imageViews[i].setId(i);
-            imageViews[i].setLayoutParams(new LinearLayout.LayoutParams(100, 100));
-            imageViews[i].setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int id = v.getId();
-                    items = getClothesList(id);
-                    mAdapter.setClothes(items);
-                    Toast.makeText(getContext(), category[v.getId() % Constant.category_cnt], Toast.LENGTH_SHORT).show();
-                }
-            });
-            clothesCategory.addView(imageViews[i]);
-        }
+//        LinearLayout.OnClickListener onClickListener = new CategoryOnclickListener(){
+//            @Override
+//            public void onClick(View v) {
+//                items = getClothesList((int)v.getTag());
+//                mAdapter.setClothes(items);
+//            }
+//        };
+
+        cAdapter = new ClothesCategoryListRecyclerAdapter(getContext(), originItems, mAdapter);
+        recyclerViewCategory.setAdapter(cAdapter);
+
         return rootView;
     }
 
-    public List<Clothes> getClothesList(int category){
-        List<Clothes> tmp = new ArrayList<>();
-        // 분류: 전체
-        if(category == 0)
-            return originItems;
 
-        for(int i=0; i<originItems.size(); i++){
-            Clothes item = originItems.get(i);
-            if(item.getCategory() == category)
-                tmp.add(item);
-        }
-        return tmp;
-    }
 }

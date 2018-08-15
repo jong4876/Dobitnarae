@@ -40,7 +40,7 @@ app.get('/',function(req,res){
 });
 
 
-app.post('/cloth', (req, res) => {
+app.post('/clothes', (req, res) => {
 
    var inputData;
    req.on('data', (data) => {
@@ -49,21 +49,22 @@ app.post('/cloth', (req, res) => {
 
    req.on('end', () => {
      console.log("user_id : "+inputData.user_id + " , name : "+inputData.name);
-     var str = inputData.user_id;
+     var str = inputData.user_id;//String 형
+     str *=1;//int형으로 바꾸기
 
      var accountArr = new Array();
      var sql = 'select * from cloth where store_ID = ?';
      conn.query(sql,[str],function(err,results,fields){
          for(var i=0; i<results.length;i++){
            var accountObj = {
-             cloth_ID: results[i].cloth_ID,
-             store_ID: results[i].store_ID,
-             type: results[i].type,
-             img: results[i].img,
+             cloth_id: results[i].cloth_ID,
+             store_id: results[i].store_ID,
+             category: results[i].category,
              name: results[i].name,
-             size: results[i].size,
+             intro: results[i].intro,
              price: results[i].price,
-             count: results[i].count
+             count: results[i].count,
+             sex: results[i].sex
            };
 
           console.log(accountObj);
@@ -83,17 +84,23 @@ app.post('/store', (req, res) => {
 
    req.on('end', () => {
      console.log("user_id : "+inputData.user_id + " , name : "+inputData.name);
-     var str = inputData.user_id;
+     var user_id = inputData.user_id;
 
      var accountArr = new Array();
-     var sql = 'select * from store where store_ID = ?';
-     conn.query(sql,[str],function(err,results,fields){
+     var sql = 'select * from store where admin_id = ?';
+     conn.query(sql,[user_id],function(err,results,fields){
          for(var i=0; i<results.length;i++){
            var accountObj = {
-             store_ID: results[i].store_ID,
+             id: results[i].id,
              name: results[i].name,
-             location: results[i].location,
-             explain: results[i].explain,
+             admin_id: results[i].admin_id,
+             tel: results[i].tel,
+             intro: results[i].intro,
+             inform: results[i].inform,
+             address: results[i].address,
+             sector: results[i].sector,
+             longitude: results[i].longitude,
+             latitude: results[i].latitude
            };
 
           console.log(accountObj);
@@ -104,6 +111,29 @@ app.post('/store', (req, res) => {
     });
 })
 
+app.post('/updateStore', (req, res) => {
+
+   var inputData;
+   req.on('data', (data) => {
+     inputData = JSON.parse(data);
+   });
+
+   req.on('end', () => {
+     console.log("user_id : "+inputData.user_id + " , name : "+inputData.name);
+     var user_id = inputData.user_id;
+
+
+     var accountArr = new Array();
+     var sql = "UPDATE store SET name = ?, tel = ?, intro = ?, inform = ?, sector = ?, address = ?, latitude = ? , longitude = ? WHERE admin_id = ?";
+     conn.query(sql,[inputData.name, inputData.tel, inputData.intro, inputData.inform,inputData.sector, inputData.address, inputData.latitude, inputData.longitude, inputData.user_id],function(err,results,fields){
+          if(err){
+            console.log("update Fail ㅠㅠ")
+          }
+          else
+            console.log("update Success!");
+       })
+    });
+})
 
 
 

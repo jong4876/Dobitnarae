@@ -22,9 +22,11 @@
             <ImageView
                 android:id="@+id/imageView_store"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
                 android:adjustViewBounds="true"
-                android:src="@drawable/sejong" />
+                android:maxHeight="200dp"
+                android:maxWidth="200dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"

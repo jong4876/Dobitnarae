@@ -1,6 +1,7 @@
 package com.example.dobitnarae;
 
 import java.io.Serializable;
+import java.sql.Time;
 
 public class Store implements Serializable{
     private int id;
@@ -13,6 +14,9 @@ public class Store implements Serializable{
     private int sector;
     private double longitude;
     private double latitude;
+    private Time start_time;
+    private Time end_time;
+
 
     public Store(int id, String name, String admin_id, String tel, String intro, String inform,
                  String address, int sector, double latitude, double longitude){
@@ -26,7 +30,8 @@ public class Store implements Serializable{
         this.sector = sector;
         this.longitude = longitude;
         this.latitude = latitude;
-
+        this.start_time = start_time;
+        this.end_time = end_time;
     }
 
     public int getId() {
@@ -60,6 +65,15 @@ public class Store implements Serializable{
     public double getLatitude(){
         return latitude;
     }
+    public Time getStart_time(){
+        return start_time;
+    }
+    public Time getEnd_time(){
+        return end_time;
+    }
+
+
+
 
 
     public void setId(int id) {
@@ -92,5 +106,11 @@ public class Store implements Serializable{
     }
     public void setLatitude(double latitude){
         this.latitude = latitude;
+    }
+    public void setStart_time(Time start_time){
+        this.start_time = start_time;
+    }
+    public void setEnd_time(Time end_time){
+        this.end_time = end_time;
     }
 }

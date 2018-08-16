@@ -1,6 +1,8 @@
 package com.example.dobitnarae;
 
 import android.app.FragmentTransaction;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentActivity;
@@ -28,6 +30,7 @@ public class AdminActivity extends AppCompatActivity {
      private ArrayList<Store> storeList = new ArrayList<Store>();
      private ArrayList<Clothes> clothesList = new ArrayList<Clothes>();
      private ImageButton imageButton;
+     private StoreManagementFragment storeManagementFragment;
     public AdminActivity() {
 
     }
@@ -51,6 +54,7 @@ public class AdminActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
         setContentView(R.layout.activity_admin);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar_edit);
@@ -87,6 +91,14 @@ public class AdminActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        if(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE)
+            newConfig.orientation = Configuration.ORIENTATION_PORTRAIT;
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         //getMenuInflater().inflate(R.menu.menu_example_swipe_menu, menu);
@@ -113,9 +125,13 @@ public class AdminActivity extends AppCompatActivity {
      * one of the sections/tabs/pages.
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
+        private FragmentManager mFragmentManager;
+        private Fragment mFragmentAtPos0;
+        private android.support.v4.app.FragmentTransaction fragmentTransaction;
 
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
+            mFragmentManager = fm;
         }
 
         @Override
@@ -128,14 +144,17 @@ public class AdminActivity extends AppCompatActivity {
             // 아마 클래스 타입은 무조건 PlaceholderFragment 여야 할꺼같아요
 
             switch(position) {
+
                 case 0:
-                    return StoreManagementFragment.newInstance(0, store);
+                    storeManagementFragment = StoreManagementFragment.newInstance(0, store);
+                    return storeManagementFragment;
                 case 1:
                     return ItemManagementFragment.newInstance(1, clothesList, store);
                 case 2:
                     return OrderManagementFragment.newInstance(2);
                 default:
                     return null;
+
             }
         }
 
@@ -146,7 +165,20 @@ public class AdminActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (storeManagementFragment != null)
+            ((StoreManagementFragment) storeManagementFragment).onActivityResult(requestCode, resultCode, data);
+
+    }
+
     public ImageButton getImageButton(){
         return imageButton;
+    }
+
+    public interface FirstPageFragmentListener {
+        void onSwitchToNextFragment();
     }
 }

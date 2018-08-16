@@ -141,13 +141,22 @@ public class NotConfirmedOrderFragment extends Fragment {
 
         public void addItem(Order item){
             OrderInfoData addInfo = null;
+
+            int sum = 0;
+            for(int i = 0; i < basket.getBasket().size(); i++){
+                sum += basket.getBasket().get(i).getCnt() ;
+            }
+            sum -= 1;
+
             addInfo = new OrderInfoData();
             addInfo.setOrderNo(String.valueOf(item.getOrderNo()));
             // 고객 아이디가 아닌 고객 이름을 보여지게 해야함
             addInfo.setOrderName(item.getUserID());
             // 고객 주문데이터로 수정필요
-            if(basket.getBasket().size()!=0)
-                addInfo.setOrderBasket(basket.getBasket().get(0).getClothes().getName() + "등" + basket.getBasket().size() + "벌");
+            if(basket.getBasket().size()!=0 && sum != 0)
+                addInfo.setOrderBasket(basket.getBasket().get(0).getClothes().getName() + " 외 " + sum + "벌");
+            else if(sum==0)
+                addInfo.setOrderBasket(basket.getBasket().get(0).getClothes().getName() + " 1벌");
             else
                 addInfo.setOrderBasket("비어있음");
             addInfo.setOrderDate(item.getOrderDate());

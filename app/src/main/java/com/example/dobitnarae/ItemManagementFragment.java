@@ -1,10 +1,14 @@
 package com.example.dobitnarae;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
@@ -13,117 +17,92 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
+@SuppressLint("ValidFragment")
 public class ItemManagementFragment extends Fragment {
-    private EditText editText;
-    private ArrayList<String> items;
-    private ArrayAdapter<String> listViewAdapter;
-    private ListView listView;
+    ArrayList<Clothes> originItems, items;
+    ItemListRecyclerAdapter mAdapter;
+    Store store;
 
-    public ItemManagementFragment(){}
+    private ImageButton btn_edit;
+
+    public ItemManagementFragment(ArrayList<Clothes> items, Store store) {
+        this.originItems = items;
+        this.items = items;
+        this.store = store;
+    }
 
     private static final String ARG_SECTION_NUMBER = "section_number";
-    public static ItemManagementFragment newInstance(int sectionNumber) {
-        ItemManagementFragment fragment = new ItemManagementFragment();
+    public static ItemManagementFragment newInstance(int sectionNumber, ArrayList<Clothes> items, Store store) {
+        ItemManagementFragment fragment = new ItemManagementFragment(items, store);
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);
         return fragment;
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_management_item, container, false);
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_store, container, false);
 
-        //String[] list_menu = {"상의", "하의", "신발"};
-        items = new ArrayList<String>();
-        items.add("상의");
-        items.add("하의");
-        items.add("신발");
+        final RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerview_clothes);
+        LinearLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
 
-        // 어댑터 설정
-        listView = (ListView) rootView.findViewById(R.id.itemList);
-        /*
-        // 어댑터 생성 - 단일선택
-        listViewAdapter = new ArrayAdapter<String>(
-                getActivity(), android.R.layout.simple_list_item_single_choice, items);
-        */
-        // 어댑터 생성 - 다수선택
-        listViewAdapter = new ArrayAdapter<String>(
-                getActivity(), android.R.layout.simple_list_item_multiple_choice, items);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(layoutManager);
+        //옷추가
+        mAdapter = new ItemListRecyclerAdapter(getContext(), items, store, R.layout.fragment_store);
+        recyclerView.setAdapter(mAdapter);
 
-        // 어댑터 반영
-        listView.setAdapter(listViewAdapter);
-        /*
-        // 단일선택
-        listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-        */
-        // 여러항목 선택 할 수 있도록 설정
-        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        // 옷 종류 선택 메뉴
+        LinearLayout clothesCategory = (LinearLayout) rootView.findViewById(R.id.clothes_category);
 
+        final String category[] = {"전체", "상의", "하의", "모자", "신발", "장신구"};
+        ImageView[] imageViews = new ImageView[Constant.category_cnt];
 
-        editText = (EditText) rootView.findViewById(R.id.editText);
-
-        Button button1 = (Button) rootView.findViewById(R.id.registerBtn);
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String text = editText.getText().toString();
-                if(!text.isEmpty()){
-                    items.add(text);
-                    editText.setText("");
-                    // 리스트 목록 갱신
-                    listViewAdapter.notifyDataSetChanged();
-                    Snackbar.make(v, text + "가 추가되었습니다", Snackbar.LENGTH_LONG).show();
+        for(int i = 0; i< Constant.category_cnt; i++) {
+            imageViews[i] = new ImageView(getContext());
+            imageViews[i].setImageResource(R.drawable.ic_clothes_list);
+            imageViews[i].setId(i);
+            imageViews[i].setLayoutParams(new LinearLayout.LayoutParams(100, 100));
+            imageViews[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int id = v.getId();
+                    items = getClothesList(id);
+                    mAdapter.setClothes(items);
                 }
-            }
-        });
+            });
+            clothesCategory.addView(imageViews[i]);
+        }
 
-        Button button2 = (Button) rootView.findViewById(R.id.deleteBtn);
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                /*
-                // 단일 선택시
-                int pos = listView.getCheckedItemPosition();
-                if(pos != ListView.INVALID_POSITION) {
-                    items.remove(pos);
-                    listView.clearChoices();
-                    // 어댑터와 연결된 원본데이터의 값이 변경됨을 알려 리스트뷰 목록 갱신
-                    listViewAdapter.notifyDataSetChanged();
-                    Snackbar.make(v, "삭제되었습니다", Snackbar.LENGTH_LONG).show();
-                }
-                */
-                int cnt=0;
-                SparseBooleanArray sbArray = listView.getCheckedItemPositions();
-                // 선택된 아이템의 위치를 알려주는 배열 ex) {0=true, 3=true, 4=false}
-                Log.d("ItemManagementFragment", sbArray.toString());
-
-                if(sbArray.size() !=0) {
-                    // 목록의 역순으로 순회하면서 항목 제거
-                    for(int i = listView.getCount() -1; i>=0; i--) {
-                        if(sbArray.get(i)) {
-                            items.remove(i);
-                            cnt++;
-                        }
-                    }
-                    listView.clearChoices();
-                    listViewAdapter.notifyDataSetChanged();
-                    Snackbar.make(v, cnt + "개 항목이 삭제되었습니다", Snackbar.LENGTH_LONG).show();
-                    cnt=0;
-                }
-            }
-        });
+        // 부모액티비티 툴바 요소인 이미지 버튼에 접근
+        btn_edit = ((AdminActivity)getActivity()).getImageButton();
+        btn_edit.setVisibility(View.VISIBLE);
 
         return rootView;
+    }
+
+    public ArrayList<Clothes> getClothesList(int category){
+        ArrayList<Clothes> tmp = new ArrayList<>();
+        // 분류: 전체
+        if(category == 0)
+            return originItems;
+
+        for(int i=0; i<originItems.size(); i++){
+            Clothes item = originItems.get(i);
+            if(item.getCategory() == category)
+                tmp.add(item);
+        }
+        return tmp;
     }
 }

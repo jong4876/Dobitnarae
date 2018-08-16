@@ -16,7 +16,7 @@ public class Store implements Serializable{
 
     public Store(int id, String name, String admin_id, String tel, String intro, String inform,
                  String address, int sector, double latitude, double longitude){
-            this.id=id;
+        this.id=id;
         this.name = name;
         this.admin_id= admin_id;
         this.address = address;
@@ -59,5 +59,38 @@ public class Store implements Serializable{
     }
     public double getLatitude(){
         return latitude;
+    }
+
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    public void setAdmin_id(String admin_id) {
+        this.admin_id = admin_id;
+    }
+    public void setAddress(String address) {
+        this.address = address;
+    }
+    public void setTel(String tel){
+        this.tel = tel;
+    }
+    public void setIntro(String intro) {
+        this.intro = intro;
+    }
+    public void setInform(String inform) {
+        this.inform = inform;
+    }
+    public void setSector(int sector){
+        this.sector = sector;
+    }
+    public void setLongitude(double longitude){
+        this.longitude = longitude;
+    }
+    public void setLatitude(double latitude){
+        this.latitude = latitude;
     }
 }

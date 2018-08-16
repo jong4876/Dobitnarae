@@ -16,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,8 @@ public class OrderManagementFragment extends Fragment {
      private ArrayList<Order> orderedDatas2;
      private ArrayList<Order> orderedDatas3;
      private Basket basket;
+
+     private ImageButton btn_edit;
 
     public OrderManagementFragment() {
         this.basket = Basket.getInstance();
@@ -73,6 +76,10 @@ public class OrderManagementFragment extends Fragment {
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+
+        // 부모액티비티 툴바 요소인 이미지 버튼에 접근
+        btn_edit = ((AdminActivity)getActivity()).getImageButton();
+        btn_edit.setVisibility(View.GONE);
 
         return rootView;
     }

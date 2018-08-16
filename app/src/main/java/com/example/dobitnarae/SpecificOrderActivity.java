@@ -139,6 +139,12 @@ public class SpecificOrderActivity extends AppCompatActivity {
                 nConfirm.remove(item);
             }
         });
+
+        // 이미 승인된 목록에 대해서 승인, 거절버튼을 안보이게함
+        if(item.getAcceptStatus()!=0){
+            LinearLayout linearLayout = (LinearLayout) findViewById(R.id.layout_confirmornot);
+            linearLayout.setVisibility(View.GONE);
+        }
     }
 
     public void setTotalPrice(List<BasketItem> citems){

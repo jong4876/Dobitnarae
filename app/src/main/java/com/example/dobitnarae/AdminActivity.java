@@ -14,6 +14,8 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -25,7 +27,7 @@ public class AdminActivity extends AppCompatActivity {
      private Store store;
      private ArrayList<Store> storeList = new ArrayList<Store>();
      private ArrayList<Clothes> clothesList = new ArrayList<Clothes>();
-
+     private ImageButton imageButton;
     public AdminActivity() {
 
     }
@@ -51,9 +53,16 @@ public class AdminActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar_edit);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
+
+        ImageButton backButton = (ImageButton) findViewById(R.id.backButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
@@ -71,9 +80,10 @@ public class AdminActivity extends AppCompatActivity {
         store = storeList.get(0);
         clothesList = JSONTask.getClothesAll(1);
 
-
         TextView textView = (TextView) findViewById(R.id.toolbar_title);
         textView.setText(store.getName());
+
+        imageButton = findViewById(R.id.editButton);
     }
 
     @Override
@@ -121,7 +131,7 @@ public class AdminActivity extends AppCompatActivity {
                 case 0:
                     return StoreManagementFragment.newInstance(0, store);
                 case 1:
-                    return ItemManagementFragment.newInstance(1);
+                    return ItemManagementFragment.newInstance(1, clothesList, store);
                 case 2:
                     return OrderManagementFragment.newInstance(2);
                 default:
@@ -134,5 +144,9 @@ public class AdminActivity extends AppCompatActivity {
             // 탭 개수
             return 3;
         }
+    }
+
+    public ImageButton getImageButton(){
+        return imageButton;
     }
 }

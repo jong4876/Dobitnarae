@@ -2,33 +2,28 @@ package com.example.dobitnarae;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 @SuppressLint("ValidFragment")
 public class StoreManagementFragment extends Fragment {
     private Store store;
-    private Button btn_edit;
-    private Button btn_register;
+    private ImageButton btn_edit;
     private EditText edit_name;
     private EditText edit_admin_id;
     private EditText edit_tel;
@@ -36,6 +31,10 @@ public class StoreManagementFragment extends Fragment {
     private EditText edit_info;
     private EditText edit_address;
     private EditText edit_sector;
+
+    private ImageView imageView_store;
+
+    private ArrayList<EditText> editTextArrayList;
 
     private InputMethodManager imm; //전역변수
 
@@ -55,105 +54,49 @@ public class StoreManagementFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_store_admin, container, false);
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_management_store, container, false);
 
         imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE); //onCreate 이후,,
 
-        edit_name = (EditText)rootView.findViewById(R.id.edit_name);
-        edit_name.setText(store.getName());
-        edit_admin_id = (EditText)rootView.findViewById(R.id.edit_admin_id);
-        edit_admin_id.setText(store.getAdmin_id());
-        edit_tel = (EditText)rootView.findViewById(R.id.edit_tel);
-        edit_tel.setText(store.getTel());
-        edit_intro = (EditText)rootView.findViewById(R.id.edit_intro);
-        edit_intro.setText(store.getIntro());
-        edit_info = (EditText)rootView.findViewById(R.id.edit_info);
-        edit_info.setText(store.getInform());
-        edit_address = (EditText)rootView.findViewById(R.id.edit_address);
-        edit_address.setText(store.getAddress());
-        edit_sector = (EditText)rootView.findViewById(R.id.edit_sector);
-        edit_sector.setText(""+store.getSector());
+        editTextArrayList = new ArrayList<EditText>();
 
-        btn_edit = (Button) rootView.findViewById(R.id.btn_edit);
+        imageView_store = (ImageView) rootView.findViewById(R.id.imageView_store);
+        edit_name = (EditText)rootView.findViewById(R.id.edit_name);
+        edit_admin_id = (EditText)rootView.findViewById(R.id.edit_admin_id);
+        edit_tel = (EditText)rootView.findViewById(R.id.edit_tel);
+        edit_intro = (EditText)rootView.findViewById(R.id.edit_intro);
+        edit_info = (EditText)rootView.findViewById(R.id.edit_info);
+        edit_address = (EditText)rootView.findViewById(R.id.edit_address);
+        edit_sector = (EditText)rootView.findViewById(R.id.edit_sector);
+
+        setEditText(store);
+
+        editTextArrayList.add(edit_name);
+        editTextArrayList.add(edit_admin_id);
+        editTextArrayList.add(edit_tel);
+        editTextArrayList.add(edit_intro);
+        editTextArrayList.add(edit_info);
+        editTextArrayList.add(edit_address);
+        editTextArrayList.add(edit_sector);
+
+        for (final EditText item:editTextArrayList) {
+            item.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    item.setFocusableInTouchMode(true);
+                    item.setFocusable(true);
+                    showKeyboard(item);
+                }
+            });
+        }
+
+        // 부모액티비티 툴바 요소인 이미지 버튼에 접근
+        btn_edit = ((AdminActivity)getActivity()).getImageButton();
+        btn_edit.setVisibility(View.VISIBLE);
         btn_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btn_register.setVisibility(View.VISIBLE);
-                btn_edit.setVisibility(View.GONE);
-
-                edit_name.setFocusableInTouchMode(true);
-                edit_admin_id.setFocusableInTouchMode(true);
-                edit_tel.setFocusableInTouchMode(true);
-                edit_intro.setFocusableInTouchMode(true);
-                edit_info.setFocusableInTouchMode(true);
-                edit_address.setFocusableInTouchMode(true);
-                edit_sector.setFocusableInTouchMode(true);
-
-                edit_name.setClickable(true);
-                edit_admin_id.setClickable(true);
-                edit_tel.setClickable(true);
-                edit_intro.setClickable(true);
-                edit_info.setClickable(true);
-                edit_address.setClickable(true);
-                edit_sector.setClickable(true);
-
-                edit_name.setFocusable(true);
-                edit_admin_id.setFocusable(true);
-                edit_tel.setFocusable(true);
-                edit_intro.setFocusable(true);
-                edit_info.setFocusable(true);
-                edit_address.setFocusable(true);
-                edit_sector.setFocusable(true);
-
-                showKeyboard(edit_name);
-                showKeyboard(edit_address);
-                showKeyboard(edit_tel);
-                showKeyboard(edit_intro);
-                showKeyboard(edit_info);
-                showKeyboard(edit_address);
-                showKeyboard(edit_sector);
-            }
-        });
-
-        btn_register = (Button) rootView.findViewById(R.id.btn_register);
-        btn_register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                btn_edit.setVisibility(View.VISIBLE);
-                btn_register.setVisibility(View.GONE);
-
-                edit_name.setFocusableInTouchMode(false);
-                edit_admin_id.setFocusableInTouchMode(false);
-                edit_tel.setFocusableInTouchMode(false);
-                edit_intro.setFocusableInTouchMode(false);
-                edit_info.setFocusableInTouchMode(false);
-                edit_address.setFocusableInTouchMode(false);
-                edit_sector.setFocusableInTouchMode(false);
-
-
-                edit_name.setClickable(false);
-                edit_admin_id.setClickable(false);
-                edit_tel.setClickable(false);
-                edit_intro.setClickable(false);
-                edit_info.setClickable(false);
-                edit_address.setClickable(false);
-                edit_sector.setClickable(false);
-
-                edit_name.setFocusable(false);
-                edit_admin_id.setFocusable(false);
-                edit_tel.setFocusable(false);
-                edit_intro.setFocusable(false);
-                edit_info.setFocusable(false);
-                edit_address.setFocusable(false);
-                edit_sector.setFocusable(false);
-
-                hideKeyboard(edit_name);
-                hideKeyboard(edit_admin_id);
-                hideKeyboard(edit_tel);
-                hideKeyboard(edit_intro);
-                hideKeyboard(edit_info);
-                hideKeyboard(edit_address);
-                hideKeyboard(edit_sector);
+                showAlert(getContext(), store);
             }
         });
 
@@ -166,5 +109,43 @@ public class StoreManagementFragment extends Fragment {
 
     private void hideKeyboard(EditText editText) {
         imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+    }
+
+    private void showAlert(Context context, final Store store){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage("매장정보를 수정하시겠습니까?");
+        builder.setPositiveButton("예",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // 여기에 update 메소드
+                        setEditText(store);
+                        for (EditText item:editTextArrayList) {
+                            item.setFocusableInTouchMode(false);
+                            item.setFocusable(false);
+                            hideKeyboard(item);
+                        }
+                    }
+                });
+        builder.setNegativeButton("아니오",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // 이전 데이터로 다시 셋
+                        setEditText(store);
+                        Toast.makeText(getContext(), "취소되었습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+        builder.show();
+    }
+
+    private void setEditText(Store store){
+        edit_name.setText(store.getName());
+        edit_admin_id.setText(store.getAdmin_id());
+        edit_tel.setText(store.getTel());
+        edit_intro.setText(store.getIntro());
+        edit_info.setText(store.getInform());
+        edit_address.setText(store.getAddress());
+        edit_sector.setText(""+store.getSector());
     }
 }

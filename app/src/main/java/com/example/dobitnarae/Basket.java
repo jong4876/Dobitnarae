@@ -101,4 +101,18 @@ public class Basket {
                 });
         builder.show();
     }
+
+    public void deleteClothes(int position)
+    {
+        basket.remove(position);
+    }
+
+    public int getTotalPrice()
+    {
+        int price = 0;
+        for(BasketItem b : basket){
+            price += b.getClothes().getPrice() * b.getCnt();
+        }
+        return price;
+    }
 }

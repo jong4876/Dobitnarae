@@ -21,8 +21,8 @@
         <activity
             android:name=".AdminActivity"
             android:label="@string/title_activity_example_swipe_menu"
-            android:theme="@style/AppTheme"/>
-        <activity android:name=".SpecificOrderActivity"/>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".SpecificOrderActivity" />
         <activity
             android:name=".StoreActivity"
             android:label="@string/title_activity_store"
@@ -30,7 +30,8 @@
         <activity android:name=".DBstoreActivity" />
         <activity android:name=".ClothesReservationActivity" />
         <activity android:name=".MainActivityTmp" />
-        <activity android:name=".StoreListActivity"/>
+        <activity android:name=".StoreListActivity" />
+        <activity android:name=".BasketActivity"></activity>
     </application>
 
 </manifest>

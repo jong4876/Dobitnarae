@@ -77,6 +77,8 @@ public class StoreActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "장바구니", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(StoreActivity.this, BasketActivity.class);
+                startActivity(intent);
             }
         });
 

@@ -2,10 +2,8 @@ package com.example.dobitnarae;
 
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -17,18 +15,34 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public  class JSONTask extends AsyncTask<String, String, String> {
+public  class JSONTaskTmp extends AsyncTask<String, String, String> {
     String user_id;
     String URL = "http://192.168.219.104:3443/";
     Store upStore = new Store(0,"example","example","example","example","example","example",0,0.0,0.0);
-    int Uflag = 0;
+    ArrayList<Store> storeList;
 
-    public JSONTask(String user_id){
-        this.user_id = user_id;
-       // Log.e("err",user_id);
+    int Uflag = 0;
+    private JSONTaskTmp jsonTaskTmp;
+
+    private JSONTaskTmp(){
     }
 
-    public JSONTask(Store upStore, String user_id){//store 수정을 위한 생성자, admin_id로 수정데이터 선택
+    private static class Singleton{
+        private static final JSONTaskTmp instance = new JSONTaskTmp();
+    }
+
+    public static JSONTaskTmp getInstance(){
+        return Singleton.instance;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
+    }
+    public void setUpStore(Store upStore){
+        this.upStore = upStore;
+    }
+
+    public JSONTaskTmp(Store upStore, String user_id){//store 수정을 위한 생성자, admin_id로 수정데이터 선택
         this.upStore = upStore;
         this.user_id = user_id;
 
@@ -107,14 +121,18 @@ public  class JSONTask extends AsyncTask<String, String, String> {
         return jsonHtml.toString();
 
     }
-
-    public static ArrayList<Store> getStoreAll(String user_id){ // JSON.HTML넣어서 사용, 전송되는 user_id jong4876~~
+    public  ArrayList<Store> getStoreAll(String user_id){ // JSON.HTML넣어서 사용, 전송되는 user_id jong4876~~
         ArrayList<Store> storeList = new ArrayList<Store>();
         Store store;
 
 
         try {
-            String str = new JSONTask(user_id).execute("http://13.209.89.187:3443/store").get();
+            JSONTaskTmp JT = new JSONTaskTmp();
+            JT.setUser_id(user_id);
+            String str = JT.execute("http://13.209.89.187:3443/store").get();
+
+
+
 
             JSONArray ja = new JSONArray(str);
             // txtView.setText(str);
@@ -148,54 +166,16 @@ public  class JSONTask extends AsyncTask<String, String, String> {
         return storeList;
     }
 
-
-    public static ArrayList<Clothes> getClothesAll(int user_id){ // JSON.HTML넣어서 사용, user_id값은 1,2,3,4,~~~~
-        ArrayList<Clothes> clothesList = new ArrayList<Clothes>();
-        Clothes clothes;
-
-        StringBuffer sb = new StringBuffer();
-
-        try{
-            String str = new JSONTask("1").execute("http://13.209.89.187:3443/clothes").get();
-
-            JSONArray ja = new JSONArray(str);
-            for(int i=0; i<ja.length(); i++){
-                JSONObject jo = ja.getJSONObject(i);
-                int cloth_id = jo.getInt("cloth_id");
-                int store_id = jo.getInt("store_id");
-                int category = jo.getInt("category");
-                String name= jo.getString("name");
-                String intro = jo.getString("intro");
-                int price = jo.getInt("price");
-                int count = jo.getInt("count");
-                int sex = jo.getInt("sex");
-
-
-                clothes = new Clothes(cloth_id,store_id,category, name,intro, price, count, sex);
-                clothesList.add(clothes);//accountList 차례대로 삽입
-
-            }
-
-
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-
-
-        return clothesList;
-    }
-
-
-    public static void updateStore(Store upStore, String user_id){ // JSON.HTML넣어서 사용, 전송되는 user_id jong4876~~
-
-
-
+    public void updateStore(Store upStore, String user_id){ // JSON.HTML넣어서 사용, 전송되는 user_id jong4876~~
         try {
-            Log.e("err",upStore.getName()+"asd");
-         new JSONTask(upStore, user_id).execute("http://13.209.89.187:3443/updateStore");// 수정되야 할 store 클래스 전달(upStore)
+            JSONTaskTmp JT = new JSONTaskTmp();
+            JT.setUpStore(upStore);
+            JT.setUser_id(user_id);
+            JT.execute("http://13.209.89.187:3443/updateStore");
+            Log.e("err","where are you");
 
 
-             Log.e("err","Update Success!!");
+
         }catch(Exception e){
             e.printStackTrace();
         }

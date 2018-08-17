@@ -41,9 +41,16 @@ public class DBstoreActivity extends AppCompatActivity {// db실험용
         try {
 
             //clothesList = JSONTask.getClothesAll(1);
+            /*
             storeList = JSONTask.getStoreAll("jong4876");
             storeList.get(0).setSector(3);
             JSONTask.updateStore(storeList.get(0),"jong4876");// 2번째 생성자에 업데이트 할 클래스와 함께 전달
+            */  // update
+            storeList = JSONTaskTmp.getInstance().getStoreAll("jong4876");
+            storeList.get(0).setSector(10);
+            JSONTaskTmp.getInstance().updateStore(storeList.get(0),"jong4876");
+
+
 
 
             StringBuffer sb = new StringBuffer();

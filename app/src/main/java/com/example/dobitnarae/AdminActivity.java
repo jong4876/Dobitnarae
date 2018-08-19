@@ -72,7 +72,7 @@ public class AdminActivity extends AppCompatActivity {
 
         storeList = JSONTask.getInstance().getStoreAll("jong4876");
         store = storeList.get(0);
-        clothesList = JSONTask.getInstance().getClothesAll("1");
+        clothesList = JSONTask.getInstance().getClothesAll("jong4876");
 
 
 

@@ -96,7 +96,7 @@ public class StoreActivity extends AppCompatActivity {
 
         storeList = JSONTask.getInstance().getStoreAll("jong4876");
         store = storeList.get(0);
-        items =  JSONTask.getInstance().getClothesAll("1");// JSON형태의 store정보들을 분류하여 arrayList에 저장
+        items =  JSONTask.getInstance().getClothesAll("jong4876");// JSON형태의 store정보들을 분류하여 arrayList에 저장
 
 
     }

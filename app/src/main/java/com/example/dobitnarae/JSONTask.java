@@ -19,10 +19,12 @@ public  class JSONTask extends AsyncTask<String, String, String> {
     String user_id;
     String store_id;
     String URL = "http://192.168.219.104:3443/";
+    String delClothName;
     Store upStore = new Store(0,"example","example","example","example","example","example",0,0.0,0.0);
+    Clothes inCloth = new Clothes(0,0,0,"example","example",0,0,0);
     ArrayList<Store> storeList;
 
-    int Uflag = 0;
+    int flag = 0;
     private JSONTask jsonTaskTmp;
 
     private JSONTask(){
@@ -44,7 +46,14 @@ public  class JSONTask extends AsyncTask<String, String, String> {
     }
     public void setUpStore(Store upStore){
         this.upStore = upStore;
-        Uflag = 1;
+        flag = 1;
+    }
+    public void setInCloth(Clothes inCloth){
+        this.inCloth = inCloth;
+        flag = 2;
+    }
+    public void setDelClothName(String delClothName){// 삭제를 위한 셋함수(매개변수 옷이름)
+        user_id = delClothName;
     }
 
 
@@ -56,12 +65,10 @@ public  class JSONTask extends AsyncTask<String, String, String> {
         try {
 
             // 연결 url 설정
-            Log.e("err","?? "+upStore.getName());
-
             JSONObject jsonObject = new JSONObject();
             jsonObject.accumulate("user_id", user_id);
 
-            if(Uflag == 1) {
+            if(flag == 1) {//updateStore를 위한 서버에 데이터 전송
 
                 jsonObject.accumulate("name", upStore.getName());//update를 위해 서버로 보낼 데이터들 req.on
                 jsonObject.accumulate("admin_id", upStore.getAdmin_id());
@@ -72,10 +79,24 @@ public  class JSONTask extends AsyncTask<String, String, String> {
                 jsonObject.accumulate("sector", upStore.getSector());
                 jsonObject.accumulate("longitude", upStore.getLongitude());
                 jsonObject.accumulate("latitude", upStore.getLatitude());
-                Uflag = 0;
+                flag = 0;
             }
 
-            //jsonObject.accumulate("upStore", upStore);// 서버로 보낼 데이터들 req.on
+            if(flag == 2) {//insertCloth
+                Log.e("err",inCloth.getName());
+               // jsonObject.accumulate("cloth_ID", inCloth.getCloth_id());//insert를 위해 서버로 보낼 데이터들 req.on
+                jsonObject.accumulate("store_ID", inCloth.getStore_id());
+                jsonObject.accumulate("category", inCloth.getCategory());
+                jsonObject.accumulate("name", inCloth.getName());
+                jsonObject.accumulate("intro", inCloth.getIntro());
+                jsonObject.accumulate("price", inCloth.getPrice());
+                jsonObject.accumulate("count", inCloth.getCount());
+                jsonObject.accumulate("sex", inCloth.getSex());
+                flag = 0;
+            }
+
+
+
 
             URL url = new URL(urls[0]);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();//이거문제
@@ -150,28 +171,42 @@ public  class JSONTask extends AsyncTask<String, String, String> {
 
                 store = new Store(id, name, admin_id,tel,intro, inform, address, sector, latitude, longitude);
                 storeList.add(store);//accountList 차례대로 삽입
-
-
-
             }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return storeList;
+    }
+    public int chageStoreID(String user_id){ // "jong4876" 값을 -> 1로
+        int id = -1;
 
+        try{
+            JSONTask JT = new JSONTask();
+            JT.setUser_id(user_id);
+            String str = JT.execute("http://192.168.219.104:3443/changeID").get();
+            Log.e("err",str);
+            JSONArray ja = new JSONArray(str);
+            for(int i=0; i<ja.length(); i++){
+                JSONObject jo = ja.getJSONObject(i);
+                id = jo.getInt("id");
+                Log.e("err",""+id);
+            }
 
         }catch(Exception e){
             e.printStackTrace();
         }
-
-
-        return storeList;
+        return id;
     }
 
-    public ArrayList<Clothes> getClothesAll(String store_id){ // JSON.HTML넣어서 사용, user_id값은 1,2,3,4,~~~~
+    public ArrayList<Clothes> getClothesAll(String user_id){ // 아이디에 해당하는 매장의 옷 검색
         ArrayList<Clothes> clothesList = new ArrayList<Clothes>();
         Clothes clothes;
 
         try{
+            int id = JSONTask.getInstance().chageStoreID(user_id);// store클래스의 id값으로 변환 1,2,3,4~~
             JSONTask JT = new JSONTask();
-            JT.setStore_id(store_id);
-            String str = JT.execute("http://13.209.89.187:3443/clothes").get();
+            JT.setUser_id(id+"");
+            String str = JT.execute("http://192.168.219.104:3443/clothes").get();
 
             JSONArray ja = new JSONArray(str);
             for(int i=0; i<ja.length(); i++){
@@ -201,7 +236,7 @@ public  class JSONTask extends AsyncTask<String, String, String> {
     }
 
 
-    public void updateStore(Store upStore, String user_id){ // JSON.HTML넣어서 사용, 전송되는 user_id jong4876~~
+    public void updateStore(Store upStore, String user_id){ //바꿀 값이 들어 있는 store 클래스와, 바꿀 store의 아이디 전달
         try {
             JSONTask JT = new JSONTask();
             JT.setUpStore(upStore);
@@ -218,5 +253,39 @@ public  class JSONTask extends AsyncTask<String, String, String> {
 
     }
 
+
+    public void insertCloth(Clothes inCloth, String user_id){ // user_id에 해당하는 매장에 옷 추가(관리자)
+        try {
+            int id = JSONTask.getInstance().chageStoreID(user_id);
+            JSONTask JT = new JSONTask();
+            JT.setInCloth(inCloth);
+            JT.setUser_id(id+"");
+            JT.execute("http://192.168.219.104:3443/insertCloth");// URL변경필수
+            Log.e("err","cloth삽입 성공!!");
+
+
+
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+
+    }
+    public void deleteCloth(String delClothName){ // user_id에 해당하는 매장에 옷 추가(관리자)
+        try {
+
+            JSONTask JT = new JSONTask();
+            JT.setDelClothName(delClothName);
+            JT.execute("http://192.168.219.104:3443/deleteCloth");// URL변경필수
+            Log.e("err","clotht삭제 성공");
+
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+
+    }
 
 }

@@ -24,9 +24,10 @@ public class DBstoreActivity extends AppCompatActivity {// db실험용
 
     TextView txtView;
     Store store;
+    Clothes inCloth;
     ArrayList<Store> storeList = new ArrayList<Store>();
-
     ArrayList<Clothes> clothesList = new ArrayList<Clothes>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,26 +35,46 @@ public class DBstoreActivity extends AppCompatActivity {// db실험용
         setContentView(R.layout.activity_dbstore);
         String results;
         Intent intent = getIntent();
-        //user_id = intent.getExtras().getString("ID");
-        //Toast.makeText(getApplicationContext(), user_id + "님 안녕하세요!", Toast.LENGTH_LONG).show();
+
         txtView = (TextView) findViewById(R.id.txtView);
 
         try {
 
-            //clothesList = JSONTask.getClothesAll(1);
+            clothesList = JSONTask.getInstance().getClothesAll("kang123");// kang123 매장의 옷들 검색
+
+
+
+
+           // JSONTask.getInstance().deleteCloth("만신홍 모자충");
+            //옷삭제 예시
+
+
+
             /*
-            storeList = JSONTask.getStoreAll("jong4876");
-            storeList.get(0).setSector(3);
-            JSONTask.updateStore(storeList.get(0),"jong4876");// 2번째 생성자에 업데이트 할 클래스와 함께 전달
-            */  // update
+            inCloth = clothesList.get(0);
+            inCloth.setName("만신홍 모자");
+            inCloth.setCategory(5);
+            inCloth.setIntro("만신홍 한복과 잘 어울리는 모자");
+            JSONTask.getInstance().insertCloth(inCloth,"jong4876");
+            */
+            //cloth삽입 예시
+
+
+
+            /*
             storeList = JSONTask.getInstance().getStoreAll("jong4876");
             storeList.get(0).setSector(10);
             JSONTask.getInstance().updateStore(storeList.get(0),"jong4876");
+            */
+            //store 수정 예시
+
+
 
 
 
 
             StringBuffer sb = new StringBuffer();
+            /*
             for(int i=0; i<storeList.size(); i++){
 
                 sb.append(// test용 stringbuffer
@@ -68,6 +89,23 @@ public class DBstoreActivity extends AppCompatActivity {// db실험용
                                 "\n\n\n"
                 );
             }
+            */
+            for(int i=0; i<clothesList.size(); i++){
+
+                sb.append(// test용 stringbuffer
+                        "한복id: " + clothesList.get(i).getCloth_id()+
+                                "\n\n매장명: " + clothesList.get(i).getStore_id() +
+                                "\n\n매장아이디: " + clothesList.get(i).getCategory()  +
+                                "\n\n매장번호: " + clothesList.get(i).getName() +
+                                "\n\n매장소개: " + clothesList.get(i).getIntro()  +
+                                "\n\n매장정보: " + clothesList.get(i).getPrice() +
+                                "\n\n매장주소: " + clothesList.get(i).getCount()  +
+                                "\n\n매장구역: " + clothesList.get(i).getSex()  +
+
+                                "\n\n\n"
+                );
+            }
+
             txtView.setText(sb);
         }catch(Exception E){
             E.printStackTrace();

@@ -40,13 +40,19 @@ public class DBstoreActivity extends AppCompatActivity {// db실험용
 
         try {
 
-            clothesList = JSONTask.getInstance().getClothesAll("kang123");// kang123 매장의 옷들 검색
+            /*
+            clothesList = JSONTask.getInstance().getClothesAll("jong4876");// jong4876 매장의 옷들 검색
+            inCloth = clothesList.get(0);// 업데이트 할 데이터 -> cloth의 첫 데이터
+            int cnt = inCloth.getCount();
+            inCloth.setCount(cnt + 1 );// set으로 데이터 수젇
+            JSONTask.getInstance().updateCloth(inCloth);// 바꿀 cloth의 id역시 set으로 만들어 준 후 보냄
+            */
+            //cloth 수정 예시
 
 
 
-
-           // JSONTask.getInstance().deleteCloth("만신홍 모자충");
-            //옷삭제 예시
+            // JSONTask.getInstance().deleteCloth("만신홍 모자충");
+            //cloth 삭제 예시
 
 
 
@@ -57,13 +63,13 @@ public class DBstoreActivity extends AppCompatActivity {// db실험용
             inCloth.setIntro("만신홍 한복과 잘 어울리는 모자");
             JSONTask.getInstance().insertCloth(inCloth,"jong4876");
             */
-            //cloth삽입 예시
+            //cloth 삽입 예시
 
 
 
             /*
             storeList = JSONTask.getInstance().getStoreAll("jong4876");
-            storeList.get(0).setSector(10);
+            storeList.get(0).setSector(1);
             JSONTask.getInstance().updateStore(storeList.get(0),"jong4876");
             */
             //store 수정 예시

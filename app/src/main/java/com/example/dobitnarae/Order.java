@@ -9,13 +9,15 @@ public class Order implements Comparable<Order>, Serializable{
     private int orderNo;
     private String userID;
     private String adminID;
+    private int clothID;// 추가된필드
     private int acceptStatus;
     private String orderDate;
 
-    public Order(int orderNo, String userID, String adminID, int acceptStatus, String orderDate) {
+    public Order(int orderNo, String userID, String adminID,int clothID, int acceptStatus, String orderDate) {
         this.orderNo = orderNo;
         this.userID = userID;
         this.adminID = adminID;
+        this.clothID = clothID;
         this.acceptStatus = acceptStatus;
         this.orderDate = orderDate;
     }
@@ -46,6 +48,14 @@ public class Order implements Comparable<Order>, Serializable{
 
     public int getAcceptStatus() {
         return acceptStatus;
+    }
+
+    public void setClothID(int clothID) {
+        this.clothID = clothID;
+    }
+
+    public int getClothID() {
+        return clothID;
     }
 
     public void setAcceptStatus(int acceptStatus) {

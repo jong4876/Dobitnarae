@@ -81,7 +81,7 @@ public class AdminActivity extends AppCompatActivity {
         orderedDatas = new ArrayList<>();
         Order[] item = new Order[ITEM_SIZE];
         for(int i=0; i<ITEM_SIZE; i++){
-            item[i] = new Order(i,"kang123"+i, "jong123", 0, "2018-08-08");
+            item[i] = new Order(i,"kang123"+i, "jong123", 0,0, "2018-08-08");
             orderedDatas.add(item[i]);
         }
 

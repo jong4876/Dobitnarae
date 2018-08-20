@@ -27,7 +27,7 @@ public class DBstoreActivity extends AppCompatActivity {// db실험용
     Clothes inCloth;
     ArrayList<Store> storeList = new ArrayList<Store>();
     ArrayList<Clothes> clothesList = new ArrayList<Clothes>();
-
+    ArrayList<Order> orderList = new ArrayList<Order>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +75,10 @@ public class DBstoreActivity extends AppCompatActivity {// db실험용
             //store 수정 예시
 
 
+            //clothesList = JSONTask.getInstance().getBascketAll("su123");
+            //id가 basket에 담은 물품들 가져오기
+
+            orderList = JSONTask.getInstance().getOrderAll("su123");
 
 
 
@@ -96,18 +100,32 @@ public class DBstoreActivity extends AppCompatActivity {// db실험용
                 );
             }
             */
+            /*
             for(int i=0; i<clothesList.size(); i++){
 
                 sb.append(// test용 stringbuffer
                         "한복id: " + clothesList.get(i).getCloth_id()+
                                 "\n\n매장명: " + clothesList.get(i).getStore_id() +
-                                "\n\n매장아이디: " + clothesList.get(i).getCategory()  +
-                                "\n\n매장번호: " + clothesList.get(i).getName() +
-                                "\n\n매장소개: " + clothesList.get(i).getIntro()  +
-                                "\n\n매장정보: " + clothesList.get(i).getPrice() +
-                                "\n\n매장주소: " + clothesList.get(i).getCount()  +
-                                "\n\n매장구역: " + clothesList.get(i).getSex()  +
+                                "\n\n카테고리: " + clothesList.get(i).getCategory()  +
+                                "\n\n옷이름: " + clothesList.get(i).getName() +
+                                "\n\n옷소개: " + clothesList.get(i).getIntro()  +
+                                "\n\n옷 가격: " + clothesList.get(i).getPrice() +
+                                "\n\n옷 수량: " + clothesList.get(i).getCount()  +
+                                "\n\n옷 성별: " + clothesList.get(i).getSex()  +
 
+                                "\n\n\n"
+                );
+            }
+            */
+            for(int i=0; i<orderList.size(); i++){
+
+                sb.append(// test용 stringbuffer
+                        "주문번호: " + orderList.get(i).getOrderNo()+
+                                "\n\n주문아이디: " + orderList.get(i).getUserID() +
+                                "\n\n매장아이디: " + orderList.get(i).getAdminID()  +
+                                "\n\n옷아이디: " + orderList.get(i).getClothID() +
+                                "\n\n승인여부: " + orderList.get(i).getAcceptStatus()  +
+                                "\n\n예약날짜: " + orderList.get(i).getOrderDate() +
                                 "\n\n\n"
                 );
             }

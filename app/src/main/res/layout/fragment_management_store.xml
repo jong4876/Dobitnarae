@@ -21,12 +21,13 @@
 
             <ImageView
                 android:id="@+id/imageView_store"
-                android:layout_width="match_parent"
+                android:layout_width="400dp"
                 android:layout_height="200dp"
                 android:layout_gravity="center"
                 android:adjustViewBounds="true"
                 android:maxHeight="200dp"
-                android:maxWidth="200dp" />
+                android:maxWidth="400dp"
+                android:src="@drawable/sejong" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -108,14 +109,14 @@
                     android:id="@+id/edit_tel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@null"
                     android:ems="10"
-                    android:inputType="textPersonName"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:inputType="phone"
                     android:text="내용없음"
                     android:textSize="@dimen/info_content"
-                    android:visibility="visible"
-                    android:focusableInTouchMode="false"
-                    android:focusable="false"
-                    android:background="@null"/>
+                    android:visibility="visible" />
             </LinearLayout>
 
             <LinearLayout
@@ -138,14 +139,15 @@
                     android:id="@+id/edit_intro"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@null"
                     android:ems="10"
-                    android:inputType="textPersonName"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:inputType="textMultiLine"
                     android:text="내용없음"
                     android:textSize="@dimen/info_content"
                     android:visibility="visible"
-                    android:focusableInTouchMode="false"
-                    android:focusable="false"
-                    android:background="@null"/>
+                    android:maxLines="10"/>
             </LinearLayout>
 
             <LinearLayout
@@ -168,14 +170,15 @@
                     android:id="@+id/edit_info"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@null"
                     android:ems="10"
-                    android:inputType="textPersonName"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:inputType="textMultiLine"
                     android:text="내용없음"
                     android:textSize="@dimen/info_content"
                     android:visibility="visible"
-                    android:focusableInTouchMode="false"
-                    android:focusable="false"
-                    android:background="@null"/>
+                    />
             </LinearLayout>
 
 

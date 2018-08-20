@@ -72,7 +72,7 @@ public class NotConfirmedOrderFragment extends Fragment {
 
     private class ListViewAdapter extends BaseAdapter {
         private Context mContext = null;
-        private ArrayList<OrderInfoData> mListData = new ArrayList<OrderInfoData>();
+        public ArrayList<OrderInfoData> mListData = new ArrayList<OrderInfoData>();
 
         public ListViewAdapter(Context mContext) {
             super();
@@ -177,5 +177,13 @@ public class NotConfirmedOrderFragment extends Fragment {
         public void dataChange(){
             mAdapter.notifyDataSetChanged();
         }
+    }
+
+    public void dataUpdate(){
+        items = Order.getncInstanceList();
+        mAdapter.clear();
+        for (Order item:items)
+            mAdapter.addItem(item);
+        mAdapter.notifyDataSetChanged();
     }
 }

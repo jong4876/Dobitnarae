@@ -11,6 +11,9 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
@@ -47,22 +50,18 @@ import java.util.List;
 
 @SuppressLint("ValidFragment")
 public class StoreManagementFragment extends Fragment {
-    private static final int PICK_FROM_CAMERA = 0;
-    private static final int PICK_FROM_ALBUM = 1;
-    private static final int CROP_FROM_IMAGE = 2;
-
     private static final int MY_PERMISSION_CAMERA = 1111;
     private static final int REQUEST_TAKE_PHOTO = 2222;
     private static final int REQUEST_TAKE_ALBUM = 3333;
     private static final int REQUEST_IMAGE_CROP = 4444;
 
-    private Uri mImageCaptureUri;
     private Uri imageURI;
     private Uri photoURI, albumURI;
     private ImageView imageView_store;
     private String mCurrentPhotoPath;
 
     private int iv_width;
+    private int iv_height;
 
     private Store store;
     private ImageButton btn_edit;
@@ -133,7 +132,6 @@ public class StoreManagementFragment extends Fragment {
 
         // 부모액티비티 툴바 요소인 이미지 버튼에 접근
         btn_edit = ((AdminActivity)getActivity()).getImageButton();
-        btn_edit.setVisibility(View.VISIBLE);
         btn_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -142,7 +140,8 @@ public class StoreManagementFragment extends Fragment {
         });
 
 
-        iv_width = imageView_store.getWidth();
+        iv_width = imageView_store.getMaxWidth();
+        iv_height = imageView_store.getMaxHeight();
 
         imageView_store.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,14 +149,12 @@ public class StoreManagementFragment extends Fragment {
                 DialogInterface.OnClickListener cameraListener = new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //doTakePhotoAction();
                         captureCamera();
                     }
                 };
                 DialogInterface.OnClickListener albumListener = new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //doTakeAlbumAction();
                         getAlbum();
                     }
                 };
@@ -179,11 +176,6 @@ public class StoreManagementFragment extends Fragment {
 
         checkPermission();
         return rootView;
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
     }
 
     private void captureCamera(){
@@ -273,107 +265,18 @@ public class StoreManagementFragment extends Fragment {
         getActivity().startActivityForResult(cropIntent, REQUEST_IMAGE_CROP); // CROP_FROM_CAMERA case문 이동
     }
 
-    /**
-     *카메라에서 사진촬영
-     **/
-
-    // 카메라 촬영 후 이미지 가져오기
-    public void doTakePhotoAction(){
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-        // 임시로 사용할 파일의 경로를 생성
-        String url = "tmp_" + String.valueOf(System.currentTimeMillis()) + ".jpg";
-        mImageCaptureUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(), url));
-
-        intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, mImageCaptureUri);
-        getActivity().startActivityForResult(intent, PICK_FROM_CAMERA);
-    }
-
-    // 앨범에서 이미지 가져오기
-    public void doTakeAlbumAction(){
-        // 앨범 호출
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
-        getActivity().startActivityForResult(intent, PICK_FROM_ALBUM);
-    }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        /*
-        if(resultCode != getActivity().RESULT_OK)
-            return;
-
-        switch(requestCode){
-            case PICK_FROM_ALBUM:
-            {
-                // 앨범에서 사진을 고르고 이미지를 처리하는 부분
-                // 이후의 처리가 카메라고 같으므로 break없이 진행
-                mImageCaptureUri = data.getData();
-                Log.d("Dobitnarae", mImageCaptureUri.getPath().toString());
-;            }
-
-            case PICK_FROM_CAMERA:
-            {
-                // 사진을 촬영하고 찍힌 이미지를 처리하는 부분
-                // 이미지를 가져온 이후의 리사이즈할 이미지 크기를 결정하게 됩니다.
-                Intent intent = new Intent("com.android.camera.action.CROP");
-                intent.setDataAndType(mImageCaptureUri, "image/*");
-
-                // CROP 할 이미지를 200*200 크기로 저장
-                intent.putExtra("outputX", 200); // CROP한 이미지의 x축 크기
-                intent.putExtra("outputY", 200); // CROP한 이미지의 y축 크기
-                intent.putExtra("aspectX", 1); // CROP 박스의 X축 비율
-                intent.putExtra("aspectY", 1); // CROP 박스의 Y축 비율
-                intent.putExtra("scale", true);
-                intent.putExtra("return-data", true);
-                startActivityForResult(intent, CROP_FROM_IMAGE); // CROP_FROM_CAMERA case문 이동
-                break;
-            }
-
-            case CROP_FROM_IMAGE:
-            {
-                // 크롭이 된 이후의 이미지를 넘겨 받습니다.
-                // 이미지뷰에 이미지를 보여준다거나 부가적인 작업 이후에
-                // 임시 파일을 삭제합니다.
-                if(requestCode != getActivity().RESULT_OK){
-                    return;
-                }
-
-                final Bundle extras = data.getExtras();
-
-                // CROP된 이미지를 저장하기 위한 FILE 경로
-                String filePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Dobitnarae/" + System.currentTimeMillis() + ".jpg";
-
-                if(extras != null){
-                    Bitmap photo = extras.getParcelable("data"); // CROP된 BITMAP
-                    imageView_store.setImageBitmap(photo); // 레이아웃의 이미지칸에 CROP된 BITMAP을 보여줌
-                    Toast.makeText(getActivity(), "test", Toast.LENGTH_SHORT).show();
-                    storeCropImage(photo, filePath); // CROP된 이미지를 외부저장소, 앨범에 저장한다.
-                    absolutePath = filePath;
-                    break;
-                }
-                else{
-                    Toast.makeText(getActivity(), "test2", Toast.LENGTH_SHORT).show();
-                }
-
-                // 임시 파일 삭제
-                File f = new File(mImageCaptureUri.getPath());
-                if(f.exists()){
-                    f.delete();
-                }
-            }
-        }
-        */
 
         switch(requestCode){
             case REQUEST_TAKE_PHOTO:
                 if(resultCode == Activity.RESULT_OK){
                     try {
                         Log.i("REQUEST_TAKE_PHOTO", "OK");
+                        // 갤러리에 추가만 시킴
                         galleryAddPic();
-                        imageView_store.setImageURI(imageURI);
+                        //imageView_store.setImageURI(imageURI);
                     } catch (Exception e){
                         Log.e("REQUEST_TAKE_PHOTO", e.toString());
                     }
@@ -395,17 +298,12 @@ public class StoreManagementFragment extends Fragment {
                             Log.e("TAKE_ALBUM_SINGLE ERROR", e.toString());
                         }
                     }
-                }else {
-                    Toast.makeText(getActivity(), "사진찍기를 취소하였습니다2.", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case REQUEST_IMAGE_CROP:
                 if(resultCode == Activity.RESULT_OK) {
                     galleryAddPic();
-                    Toast.makeText(getActivity(), photoURI.toString() + ", " + albumURI.toString(), Toast.LENGTH_SHORT).show();
                     imageView_store.setImageURI(photoURI);
-                }else {
-                    Toast.makeText(getContext(), "사진찍기를 취소하였습니다3.", Toast.LENGTH_SHORT).show();
                 }
                 break;
         }
@@ -469,8 +367,8 @@ public class StoreManagementFragment extends Fragment {
         cropIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         cropIntent.setDataAndType(photoURI, "image/*");
         cropIntent.putExtra("outputX", iv_width); // CROP한 이미지의 x축 크기
-        cropIntent.putExtra("outputY", 200); // CROP한 이미지의 y축 크기
-        cropIntent.putExtra("aspectX", iv_width/200); // CROP 박스의 X축 비율
+        cropIntent.putExtra("outputY", iv_height); // CROP한 이미지의 y축 크기
+        cropIntent.putExtra("aspectX", iv_width/iv_height); // CROP 박스의 X축 비율
         cropIntent.putExtra("aspectY", 1); // CROP 박스의 Y축 비율
         cropIntent.putExtra("scale", true);
         cropIntent.putExtra("output", photoURIPath);
@@ -486,7 +384,6 @@ public class StoreManagementFragment extends Fragment {
         getActivity().grantUriPermission(res.activityInfo.packageName, photoURIPath, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
         i.setComponent(new ComponentName(res.activityInfo.packageName, res.activityInfo.name));
 
-        Toast.makeText(getContext(), "ff", Toast.LENGTH_SHORT).show();
         getActivity().startActivityForResult(i, REQUEST_IMAGE_CROP);
     }
 
@@ -496,33 +393,6 @@ public class StoreManagementFragment extends Fragment {
 
     // sendBroadCast() 함수는 폰의 앨범에 크롭된 사진을 갱신하는 함수이다.
     // 이 함수를 쓰지 않는다면 크롭된 사진을 저장해도 앨범에 안보이며, 직접 파일 관리자 앱을 통해 폴더를 들어가야만 사진을 볼 수 있다.
-
-    /**
-     * Bitmap을 저장하는 부분
-     */
-
-    private void storeCropImage(Bitmap bitmap, String filePath){
-        String dirPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Dobitnarae";
-        File directory_Dobitnarae = new File(dirPath);
-        if(!directory_Dobitnarae.exists()) // Dobitnarae 디렉토리에 폴더가 없다면 (새로 이미지를 저장할 경우에 속한다.)
-            directory_Dobitnarae.mkdir();
-
-        File copyFile = new File(filePath);
-        BufferedOutputStream out = null;
-
-        try {
-            copyFile.createNewFile();
-            out = new BufferedOutputStream(new FileOutputStream(copyFile));
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
-
-            getActivity().sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(copyFile)));
-
-            out.flush();
-            out.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     private void showKeyboard(EditText editText) {
         imm.showSoftInput(editText, 0);

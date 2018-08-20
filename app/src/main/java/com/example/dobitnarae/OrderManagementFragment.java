@@ -17,24 +17,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class OrderManagementFragment extends Fragment {
-     private ArrayList<Order> orderedDatas;
-     private ArrayList<Order> orderedDatas2;
-     private ArrayList<Order> orderedDatas3;
-     private Basket basket;
 
-     private ImageButton btn_edit;
+    private NotConfirmedOrderFragment fm1;
+    private ConfirmedOrderFragment fm2;
 
     public OrderManagementFragment() {
-        this.basket = Basket.getInstance();
-        this.orderedDatas = Order.getInstanceList();
-
-        this.orderedDatas2 = Order.getncInstanceList();
-        this.orderedDatas3 = Order.getocInstanceList();
     }
 
     /**
@@ -75,11 +68,24 @@ public class OrderManagementFragment extends Fragment {
         TabLayout tabLayout = (TabLayout) rootView.findViewById(R.id.tabs);
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-        // 부모액티비티 툴바 요소인 이미지 버튼에 접근
-        btn_edit = ((AdminActivity)getActivity()).getImageButton();
-        btn_edit.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                fm1.dataUpdate();
+                fm2.dataUpdate();
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
         return rootView;
     }
@@ -127,9 +133,11 @@ public class OrderManagementFragment extends Fragment {
 
             switch(position) {
                 case 0:
-                    return NotConfirmedOrderFragment.newInstance(0);
+                    fm1 = NotConfirmedOrderFragment.newInstance(0);
+                    return fm1;
                 case 1:
-                    return ConfirmedOrderFragment.newInstance(1);
+                    fm2 = ConfirmedOrderFragment.newInstance(1);
+                    return fm2;
                 default:
                     return null;
             }

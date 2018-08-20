@@ -28,7 +28,7 @@ public class ConfirmedOrderFragment extends Fragment {
     private ListView mListView = null;
     private ListViewAdapter mAdapter = null;
 
-    private Basket basket;
+    public Basket basket;
 
     public ConfirmedOrderFragment() {
         this.items = Order.getocInstanceList();
@@ -167,5 +167,13 @@ public class ConfirmedOrderFragment extends Fragment {
         public void dataChange(){
             mAdapter.notifyDataSetChanged();
         }
+    }
+
+    public void dataUpdate(){
+        items = Order.getocInstanceList();
+        mAdapter.clear();
+        for (Order item:items)
+            mAdapter.addItem(item);
+        mAdapter.notifyDataSetChanged();
     }
 }

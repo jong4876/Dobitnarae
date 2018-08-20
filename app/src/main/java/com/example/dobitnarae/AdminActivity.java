@@ -4,8 +4,11 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -19,6 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -73,9 +77,37 @@ public class AdminActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
+        final Drawable drawable = ContextCompat.getDrawable(getApplicationContext(), R.drawable.btn_edit);
+        final Drawable drawable2 = ContextCompat.getDrawable(getApplicationContext(), R.drawable.menu);
+
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (position == 0) {
+                    imageButton.setVisibility(View.VISIBLE);
+                    imageButton.setBackground(drawable);
+                }
+                else if (position == 1) {
+                    imageButton.setVisibility(View.VISIBLE);
+                    imageButton.setBackground(drawable2);
+                }
+                else if(position == 2)
+                    imageButton.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
         // 특정 인덴트에서 store 키값을 받아와
@@ -125,13 +157,9 @@ public class AdminActivity extends AppCompatActivity {
      * one of the sections/tabs/pages.
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
-        private FragmentManager mFragmentManager;
-        private Fragment mFragmentAtPos0;
-        private android.support.v4.app.FragmentTransaction fragmentTransaction;
 
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
-            mFragmentManager = fm;
         }
 
         @Override
@@ -142,7 +170,6 @@ public class AdminActivity extends AppCompatActivity {
             // 액티비티 만들어서 케이스 문에다가 넣어주면 됩니다
             // 탭 이름은 values/string 에 들어있어요
             // 아마 클래스 타입은 무조건 PlaceholderFragment 여야 할꺼같아요
-
             switch(position) {
 
                 case 0:
@@ -176,9 +203,5 @@ public class AdminActivity extends AppCompatActivity {
 
     public ImageButton getImageButton(){
         return imageButton;
-    }
-
-    public interface FirstPageFragmentListener {
-        void onSwitchToNextFragment();
     }
 }

@@ -32,8 +32,6 @@ public class ItemManagementFragment extends Fragment {
     ItemListRecyclerAdapter mAdapter;
     Store store;
 
-    private ImageButton btn_edit;
-
     public ItemManagementFragment(ArrayList<Clothes> items, Store store) {
         this.originItems = items;
         this.items = items;
@@ -84,10 +82,6 @@ public class ItemManagementFragment extends Fragment {
             });
             clothesCategory.addView(imageViews[i]);
         }
-
-        // 부모액티비티 툴바 요소인 이미지 버튼에 접근
-        btn_edit = ((AdminActivity)getActivity()).getImageButton();
-        btn_edit.setVisibility(View.VISIBLE);
 
         return rootView;
     }

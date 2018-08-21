@@ -4,10 +4,12 @@
     android:layout_height="match_parent"
     android:background="#fff"
     android:orientation="vertical">
-    <TimePicker
+    <LinearLayout
+        android:id="@+id/reserve_picker"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </TimePicker>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+    </LinearLayout>
     <LinearLayout
         android:id="@+id/basket_reservation_btn"
         android:layout_width="match_parent"

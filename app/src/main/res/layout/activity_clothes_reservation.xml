@@ -138,6 +138,8 @@
                 </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
         <include
+            layout="@layout/component_bottom_static_menu_soldout"/>
+        <include
             layout="@layout/component_bottom_static_menu"/>
     </android.support.design.widget.CoordinatorLayout>
 

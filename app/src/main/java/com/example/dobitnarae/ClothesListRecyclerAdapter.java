@@ -2,6 +2,7 @@ package com.example.dobitnarae;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
@@ -37,12 +38,26 @@ public class ClothesListRecyclerAdapter extends RecyclerView.Adapter<ClothesList
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Clothes item = clothes.get(position);
+
         // TODO  서버에서 이미지 받아야함
         Drawable drawable = ContextCompat.getDrawable(context, R.drawable.gobchang);
         holder.image.setBackground(drawable);
         holder.name.setText(item.getName());
         DecimalFormat dc = new DecimalFormat("###,###,###,###");
         holder.price.setText(dc.format(item.getPrice()) + " 원");
+
+        int clothesCnt = item.getCount();
+        Drawable itemForegroundColor;
+        if(clothesCnt == 0) {
+            int color = 0x7f000000;
+            itemForegroundColor = new ColorDrawable(color);
+        }
+        else{
+            int color = 0x00000000;
+            itemForegroundColor = new ColorDrawable(color);
+        }
+        holder.cardview.setForeground(itemForegroundColor);
+
         holder.cardview.setId(item.getCloth_id());
         holder.cardview.setOnClickListener(new View.OnClickListener() {
             @Override

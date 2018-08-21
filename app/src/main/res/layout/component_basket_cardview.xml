@@ -41,19 +41,25 @@
                     android:layout_height="170dp" />
 
                 <TextView
+                    android:gravity="center"
                     android:id="@+id/basket_clothes_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:textStyle="bold"
                     android:textSize="15dp"
-                    android:textColor="#000"/>
+                    android:textColor="#000"
+                    android:text="테스트"/>
 
                 <TextView
+                    android:gravity="center"
                     android:id="@+id/basket_clothes_cnt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp" />
+                    android:padding="10dp"
+                    android:textColor="@color/appMainColor"
+                    android:textStyle="bold"
+                    android:text="1 개"/>
 
             </LinearLayout>
         </LinearLayout>

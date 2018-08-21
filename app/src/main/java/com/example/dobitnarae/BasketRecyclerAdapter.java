@@ -87,6 +87,7 @@ public class BasketRecyclerAdapter extends RecyclerView.Adapter<BasketRecyclerAd
                         basket.deleteClothes(position);
                         notifyDataSetChanged();
                         ((BasketActivity)context).setTotalCost();
+                        ((BasketActivity) context).setTotalClothesCnt();
                     }
                 });
         builder.setNegativeButton("아니오",

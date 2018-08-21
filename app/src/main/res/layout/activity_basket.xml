@@ -48,13 +48,32 @@
                     android:paddingBottom="20dp"
                     android:layout_gravity="bottom"
                     android:gravity="center">
-                    <TextView
+                    <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="총 예상 대여비"
-                        android:textSize="15dp"
-                        android:textColor="#000"
-                        android:textStyle="bold"/>
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="총 "
+                            android:textSize="15dp"
+                            android:textColor="#000"
+                            android:textStyle="bold"/>
+                        <TextView
+                            android:id="@+id/reserve_clothes_total_cnt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1"
+                            android:textSize="20dp"
+                            android:textColor="@color/appMainColor"
+                            android:textStyle="bold"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" 벌 예상 대여비"
+                            android:textSize="15dp"
+                            android:textColor="#000"
+                            android:textStyle="bold"/>
+                    </LinearLayout>
                     <TextView
                         android:id="@+id/basket_reserve_clothes_total_price"
                         android:layout_width="wrap_content"
@@ -78,7 +97,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="예약하기"
+            android:text="@string/reserve_text"
             android:textColor="#fff"
             android:textSize="25dp"
             android:textStyle="bold" />

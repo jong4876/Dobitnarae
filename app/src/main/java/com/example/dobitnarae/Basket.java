@@ -62,7 +62,7 @@ public class Basket {
          *
          */
         Date today = new Date();
-        SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd hh:mm");
         date.setTimeZone(TimeZone.getTimeZone("GMT+9"));
         rentalDate = date.format(today);
         Log.e("Sdfsdf", rentalDate);
@@ -114,5 +114,13 @@ public class Basket {
             price += b.getClothes().getPrice() * b.getCnt();
         }
         return price;
+    }
+
+    public int getTotalClothesCnt()
+    {
+        int cnt = 0;
+        for(BasketItem b : basket)
+            cnt += b.getCnt();
+        return cnt;
     }
 }

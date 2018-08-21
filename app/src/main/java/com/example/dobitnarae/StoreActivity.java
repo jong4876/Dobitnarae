@@ -102,7 +102,7 @@ public class StoreActivity extends AppCompatActivity {
         for(int i=0; i<ITEM_SIZE; i++){
             item[i] = new Clothes(i, store.getId(), i % Constant.category_cnt + 1,
                     "불곱창" + (i + 1), "이 곱창은 왕십리에서 시작하여...",
-                    1000 * (i + 1), 10,  0);
+                    1000 * (i + 1), (i + 1) % ITEM_SIZE,  0);
             items.add(item[i]);
         }
 

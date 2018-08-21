@@ -21,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +35,7 @@ public class AdminActivity extends AppCompatActivity {
      private ArrayList<Store> storeList = new ArrayList<Store>();
      private ArrayList<Clothes> clothesList = new ArrayList<Clothes>();
      private ImageButton imageButton;
+     private Spinner spinner;
      private StoreManagementFragment storeManagementFragment;
     public AdminActivity() {
 
@@ -77,9 +79,6 @@ public class AdminActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        final Drawable drawable = ContextCompat.getDrawable(getApplicationContext(), R.drawable.btn_edit);
-        final Drawable drawable2 = ContextCompat.getDrawable(getApplicationContext(), R.drawable.menu);
-
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -93,14 +92,16 @@ public class AdminActivity extends AppCompatActivity {
             public void onPageSelected(int position) {
                 if (position == 0) {
                     imageButton.setVisibility(View.VISIBLE);
-                    imageButton.setBackground(drawable);
+                    spinner.setVisibility(View.GONE);
                 }
                 else if (position == 1) {
-                    imageButton.setVisibility(View.VISIBLE);
-                    imageButton.setBackground(drawable2);
-                }
-                else if(position == 2)
                     imageButton.setVisibility(View.GONE);
+                    spinner.setVisibility(View.VISIBLE);
+                }
+                else if(position == 2) {
+                    imageButton.setVisibility(View.GONE);
+                    spinner.setVisibility(View.GONE);
+                }
             }
 
             @Override
@@ -120,6 +121,7 @@ public class AdminActivity extends AppCompatActivity {
         textView.setText(store.getName());
 
         imageButton = findViewById(R.id.editButton);
+        spinner = findViewById(R.id.edit_spinner);
     }
 
     @Override
@@ -203,5 +205,9 @@ public class AdminActivity extends AppCompatActivity {
 
     public ImageButton getImageButton(){
         return imageButton;
+    }
+
+    public Spinner getSpinner() {
+        return spinner;
     }
 }

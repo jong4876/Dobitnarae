@@ -38,9 +38,12 @@
                                 android:id="@+id/reserve_clothes_img"
                                 android:layout_width="250dp"
                                 android:layout_height="300dp"
+                                android:adjustViewBounds="true"
+                                android:maxWidth="250dp"
+                                android:maxHeight="300dp"
                                 android:layout_marginBottom="10dp"
                                 android:src="@drawable/gobchang"/>
-                            <TextView
+                            <EditText
                                 android:id="@+id/reserve_clothes_name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -48,15 +51,17 @@
                                 android:textColor="#000"
                                 android:textSize="20dp"
                                 android:textStyle="bold"
-                                android:layout_marginBottom="10dp"/>
-                            <TextView
+                                android:layout_marginBottom="10dp"
+                                android:background="@null"/>
+                            <EditText
                                 android:id="@+id/reserve_clothes_introduction"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="~~~~~~~~~~한복 설명~~~~~~~~~~"
                                 android:textColor="#000"
                                 android:textSize="15dp"
-                                android:layout_marginBottom="10dp"/>
+                                android:layout_marginBottom="10dp"
+                                android:background="@null"/>
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -73,14 +78,15 @@
                                 android:textStyle="bold"
                                 android:textSize="20dp"
                                 android:textColor="#000" />
-                            <TextView
+                            <EditText
                                 android:id="@+id/reserve_clothes_price"
                                 android:textAlignment="textEnd"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="16,000원"
                                 android:textSize="15dp"
-                                android:textColor="#000" />
+                                android:textColor="#000"
+                                android:background="@null"/>
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -112,29 +118,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="10dp"
                         android:background="#dcdcdc"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:paddingTop="20dp"
-                        android:paddingBottom="20dp"
-                        android:gravity="center">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="총 예상 대여비"
-                            android:textSize="15dp"
-                            android:textColor="#000"
-                            android:textStyle="bold"/>
-                        <TextView
-                            android:id="@+id/reserve_clothes_total_price"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="16,000원"
-                            android:textSize="25dp"
-                            android:textColor="#ff8484"
-                            android:textStyle="bold"/>
-                    </LinearLayout>
                 </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
         <include

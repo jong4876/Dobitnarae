@@ -12,13 +12,14 @@
         android:layout_height="match_parent"
         android:background="@color/titleColor"
         android:gravity="center">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="장바구니 담기"
+            android:text="변경"
             android:textColor="#fff"
-            android:textStyle="bold"
-            android:textSize="20dp"/>
+            android:textSize="20dp"
+            android:textStyle="bold" />
     </LinearLayout>
     <LinearLayout
         android:id="@+id/reserve_clothes_reserve"
@@ -27,12 +28,13 @@
         android:layout_height="match_parent"
         android:background="@color/appMainColor"
         android:gravity="center">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="예약하기"
+            android:text="삭제"
             android:textColor="#fff"
-            android:textStyle="bold"
-            android:textSize="20dp"/>
+            android:textSize="20dp"
+            android:textStyle="bold" />
     </LinearLayout>
 </LinearLayout>

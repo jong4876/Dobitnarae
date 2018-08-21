@@ -1,6 +1,8 @@
 package com.example.dobitnarae;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,9 +13,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.SparseBooleanArray;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,6 +25,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -31,6 +37,9 @@ public class ItemManagementFragment extends Fragment {
     ArrayList<Clothes> originItems, items;
     ItemListRecyclerAdapter mAdapter;
     Store store;
+
+    private ArrayAdapter<String> spinnerAdapter;
+    private ArrayList<String> dataList;
 
     public ItemManagementFragment(ArrayList<Clothes> items, Store store) {
         this.originItems = items;
@@ -58,7 +67,7 @@ public class ItemManagementFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
         //옷추가
-        mAdapter = new ItemListRecyclerAdapter(getContext(), items, store, R.layout.fragment_store);
+        mAdapter = new ItemListRecyclerAdapter(getActivity(), items, store, R.layout.fragment_store);
         recyclerView.setAdapter(mAdapter);
 
         // 옷 종류 선택 메뉴
@@ -82,6 +91,61 @@ public class ItemManagementFragment extends Fragment {
             });
             clothesCategory.addView(imageViews[i]);
         }
+
+        // 스피너 드롭다운
+        dataList = new ArrayList<String>();
+        dataList.add("추가");
+        dataList.add("변경");
+        dataList.add("삭제");
+
+        spinnerAdapter = new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, dataList){
+            @NonNull
+            @Override
+            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                View v =  super.getView(position, convertView, parent);
+
+                Typeface externalFont = Typeface.createFromAsset(getActivity().getAssets(), "font/NanumSquareR.ttf");
+                ((TextView) v).setTypeface(externalFont);
+                ((TextView) v).setTextSize(18);
+
+                return v;
+            }
+
+            @Override
+            public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                View v =  super.getDropDownView(position, convertView, parent);
+
+                Typeface externalFont = Typeface.createFromAsset(getActivity().getAssets(), "font/NanumSquareR.ttf");
+                ((TextView) v).setTypeface(externalFont);
+                v.setBackgroundColor(Color.WHITE);
+                ((TextView) v).setTextColor(Color.BLACK);
+                ((TextView) v).setGravity(Gravity.CENTER);
+
+                return v;
+            }
+        };
+        spinnerAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+
+        final Spinner spinner = ((AdminActivity)getActivity()).getSpinner();
+        spinner.setAdapter(spinnerAdapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(spinner.getItemIdAtPosition(position) == 0){
+                    // 추가
+                } else if(spinner.getItemIdAtPosition(position) == 1){
+                    // 변경
+                } else if(spinner.getItemIdAtPosition(position) == 2){
+                    // 삭제
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         return rootView;
     }

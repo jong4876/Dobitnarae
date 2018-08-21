@@ -38,6 +38,11 @@
         <activity android:name=".ClothesReservationActivity" />
         <activity android:name=".MainActivityTmp" />
         <activity android:name=".StoreListActivity"/>
+        <activity
+            android:name=".ItemSpecificActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.example.dobitnarae"

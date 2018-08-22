@@ -75,17 +75,16 @@
                     android:layout_marginBottom="5dp"
                     />
 
-                <EditText
+                <TextView
                     android:id="@+id/edit_admin_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:inputType="textPersonName"
                     android:text="내용없음"
+                    android:textColor="#000"
                     android:textSize="@dimen/info_content"
                     android:visibility="visible"
-                    android:focusableInTouchMode="false"
-                    android:focusable="false"
                     android:background="@null"/>
             </LinearLayout>
 

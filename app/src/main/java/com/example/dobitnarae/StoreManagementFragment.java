@@ -37,6 +37,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedOutputStream;
@@ -66,7 +67,7 @@ public class StoreManagementFragment extends Fragment {
     private Store store;
     private ImageButton btn_edit;
     private EditText edit_name;
-    private EditText edit_admin_id;
+    private TextView edit_admin_id;
     private EditText edit_tel;
     private EditText edit_intro;
     private EditText edit_info;
@@ -102,7 +103,7 @@ public class StoreManagementFragment extends Fragment {
 
         imageView_store = (ImageView) rootView.findViewById(R.id.imageView_store);
         edit_name = (EditText)rootView.findViewById(R.id.edit_name);
-        edit_admin_id = (EditText)rootView.findViewById(R.id.edit_admin_id);
+        edit_admin_id = (TextView)rootView.findViewById(R.id.edit_admin_id);
         edit_tel = (EditText)rootView.findViewById(R.id.edit_tel);
         edit_intro = (EditText)rootView.findViewById(R.id.edit_intro);
         edit_info = (EditText)rootView.findViewById(R.id.edit_info);
@@ -112,7 +113,6 @@ public class StoreManagementFragment extends Fragment {
         setEditText(store);
 
         editTextArrayList.add(edit_name);
-        editTextArrayList.add(edit_admin_id);
         editTextArrayList.add(edit_tel);
         editTextArrayList.add(edit_intro);
         editTextArrayList.add(edit_info);
@@ -409,8 +409,10 @@ public class StoreManagementFragment extends Fragment {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        // 여기에 update 메소드
+                        updateStoreByText();
+                        JSONTask.getInstance().updateStore(store, store.getAdmin_id());
                         setEditText(store);
+                        Toast.makeText(getContext(), "변경되었습니다.", Toast.LENGTH_SHORT).show();
                         for (EditText item:editTextArrayList) {
                             item.setFocusableInTouchMode(false);
                             item.setFocusable(false);
@@ -438,5 +440,14 @@ public class StoreManagementFragment extends Fragment {
         edit_info.setText(store.getInform());
         edit_address.setText(store.getAddress());
         edit_sector.setText(""+store.getSector());
+    }
+
+    private void updateStoreByText(){
+        store.setName(edit_name.getText().toString());
+        store.setTel(edit_tel.getText().toString());
+        store.setIntro(edit_intro.getText().toString());
+        store.setInform(edit_info.getText().toString());
+        store.setAddress(edit_address.getText().toString());
+        store.setSector(Integer.parseInt(edit_sector.getText().toString()));
     }
 }

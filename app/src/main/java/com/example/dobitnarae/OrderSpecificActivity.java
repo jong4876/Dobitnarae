@@ -26,13 +26,12 @@ import java.util.List;
 import java.util.Objects;
 
 public class OrderSpecificActivity extends AppCompatActivity {
-
     private Order item;
     private Order item2;
     private ArrayList<Order> confirm;
     private ArrayList<Order> nConfirm;
     DecimalFormat dc;
-    int index;
+    int index, id;
     TextView totalPrice;
 
     private LinearLayout layout;
@@ -73,12 +72,56 @@ public class OrderSpecificActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         index = (int) intent.getIntExtra("order", 0);
+        id = (int) intent.getIntExtra("id", 0);
 
         layout = (LinearLayout) findViewById(R.id.layout_confirmornot);
 
-        if(Order.getncInstanceList().size()>index)
+        if(id==0) {
             this.item = Order.getncInstanceList().get(index);
-        if(Order.getocInstanceList().size()>index) {
+
+            // 승인 버튼 클릭 시
+            btnRegister = (LinearLayout) findViewById(R.id.order_clothes_register);
+            btnRegister.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getApplicationContext(), item.getUserID() + "님의 주문이 승인되었습니다.", Toast.LENGTH_SHORT).show();
+                    item.setAcceptStatus(1); // 승인
+                    JSONTask.getInstance().updateOrderAccept(item.getOrderNo(), 1);
+                    btnRegister.setEnabled(false);
+                    btnReject.setEnabled(false);
+                    btnRegister.setBackgroundResource(R.color.darkergrey);
+                    btnReject.setBackgroundResource(R.color.darkergrey);
+
+                    confirm.add(item);
+                    nConfirm.remove(item);
+                }
+            });
+
+            // 거절 버튼 클릭 시
+            btnReject = (LinearLayout) findViewById(R.id.order_clothes_reject);
+            btnReject.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getApplicationContext(), item.getUserID() + "님의 주문이 거절되었습니다.", Toast.LENGTH_SHORT).show();
+                    item.setAcceptStatus(2); // 거절
+                    JSONTask.getInstance().updateOrderAccept(item.getOrderNo(), 2);
+                    btnRegister.setEnabled(false);
+                    btnReject.setEnabled(false);
+                    btnRegister.setBackgroundResource(R.color.darkergrey);
+                    btnReject.setBackgroundResource(R.color.darkergrey);
+
+                    confirm.add(item);
+                    nConfirm.remove(item);
+                }
+            });
+
+            // 이미 승인된 목록에 대해서 승인, 거절버튼을 안보이게함
+            if(item.getAcceptStatus()!=0){
+                LinearLayout linearLayout = (LinearLayout) findViewById(R.id.layout_confirmornot);
+                linearLayout.setVisibility(View.GONE);
+            }
+        }
+        else if(id==1){
             this.item2 = Order.getocInstanceList().get(index);
             if(this.item2.getAcceptStatus()!=0)
                 layout.setVisibility(View.GONE);
@@ -109,46 +152,6 @@ public class OrderSpecificActivity extends AppCompatActivity {
                 return false;
             }
         });
-
-        // 승인 버튼 클릭 시
-        btnRegister = (LinearLayout) findViewById(R.id.order_clothes_register);
-        btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), item.getUserID() + "님의 주문이 승인되었습니다.", Toast.LENGTH_SHORT).show();
-                item.setAcceptStatus(1); // 승인
-                btnRegister.setEnabled(false);
-                btnReject.setEnabled(false);
-                btnRegister.setBackgroundResource(R.color.darkergrey);
-                btnReject.setBackgroundResource(R.color.darkergrey);
-
-                confirm.add(item);
-                nConfirm.remove(item);
-            }
-        });
-
-        // 거절 버튼 클릭 시
-        btnReject = (LinearLayout) findViewById(R.id.order_clothes_reject);
-        btnReject.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), item.getUserID() + "님의 주문이 거절되었습니다.", Toast.LENGTH_SHORT).show();
-                item.setAcceptStatus(2); // 거절
-                btnRegister.setEnabled(false);
-                btnReject.setEnabled(false);
-                btnRegister.setBackgroundResource(R.color.darkergrey);
-                btnReject.setBackgroundResource(R.color.darkergrey);
-
-                confirm.add(item);
-                nConfirm.remove(item);
-            }
-        });
-
-        // 이미 승인된 목록에 대해서 승인, 거절버튼을 안보이게함
-        if(item.getAcceptStatus()!=0){
-            LinearLayout linearLayout = (LinearLayout) findViewById(R.id.layout_confirmornot);
-            linearLayout.setVisibility(View.GONE);
-        }
     }
 
     public void setTotalPrice(List<BasketItem> citems){

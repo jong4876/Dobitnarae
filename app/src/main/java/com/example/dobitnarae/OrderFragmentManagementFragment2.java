@@ -131,6 +131,7 @@ public class OrderFragmentManagementFragment2 extends Fragment {
                 public void onClick(View v) {
                     Intent intent = new Intent(mContext, OrderSpecificActivity.class);
                     intent.putExtra("order",position);
+                    intent.putExtra("id", 1);
                     mContext.startActivity(intent);
                 }
             });

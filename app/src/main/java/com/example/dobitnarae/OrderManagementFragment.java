@@ -18,13 +18,33 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class OrderManagementFragment extends Fragment {
     private OrderFragmentManagementFragment fm1;
     private OrderFragmentManagementFragment2 fm2;
 
+    private ArrayList<Order> orderArrayList;
+    private ArrayList<Order> orderArrayList2;
+    private ArrayList<Order> orderArrayList3;
+
     private ImageButton refreshBtn;
 
     public OrderManagementFragment() {
+        orderArrayList = JSONTask.getInstance().getOrderAdminAll("jong4876");
+        orderArrayList2 = Order.getncInstanceList();
+        orderArrayList3 = Order.getocInstanceList();
+
+        int ITEM_SIZE = orderArrayList.size();
+        Order[] item = new Order[ITEM_SIZE];
+        for(int i=0; i<ITEM_SIZE; i++){
+            item[i] = orderArrayList.get(i);
+            if(item[i].getAcceptStatus()==0){
+                orderArrayList2.add(item[i]);
+            } else {
+                orderArrayList3.add(item[i]);
+            }
+        }
     }
 
     /**

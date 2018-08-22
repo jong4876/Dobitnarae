@@ -28,6 +28,7 @@ public class DBstoreActivity extends AppCompatActivity {// db실험용
     ArrayList<Store> storeList = new ArrayList<Store>();
     ArrayList<Clothes> clothesList = new ArrayList<Clothes>();
     ArrayList<Order> orderList = new ArrayList<Order>();
+    ArrayList<BasketItem> bascketList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +45,7 @@ public class DBstoreActivity extends AppCompatActivity {// db실험용
             clothesList = JSONTask.getInstance().getClothesAll("jong4876");// jong4876 매장의 옷들 검색
             inCloth = clothesList.get(0);// 업데이트 할 데이터 -> cloth의 첫 데이터
             int cnt = inCloth.getCount();
-            inCloth.setCount(cnt + 1 );// set으로 데이터 수젇
+            inCloth.setCount(cnt - 1 );// set으로 데이터 수젇
             JSONTask.getInstance().updateCloth(inCloth);// 바꿀 cloth의 id역시 set으로 만들어 준 후 보냄
             */
             //cloth 수정 예시
@@ -75,12 +76,23 @@ public class DBstoreActivity extends AppCompatActivity {// db실험용
             //store 수정 예시
 
 
-            //clothesList = JSONTask.getInstance().getBascketAll("su123");
-            //id가 basket에 담은 물품들 가져오기
-
-            orderList = JSONTask.getInstance().getOrderAll("su123");
+            //orderList = JSONTask.getInstance().getOrderCustomerAll("su123");
 
 
+            /*
+            Order inOrder = orderList.get(0);
+            inOrder.setClothID(2);
+            JSONTask.getInstance().insertOrder(inOrder);
+            */
+            //order 삽입 예시
+
+            //JSONTask.getInstance().deleteOrder(4);
+            //order 삭제 예시
+
+            //JSONTask.getInstance().updateOrderAccept(5,1);
+            //update accept 예시
+
+            orderList = JSONTask.getInstance().getOrderAdminAll("jong4876");
 
 
             StringBuffer sb = new StringBuffer();
@@ -100,9 +112,9 @@ public class DBstoreActivity extends AppCompatActivity {// db실험용
                 );
             }
             */
+
             /*
             for(int i=0; i<clothesList.size(); i++){
-
                 sb.append(// test용 stringbuffer
                         "한복id: " + clothesList.get(i).getCloth_id()+
                                 "\n\n매장명: " + clothesList.get(i).getStore_id() +
@@ -112,23 +124,24 @@ public class DBstoreActivity extends AppCompatActivity {// db실험용
                                 "\n\n옷 가격: " + clothesList.get(i).getPrice() +
                                 "\n\n옷 수량: " + clothesList.get(i).getCount()  +
                                 "\n\n옷 성별: " + clothesList.get(i).getSex()  +
-
                                 "\n\n\n"
                 );
             }
             */
+
+
             for(int i=0; i<orderList.size(); i++){
 
                 sb.append(// test용 stringbuffer
                         "주문번호: " + orderList.get(i).getOrderNo()+
                                 "\n\n주문아이디: " + orderList.get(i).getUserID() +
                                 "\n\n매장아이디: " + orderList.get(i).getAdminID()  +
-                                "\n\n옷아이디: " + orderList.get(i).getClothID() +
                                 "\n\n승인여부: " + orderList.get(i).getAcceptStatus()  +
                                 "\n\n예약날짜: " + orderList.get(i).getOrderDate() +
                                 "\n\n\n"
                 );
             }
+
 
             txtView.setText(sb);
         }catch(Exception E){

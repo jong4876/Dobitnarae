@@ -16,5 +16,6 @@
     <color name="cardviewbg">#d7d7d7</color>
     <color name="white">#fff</color>
     <color name="appMainColor">#ff8484</color>
-
+    <color name="storeOpeningColor">#339738</color>
+    <color name="lineColor">#dcdcdc</color>
 </resources>

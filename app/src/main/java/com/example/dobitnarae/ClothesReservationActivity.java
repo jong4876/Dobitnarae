@@ -18,7 +18,7 @@ import java.util.Objects;
 public class ClothesReservationActivity extends AppCompatActivity {
     private DecimalFormat dc;
     private Clothes item;
-    private LinearLayout btnReduce, btnAdd;
+    private LinearLayout btnReduce, btnAdd, btnBottom;
     private TextView totalPrice, selectCnt;
     private Store store;
 
@@ -93,30 +93,43 @@ public class ClothesReservationActivity extends AppCompatActivity {
             }
         });
 
-        LinearLayout gotoBasket = (LinearLayout)findViewById(R.id.reserve_clothes_basket);
-        gotoBasket.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Basket basket = Basket.getInstance();
+        // 옷 재고 여부에 따른 하단 메뉴바 설정
+        int clothesCnt = this.item.getCount();
+        LinearLayout soldoutMenu = findViewById(R.id.reserve_soldout);
+        LinearLayout reserveMenu = findViewById(R.id.reserve_bottom_menu);
+        if(clothesCnt == 0){
+            soldoutMenu.setVisibility(View.VISIBLE);
+            reserveMenu.setVisibility(View.INVISIBLE);
+        }
+        else{
+            soldoutMenu.setVisibility(View.INVISIBLE);
+            reserveMenu.setVisibility(View.VISIBLE);
 
-                basket.addClothes(v.getContext(), new BasketItem(item, Integer.parseInt((String) selectCnt.getText())));
-                Toast.makeText(getApplicationContext(), "장바구니",Toast.LENGTH_SHORT).show();
+            LinearLayout gotoBasket = (LinearLayout) findViewById(R.id.reserve_clothes_basket);
+            gotoBasket.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Basket basket = Basket.getInstance();
 
-                ArrayList<BasketItem> tmp = basket.getBasket();
-                for(BasketItem a : tmp){
-                    Log.e(a.getClothes().getName(), "" + a.getCnt());
+                    basket.addClothes(v.getContext(), new BasketItem(item, Integer.parseInt((String) selectCnt.getText())));
+                    Toast.makeText(getApplicationContext(), "장바구니", Toast.LENGTH_SHORT).show();
+
+                    ArrayList<BasketItem> tmp = basket.getBasket();
+                    for (BasketItem a : tmp) {
+                        Log.e(a.getClothes().getName(), "" + a.getCnt());
+                    }
+                    finish();
                 }
-            }
-        });
+            });
 
-        LinearLayout gotoReserve = (LinearLayout)findViewById(R.id.reserve_clothes_reserve);
-        gotoReserve.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "예약하기",Toast.LENGTH_SHORT).show();
-            }
-        });
-
+            LinearLayout gotoReserve = (LinearLayout) findViewById(R.id.reserve_clothes_reserve);
+            gotoReserve.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getApplicationContext(), "예약하기", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
     public void setTotalPrice(int cnt){

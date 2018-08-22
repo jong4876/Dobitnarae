@@ -1,6 +1,8 @@
 package com.example.dobitnarae;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -22,9 +24,12 @@ public class MainActivityTmp extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
 
         ImageButton backButton = (ImageButton)findViewById(R.id.backButton);
+        Drawable drawable = ContextCompat.getDrawable(this, R.drawable.ic_action_mypage);
+        backButton.setBackground(drawable);
         backButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                finish();
+                Intent intent = new Intent(MainActivityTmp.this, MyPageActivity.class);
+                startActivity(intent);
             }
         });
 

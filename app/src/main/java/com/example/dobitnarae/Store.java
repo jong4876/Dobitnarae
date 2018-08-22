@@ -11,15 +11,15 @@ public class Store implements Serializable{
     private String tel;
     private String intro;
     private String inform;
+    private String startTime;
+    private String endTime;
     private int sector;
     private double longitude;
     private double latitude;
-    private Time start_time;
-    private Time end_time;
 
 
     public Store(int id, String name, String admin_id, String tel, String intro, String inform,
-                 String address, int sector, double latitude, double longitude){
+                 String address, int sector, double latitude, double longitude, String startTime, String endTime){
         this.id=id;
         this.name = name;
         this.admin_id= admin_id;
@@ -30,8 +30,8 @@ public class Store implements Serializable{
         this.sector = sector;
         this.longitude = longitude;
         this.latitude = latitude;
-        this.start_time = start_time;
-        this.end_time = end_time;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     public int getId() {
@@ -56,6 +56,12 @@ public class Store implements Serializable{
     public String getInform() {
         return inform;
     }
+    public String getEndTime() {
+        return endTime;
+    }
+    public String getStartTime() {
+        return startTime;
+    }
     public int getSector(){
         return sector;
     }
@@ -65,15 +71,6 @@ public class Store implements Serializable{
     public double getLatitude(){
         return latitude;
     }
-    public Time getStart_time(){
-        return start_time;
-    }
-    public Time getEnd_time(){
-        return end_time;
-    }
-
-
-
 
 
     public void setId(int id) {
@@ -107,13 +104,10 @@ public class Store implements Serializable{
     public void setLatitude(double latitude){
         this.latitude = latitude;
     }
-    public void setStart_time(Time start_time){
-        this.start_time = start_time;
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
     }
-    public void setEnd_time(Time end_time){
-        this.end_time = end_time;
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
     }
-
-
-
 }

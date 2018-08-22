@@ -11,6 +11,6 @@
     <dimen name="padding_vertical">25dp</dimen>
     <dimen name="padding_horizontal">16dp</dimen>
     <dimen name="clothes_height">170dp</dimen>
-    <dimen name="bottom_action_bar">50dp</dimen>
+    <dimen name="bottom_action_bar">60dp</dimen>
 
 </resources>

@@ -3,16 +3,18 @@ package com.example.dobitnarae;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 
-import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.TimeZone;
 
-public class Basket{
+public class Basket {
     private static Basket instance = new Basket();
     private ArrayList<BasketItem> basket;
     private int selectedStoreID;
-    private String rentalDate;
+    private String rentalDate;  // 형태  yyyy-mm-dd hh:mm:ss
 
     private Basket(){
         basket = new ArrayList<>();
@@ -59,6 +61,11 @@ public class Basket{
          *     - client에게 기존 목록 지울껀지 묻고 담기
          *
          */
+        Date today = new Date();
+        SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        date.setTimeZone(TimeZone.getTimeZone("GMT+9"));
+        rentalDate = date.format(today);
+        Log.e("Sdfsdf", rentalDate);
         if(selectedStoreID == -1){
             basket.add(item);
             selectedStoreID = item.getClothes().getStore_id();
@@ -93,5 +100,27 @@ public class Basket{
                     }
                 });
         builder.show();
+    }
+
+    public void deleteClothes(int position)
+    {
+        basket.remove(position);
+    }
+
+    public int getTotalPrice()
+    {
+        int price = 0;
+        for(BasketItem b : basket){
+            price += b.getClothes().getPrice() * b.getCnt();
+        }
+        return price;
+    }
+
+    public int getTotalClothesCnt()
+    {
+        int cnt = 0;
+        for(BasketItem b : basket)
+            cnt += b.getCnt();
+        return cnt;
     }
 }

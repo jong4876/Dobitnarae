@@ -19,7 +19,9 @@ public  class JSONTask extends AsyncTask<String, String, String> {
     String user_id;
     String delClothName;
     int acceptStatus = 0;
-    Store upStore = new Store(0,"example","example","example","example","example","example",0,0.0,0.0);
+    Store upStore = new Store(0,"example","example","example",
+            "example","example","example",0,
+            0.0,0.0,"09:00", "22:00");
     Clothes inCloth = new Clothes(0,0,0,"example","example",0,0,0);
     BasketItem basketItem = new BasketItem(inCloth, 0);
     Order order = new Order(0,"example","example",0,"example");
@@ -198,8 +200,8 @@ public  class JSONTask extends AsyncTask<String, String, String> {
                 double latitude = jo.getDouble("latitude");
                 double longitude = jo.getDouble("longitude");
 
-
-                store = new Store(id, name, admin_id,tel,intro, inform, address, sector, latitude, longitude);
+                // TODO 영업 시작시간 종료시간 가져와서 넣어야됨
+                store = new Store(id, name, admin_id,tel,intro, inform, address, sector, latitude, longitude, "", "");
                 storeList.add(store);//accountList 차례대로 삽입
             }
         }catch(Exception e){

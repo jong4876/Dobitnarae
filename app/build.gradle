@@ -30,4 +30,6 @@ dependencies {
     implementation 'com.android.support:cardview-v7:27.1.1'
     //네이버지도 api
     implementation 'com.naver.maps.open:naver-map-api:2.1.2@aar'
+    // Tiempicker, Datepicker
+    implementation 'com.wdullaer:materialdatetimepicker:3.6.3'
 }

@@ -10,6 +10,8 @@ public class Store implements Serializable{
     private String tel;
     private String intro;
     private String inform;
+    private String startTime;
+    private String endTime;
     private int sector;
     private double longitude;
     private double latitude;
@@ -50,6 +52,12 @@ public class Store implements Serializable{
     }
     public String getInform() {
         return inform;
+    }
+    public String getEndTime() {
+        return endTime;
+    }
+    public String getStartTime() {
+        return startTime;
     }
     public int getSector(){
         return sector;

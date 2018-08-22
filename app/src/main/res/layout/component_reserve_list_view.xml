@@ -55,7 +55,7 @@
             android:layout_height="30dp"
             android:layout_weight="0.3">
             <LinearLayout
-                android:id="@+id/store_opening_info_border"
+                android:id="@+id/reserve_success_layout"
                 android:layout_width="60dp"
                 android:layout_height="20dp"
                 android:background="@drawable/border_all_layout_item_green"

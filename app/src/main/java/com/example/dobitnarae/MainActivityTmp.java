@@ -28,6 +28,8 @@ public class MainActivityTmp extends AppCompatActivity {
             }
         });
 
+        //db 예시
+        //JSONTaskTmp.getInstance().upStore();
         View.OnClickListener gotoStoreList = new View.OnClickListener() {
             @Override
             public void onClick(View v) {

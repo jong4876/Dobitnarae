@@ -3,38 +3,38 @@ package com.example.dobitnarae;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-import java.util.Objects;
-
-public class SpecificOrderActivity extends AppCompatActivity {
+public class OrderSpecificActivity extends AppCompatActivity {
+    private Order item;
+    private Order item2;
+    private ArrayList<Order> confirm;
+    private ArrayList<Order> nConfirm;
     DecimalFormat dc;
-    Order item;
-    //ArrayList<Clothes> basket;
+    int index, id;
     TextView totalPrice;
+
+    private LinearLayout layout;
 
     private NestedScrollView mScrollView;
 
@@ -46,14 +46,16 @@ public class SpecificOrderActivity extends AppCompatActivity {
 
     private Basket basket;
 
-    public SpecificOrderActivity() {
+    public OrderSpecificActivity() {
         this.basket = Basket.getInstance();
+        this.nConfirm = Order.getncInstanceList();
+        this.confirm = Order.getocInstanceList();
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order_specific);
+        setContentView(R.layout.activity_specific_order);
 
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.tool_bar);
@@ -69,16 +71,70 @@ public class SpecificOrderActivity extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-        item = (Order) intent.getSerializableExtra("order");
+        index = (int) intent.getIntExtra("order", 0);
+        id = (int) intent.getIntExtra("id", 0);
 
-        // 인텐트로 옷 리스트를 넘겨받음
-        //basket = intent.getParcelableArrayListExtra("cloth");
+        layout = (LinearLayout) findViewById(R.id.layout_confirmornot);
+
+        if(id==0) {
+            this.item = Order.getncInstanceList().get(index);
+
+            // 승인 버튼 클릭 시
+            btnRegister = (LinearLayout) findViewById(R.id.order_clothes_register);
+            btnRegister.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getApplicationContext(), item.getUserID() + "님의 주문이 승인되었습니다.", Toast.LENGTH_SHORT).show();
+                    item.setAcceptStatus(1); // 승인
+                    JSONTask.getInstance().updateOrderAccept(item.getOrderNo(), 1);
+                    btnRegister.setEnabled(false);
+                    btnReject.setEnabled(false);
+                    btnRegister.setBackgroundResource(R.color.darkergrey);
+                    btnReject.setBackgroundResource(R.color.darkergrey);
+
+                    confirm.add(item);
+                    nConfirm.remove(item);
+                }
+            });
+
+            // 거절 버튼 클릭 시
+            btnReject = (LinearLayout) findViewById(R.id.order_clothes_reject);
+            btnReject.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getApplicationContext(), item.getUserID() + "님의 주문이 거절되었습니다.", Toast.LENGTH_SHORT).show();
+                    item.setAcceptStatus(2); // 거절
+                    JSONTask.getInstance().updateOrderAccept(item.getOrderNo(), 2);
+                    btnRegister.setEnabled(false);
+                    btnReject.setEnabled(false);
+                    btnRegister.setBackgroundResource(R.color.darkergrey);
+                    btnReject.setBackgroundResource(R.color.darkergrey);
+
+                    confirm.add(item);
+                    nConfirm.remove(item);
+                }
+            });
+
+            // 이미 승인된 목록에 대해서 승인, 거절버튼을 안보이게함
+            if(item.getAcceptStatus()!=0){
+                LinearLayout linearLayout = (LinearLayout) findViewById(R.id.layout_confirmornot);
+                linearLayout.setVisibility(View.GONE);
+            }
+        }
+        else if(id==1){
+            this.item2 = Order.getocInstanceList().get(index);
+            if(this.item2.getAcceptStatus()!=0)
+                layout.setVisibility(View.GONE);
+        }
 
         mListView = (ListView) findViewById(R.id.listview_specific);
 
         mAdapter = new ListViewAdapter(this);
         mListView.setAdapter(mAdapter);
 
+        if(basket.getBasket().size()==0){
+            Toast.makeText(getApplicationContext(), "장바구니가 비었습니다.", Toast.LENGTH_SHORT).show();
+        }
 
         for (BasketItem citem:basket.getBasket()) {
             mAdapter.addItem(citem);
@@ -94,37 +150,6 @@ public class SpecificOrderActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 mScrollView.requestDisallowInterceptTouchEvent(true);
                 return false;
-            }
-        });
-
-        // 승인 버튼 클릭 시
-        btnRegister = (LinearLayout) findViewById(R.id.order_clothes_register);
-        btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Snackbar.make(v, item.getUserID() + "님의 주문이 승인되었습니다.", Snackbar.LENGTH_LONG).show();
-                item.setAcceptStatus(1); // 승인
-                btnRegister.setEnabled(false);
-                btnReject.setEnabled(false);
-                btnRegister.setBackgroundResource(R.color.darkergrey);
-                btnReject.setBackgroundResource(R.color.darkergrey);
-                // 데이터 변경됨을 반영
-                //mAdapter.dataChange();
-            }
-        });
-
-        // 거절 버튼 클릭 시
-        btnReject = (LinearLayout) findViewById(R.id.order_clothes_reject);
-        btnReject.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Snackbar.make(v, item.getUserID() + "고객의 주문이 거절되었습니다.", Snackbar.LENGTH_LONG).show();
-                item.setAcceptStatus(2); // 거절
-                btnRegister.setEnabled(false);
-                btnReject.setEnabled(false);
-                btnRegister.setBackgroundResource(R.color.darkergrey);
-                btnReject.setBackgroundResource(R.color.darkergrey);
-                //mAdapter.dataChange();
             }
         });
     }
@@ -182,7 +207,7 @@ public class SpecificOrderActivity extends AppCompatActivity {
                 holder = new ViewHolder();
 
                 LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = inflater.inflate(R.layout.listview_order_specific, null);
+                convertView = inflater.inflate(R.layout.component_listview_order_specific, null);
 
                 holder.imageView = (ImageView) convertView.findViewById(R.id.order_clothes_img);
                 holder.mName = (TextView) convertView.findViewById(R.id.order_clothes_name);

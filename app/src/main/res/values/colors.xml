@@ -12,6 +12,9 @@
     <color name="blue">#ff0000ff</color>
     <color name="black">#00ffffff</color>
     <color name="darkergrey">#aaa</color>
+    <color name="orange">#ff9900</color>
+    <color name="cardviewbg">#d7d7d7</color>
+    <color name="white">#fff</color>
     <color name="appMainColor">#ff8484</color>
 
 </resources>

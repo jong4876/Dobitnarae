@@ -1,206 +1,179 @@
 package com.example.dobitnarae;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.util.Log;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TextView;
-
-import org.w3c.dom.Text;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
-@SuppressLint("ValidFragment")
 public class OrderManagementFragment extends Fragment {
-    private ArrayList<Order> items;
-    private List<Order> confirmedDatas;
-    private ListView mListView = null;
-    private ListViewAdapter mAdapter = null;
+    private OrderFragmentManagementFragment fm1;
+    private OrderFragmentManagementFragment2 fm2;
 
-    private Basket basket;
+    private ArrayList<Order> orderArrayList;
+    private ArrayList<Order> orderArrayList2;
+    private ArrayList<Order> orderArrayList3;
 
-    public OrderManagementFragment(ArrayList<Order> items, List<Order> items2) {
-        this.items = items;
-        this.confirmedDatas = items2;
-        this.basket = Basket.getInstance();
+    private ImageButton refreshBtn;
+
+    public OrderManagementFragment() {
+        orderArrayList = JSONTask.getInstance().getOrderAdminAll("jong4876");
+        orderArrayList2 = Order.getncInstanceList();
+        orderArrayList3 = Order.getocInstanceList();
+
+        int ITEM_SIZE = orderArrayList.size();
+        Order[] item = new Order[ITEM_SIZE];
+        for(int i=0; i<ITEM_SIZE; i++){
+            item[i] = orderArrayList.get(i);
+            if(item[i].getAcceptStatus()==0){
+                orderArrayList2.add(item[i]);
+            } else {
+                orderArrayList3.add(item[i]);
+            }
+        }
     }
 
-    // 어댑터 2개쓰고 전환시키자
+    /**
+     * The {@link android.support.v4.view.PagerAdapter} that will provide
+     * fragments for each of the sections. We use a
+     * {@link FragmentPagerAdapter} derivative, which will keep every
+     * loaded fragment in memory. If this becomes too memory intensive, it
+     * may be best to switch to a
+     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
+     */
+    private SectionsPagerAdapter mSectionsPagerAdapter;
+
+    /**
+     * The {@link ViewPager} that will host the section contents.
+     */
+    private ViewPager mViewPager;
+
+    private static final String ARG_SECTION_NUMBER = "section_number";
+    public static OrderManagementFragment newInstance(int sectionNumber) {
+        OrderManagementFragment fragment = new OrderManagementFragment();
+        Bundle args = new Bundle();
+        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_management_order, container, false);
 
-        mListView = (ListView) rootView.findViewById(R.id.listView);
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getChildFragmentManager());
 
-        mAdapter = new ListViewAdapter(getActivity());
-        mListView.setAdapter(mAdapter);
+        // Set up the ViewPager with the sections adapter.
+        mViewPager = (ViewPager) rootView.findViewById(R.id.container);
+        mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        // 내림차순 정렬된 순서로 데이터 삽입
-        //Collections.sort(items);
+        TabLayout tabLayout = (TabLayout) rootView.findViewById(R.id.tabs);
 
-        for (Order item:items) {
-            mAdapter.addItem(item);
-        }
-
-        // 미승인 데이터 조회
-        Button btnNotconfirmed = (Button) rootView.findViewById(R.id.btn_notconfirmed_list);
-        btnNotconfirmed.setOnClickListener(new View.OnClickListener() {
+        refreshBtn = ((AdminActivity)getActivity()).getRefreshBtn();
+        refreshBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 어댑터 데이터 초기화
-                mAdapter.clear();
-                Collections.sort(items);
-                for (Order item:items) {
-                    mAdapter.addItem(item);
-                }
-
-                mAdapter.dataChange();
+                fm1.dataUpdate();
+                fm2.dataUpdate();
+                Toast.makeText(getContext(), "새로고침 완료", Toast.LENGTH_SHORT).show();
             }
         });
 
-        // 승인 데이터 조회
-        Button btnconfirmed = (Button) rootView.findViewById(R.id.btn_confirmed_list);
-        btnconfirmed.setOnClickListener(new View.OnClickListener() {
+        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onClick(View v) {
-                // 어댑터 데이터 초기화
-                mAdapter.clear();
-                // 승인 / 거절 데이터 또한 내림차순으로 정렬
-                Collections.sort(confirmedDatas);
-                for (Order item:confirmedDatas) {
-                    mAdapter.addItem(item);
-                }
-                mAdapter.dataChange();
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                fm1.dataUpdate();
+                fm2.dataUpdate();
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
             }
         });
+        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+
         return rootView;
     }
 
-    private class ViewHolder {
-        public String mNo;
-        public ImageView imageView;
-        public TextView mBasket;
-        public TextView mDate;
-        public TextView mStore;
-        public LinearLayout linearLayout;
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        //super.onCreateOptionsMenu(menu, inflater);
     }
 
-    private class ListViewAdapter extends BaseAdapter {
-        private Context mContext = null;
-        private ArrayList<OrderInfoData> mListData = new ArrayList<OrderInfoData>();
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
 
-        public ListViewAdapter(Context mContext) {
-            super();
-            this.mContext = mContext;
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    // 프래그먼트 재활용
+    private void setChildFragment(Fragment child) {
+        FragmentTransaction childFt = getChildFragmentManager().beginTransaction();
+
+        if (!child.isAdded()) {
+            childFt.replace(R.id.container, child);
+            childFt.addToBackStack(null);
+            childFt.commit();
+        }
+    }
+
+    /**
+     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
+     * one of the sections/tabs/pages.
+     */
+    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+
+        public SectionsPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+
+            switch(position) {
+                case 0:
+                    fm1 = OrderFragmentManagementFragment.newInstance(0);
+                    return fm1;
+                case 1:
+                    fm2 = OrderFragmentManagementFragment2.newInstance(1);
+                    return fm2;
+                default:
+                    return null;
+            }
         }
 
         @Override
         public int getCount() {
-            return mListData.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return mListData.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(final int position, View convertView, ViewGroup parent) {
-            ViewHolder holder;
-            if (convertView == null) {
-                holder = new ViewHolder();
-
-                LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = inflater.inflate(R.layout.listview_info_confirmedorder, null);
-
-                holder.imageView = (ImageView) convertView.findViewById(R.id.imageView);
-                holder.mBasket = (TextView) convertView.findViewById(R.id.txt_basket);
-                holder.mDate = (TextView) convertView.findViewById(R.id.txt_date);
-                holder.mStore = (TextView) convertView.findViewById(R.id.txt_store);
-                holder.linearLayout = (LinearLayout) convertView.findViewById(R.id.listView_order);
-
-                convertView.setTag(holder);
-            }else{
-                holder = (ViewHolder) convertView.getTag();
-            }
-
-            final OrderInfoData mData = mListData.get(position);
-
-            // 서버에서 이미지 받아야함
-            Drawable drawable = ContextCompat.getDrawable(mContext, R.drawable.gobchang);
-
-            //holder.mNo = mData.getOrderNo();
-            //holder.imageView.setBackground(drawable);
-            //holder.mBasket.setText(basket.getBasket().get(position).getClothes().getName() + " 외 " + basket.getBasket().get(position).getClothes().getCount()+ "벌");
-            //holder.mDate.setText(basket.getRentalDate());
-
-            holder.mNo = mData.getOrderNo();
-            holder.imageView.setBackground(drawable);
-            holder.mBasket.setText(mData.getOrderBasket());
-            holder.mDate.setText(mData.getOrderDate());
-            // 매장이름필요
-            holder.mStore.setText(mData.getOrderNo());
-            holder.linearLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(mContext, SpecificOrderActivity.class);
-                    intent.putExtra("order", items.get(position));
-                    mContext.startActivity(intent);
-                }
-            });
-
-            return convertView;
-        }
-
-        public void addItem(Order item){
-            OrderInfoData addInfo = null;
-            addInfo = new OrderInfoData();
-            addInfo.setOrderNo(String.valueOf(item.getOrderNo()));
-            // 고객 아이디가 아닌 고객 이름을 보여지게 해야함
-            addInfo.setOrderName(item.getUserID());
-            // 고객 주문데이터로 수정필요
-            addInfo.setOrderBasket(item.getAdminID());
-            addInfo.setOrderDate(item.getOrderDate());
-            mListData.add(addInfo);
-        }
-
-        public void remove(int position){
-            mListData.remove(position);
-            dataChange();
-        }
-
-
-        public void clear(){
-            mListData.clear();
-            dataChange();
-        }
-
-        public void dataChange(){
-            mAdapter.notifyDataSetChanged();
+            // 탭 개수
+            return 2;
         }
     }
 }

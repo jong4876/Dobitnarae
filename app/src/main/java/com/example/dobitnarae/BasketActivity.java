@@ -152,17 +152,6 @@ public class BasketActivity extends AppCompatActivity {
             public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
                 // TODO
                 // 서버로 선택한 옷, 사용자 정보, 예약 날짜및 시간 전송
-
-                // 임시 성공 모달창
-                DisplayMetrics dm = getApplicationContext().getResources().getDisplayMetrics(); //디바이스 화면크기를 구하기위해
-                int width = dm.widthPixels; //디바이스 화면 너비
-                int height = dm.heightPixels; //디바이스 화면 높이
-                ReserveSuccess rs = new ReserveSuccess(context);
-                WindowManager.LayoutParams wm = rs.getWindow().getAttributes();  //다이얼로그의 높이 너비 설정하기위해
-                wm.copyFrom(rs.getWindow().getAttributes());  //여기서 설정한값을 그대로 다이얼로그에 넣겠다는의미
-                wm.width = width / 2;  //화면 너비의 절반
-                wm.height = height / 4;  //화면 높이의 절반
-                rs.show();
             }
         });
     }

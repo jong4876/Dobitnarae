@@ -31,7 +31,8 @@
         <activity android:name=".ClothesReservationActivity" />
         <activity android:name=".MainActivityTmp" />
         <activity android:name=".StoreListActivity" />
-        <activity android:name=".BasketActivity"></activity>
+        <activity android:name=".BasketActivity" />
+        <activity android:name=".MyPageActivity"></activity>
     </application>
 
 </manifest>

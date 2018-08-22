@@ -92,11 +92,11 @@ public class DBstoreActivity extends AppCompatActivity {// db실험용
             //JSONTask.getInstance().updateOrderAccept(5,1);
             //update accept 예시
 
-            orderList = JSONTask.getInstance().getOrderAdminAll("jong4876");
+            storeList = JSONTask.getInstance().getCustomerStoreAll();
 
 
             StringBuffer sb = new StringBuffer();
-            /*
+
             for(int i=0; i<storeList.size(); i++){
                 sb.append(// test용 stringbuffer
                         "한복id: " + storeList.get(i).getId()+
@@ -110,7 +110,7 @@ public class DBstoreActivity extends AppCompatActivity {// db실험용
                                 "\n\n\n"
                 );
             }
-            */
+
 
             /*
             for(int i=0; i<clothesList.size(); i++){
@@ -128,7 +128,7 @@ public class DBstoreActivity extends AppCompatActivity {// db실험용
             }
             */
 
-
+/*
             for(int i=0; i<orderList.size(); i++){
 
                 sb.append(// test용 stringbuffer
@@ -140,7 +140,7 @@ public class DBstoreActivity extends AppCompatActivity {// db실험용
                                 "\n\n\n"
                 );
             }
-
+*/
 
             txtView.setText(sb);
         }catch(Exception E){

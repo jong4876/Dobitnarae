@@ -177,7 +177,7 @@ public  class JSONTask extends AsyncTask<String, String, String> {
     }
 
     /////////검색메서드
-    public  ArrayList<Store> getStoreAll(String user_id){ // JSON.HTML넣어서 사용, 전송되는 user_id jong4876~~
+    public  ArrayList<Store> getAdminStoreAll(String user_id){ // JSON.HTML넣어서 사용, 전송되는 user_id jong4876~~
         ArrayList<Store> storeList = new ArrayList<Store>();
         Store store;
 
@@ -185,6 +185,40 @@ public  class JSONTask extends AsyncTask<String, String, String> {
             JSONTask JT = new JSONTask();
             JT.setUser_id(user_id);
             String str = JT.execute("http://13.209.89.187:3443/store").get();
+            JSONArray ja = new JSONArray(str);
+            // txtView.setText(str);
+            for(int i=0; i<ja.length(); i++){
+                JSONObject jo = ja.getJSONObject(i);
+                int id = jo.getInt("id");
+                String name = jo.getString("name");
+                String admin_id = jo.getString("admin_id");
+                String tel = jo.getString("tel");
+                String intro = jo.getString("intro");
+                String inform = jo.getString("inform");
+                String address = jo.getString("address");
+                int sector = jo.getInt("sector");
+                double latitude = jo.getDouble("latitude");
+                double longitude = jo.getDouble("longitude");
+
+                // TODO 영업 시작시간 종료시간 가져와서 넣어야됨
+                store = new Store(id, name, admin_id,tel,intro, inform, address, sector, latitude, longitude, "", "");
+                storeList.add(store);//accountList 차례대로 삽입
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return storeList;
+    }
+
+    public  ArrayList<Store> getCustomerStoreAll(){ // JSON.HTML넣어서 사용, 전송되는 user_id jong4876~~
+        ArrayList<Store> storeList = new ArrayList<Store>();
+        Store store;
+        String user_id = "allUser";
+
+        try {
+            JSONTask JT = new JSONTask();
+            JT.setUser_id(user_id);
+            String str = JT.execute("http://13.209.89.187:3443/storeCustomer").get();
             JSONArray ja = new JSONArray(str);
             // txtView.setText(str);
             for(int i=0; i<ja.length(); i++){

@@ -117,9 +117,9 @@ public class AdminActivity extends AppCompatActivity {
 
         // 특정 인덴트에서 store 키값을 받아와
         // 서버로 통신 하여 `가게정보, 판매중인 옷` 데이터 받아옴
-        storeList = JSONTask.getStoreAll("jong4876");// JSON형태의 store정보들을 분류하여 arrayList에 저장
+        storeList = JSONTask.getInstance().getStoreAll("jong4876");// JSON형태의 store정보들을 분류하여 arrayList에 저장
         store = storeList.get(0);
-        clothesList = JSONTask.getClothesAll(1);
+        clothesList = JSONTask.getInstance().getClothesAll("jong4876");
 
         TextView textView = (TextView) findViewById(R.id.toolbar_title);
         textView.setText(store.getName());

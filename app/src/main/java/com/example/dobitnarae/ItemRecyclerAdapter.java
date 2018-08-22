@@ -15,12 +15,12 @@ import android.widget.Toast;
 
 import java.util.List;
 
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
+public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapter.ViewHolder> {
     Context context;
     List<Clothes> clothes;
     int item_layout;
 
-    public RecyclerAdapter(Context context, List<Clothes> items, int item_layout) {
+    public ItemRecyclerAdapter(Context context, List<Clothes> items, int item_layout) {
         this.context = context;
         this.clothes = items;
         this.item_layout = item_layout;

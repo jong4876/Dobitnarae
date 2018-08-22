@@ -113,4 +113,7 @@ public class Store implements Serializable{
     public void setEnd_time(Time end_time){
         this.end_time = end_time;
     }
+
+
+
 }

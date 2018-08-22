@@ -1,7 +1,6 @@
 package com.example.dobitnarae;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -34,7 +33,6 @@ import java.io.File;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -64,7 +62,7 @@ public class ItemSpecificActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_item_specific);
+        setContentView(R.layout.activity_specific_item);
 
         context = this;
 
@@ -165,7 +163,7 @@ public class ItemSpecificActivity extends AppCompatActivity {
             }
         });
 
-        LinearLayout dataUpdate = (LinearLayout)findViewById(R.id.reserve_clothes_basket);
+        LinearLayout dataUpdate = (LinearLayout)findViewById(R.id.order_clothes_basket);
         dataUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -173,7 +171,7 @@ public class ItemSpecificActivity extends AppCompatActivity {
             }
         });
 
-        LinearLayout dataDelete = (LinearLayout)findViewById(R.id.reserve_clothes_reserve);
+        LinearLayout dataDelete = (LinearLayout)findViewById(R.id.order_clothes_reserve);
         dataDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

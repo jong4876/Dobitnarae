@@ -19,24 +19,22 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @SuppressLint("ValidFragment")
-public class NotConfirmedOrderFragment extends Fragment {
+public class OrderFragmentManagementFragment2 extends Fragment {
     private ArrayList<Order> items;
     private ListView mListView = null;
     private ListViewAdapter mAdapter = null;
+    public Basket basket;
 
-    private Basket basket;
-
-    public NotConfirmedOrderFragment() {
-        this.items = Order.getncInstanceList();
+    public OrderFragmentManagementFragment2() {
+        this.items = Order.getocInstanceList();
         this.basket = Basket.getInstance();
     }
 
     private static final String ARG_SECTION_NUMBER = "section_number";
-    public static NotConfirmedOrderFragment newInstance(int sectionNumber) {
-        NotConfirmedOrderFragment fragment = new NotConfirmedOrderFragment();
+    public static OrderFragmentManagementFragment2 newInstance(int sectionNumber) {
+        OrderFragmentManagementFragment2 fragment = new OrderFragmentManagementFragment2();
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);
@@ -46,7 +44,7 @@ public class NotConfirmedOrderFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_order_notcomfirmed, container, false);
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_management_fragment_order, container, false);
 
         mListView = (ListView) rootView.findViewById(R.id.listView);
 
@@ -59,6 +57,7 @@ public class NotConfirmedOrderFragment extends Fragment {
         for (Order item:items) {
             mAdapter.addItem(item);
         }
+
         return rootView;
     }
 
@@ -72,7 +71,7 @@ public class NotConfirmedOrderFragment extends Fragment {
 
     private class ListViewAdapter extends BaseAdapter {
         private Context mContext = null;
-        public ArrayList<OrderInfoData> mListData = new ArrayList<OrderInfoData>();
+        private ArrayList<OrderInfoData> mListData = new ArrayList<OrderInfoData>();
 
         public ListViewAdapter(Context mContext) {
             super();
@@ -101,7 +100,7 @@ public class NotConfirmedOrderFragment extends Fragment {
                 holder = new ViewHolder();
 
                 LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = inflater.inflate(R.layout.listview_info_confirmedorder, null);
+                convertView = inflater.inflate(R.layout.component_listview_order, null);
 
                 holder.imageView = (ImageView) convertView.findViewById(R.id.imageView);
                 holder.mBasket = (TextView) convertView.findViewById(R.id.txt_basket);
@@ -130,8 +129,8 @@ public class NotConfirmedOrderFragment extends Fragment {
             holder.linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(mContext, SpecificOrderActivity.class);
-                    intent.putExtra("order", position);
+                    Intent intent = new Intent(mContext, OrderSpecificActivity.class);
+                    intent.putExtra("order",position);
                     mContext.startActivity(intent);
                 }
             });
@@ -141,24 +140,12 @@ public class NotConfirmedOrderFragment extends Fragment {
 
         public void addItem(Order item){
             OrderInfoData addInfo = null;
-
-            int sum = 0;
-            for(int i = 0; i < basket.getBasket().size(); i++){
-                sum += basket.getBasket().get(i).getCnt() ;
-            }
-            sum -= 1;
-
             addInfo = new OrderInfoData();
             addInfo.setOrderNo(String.valueOf(item.getOrderNo()));
             // 고객 아이디가 아닌 고객 이름을 보여지게 해야함
             addInfo.setOrderName(item.getUserID());
             // 고객 주문데이터로 수정필요
-            if(basket.getBasket().size()!=0 && sum != 0)
-                addInfo.setOrderBasket(basket.getBasket().get(0).getClothes().getName() + " 외 " + sum + "벌");
-            else if(sum==0)
-                addInfo.setOrderBasket(basket.getBasket().get(0).getClothes().getName() + " 1벌");
-            else
-                addInfo.setOrderBasket("비어있음");
+            addInfo.setOrderBasket(item.getAdminID());
             addInfo.setOrderDate(item.getOrderDate());
             mListData.add(addInfo);
         }
@@ -180,7 +167,7 @@ public class NotConfirmedOrderFragment extends Fragment {
     }
 
     public void dataUpdate(){
-        items = Order.getncInstanceList();
+        items = Order.getocInstanceList();
         mAdapter.clear();
         for (Order item:items)
             mAdapter.addItem(item);

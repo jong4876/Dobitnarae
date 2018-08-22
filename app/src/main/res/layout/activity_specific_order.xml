@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".SpecificOrderActivity"
+    tools:context=".OrderSpecificActivity"
     android:background="#fff">
 
     <include
@@ -35,6 +35,6 @@
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
         <include
-            layout="@layout/bottom_static_menu2"/>
+            layout="@layout/component_bottom_static_menu_specific_order"/>
     </android.support.design.widget.CoordinatorLayout>
 </LinearLayout>

@@ -1,6 +1,5 @@
 package com.example.dobitnarae;
 
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,13 +18,11 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class OrderManagementFragment extends Fragment {
+    private OrderFragmentManagementFragment fm1;
+    private OrderFragmentManagementFragment2 fm2;
 
-    private NotConfirmedOrderFragment fm1;
-    private ConfirmedOrderFragment fm2;
+    private ImageButton refreshBtn;
 
     public OrderManagementFragment() {
     }
@@ -66,6 +63,16 @@ public class OrderManagementFragment extends Fragment {
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
         TabLayout tabLayout = (TabLayout) rootView.findViewById(R.id.tabs);
+
+        refreshBtn = ((AdminActivity)getActivity()).getRefreshBtn();
+        refreshBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fm1.dataUpdate();
+                fm2.dataUpdate();
+                Toast.makeText(getContext(), "새로고침 완료", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -133,10 +140,10 @@ public class OrderManagementFragment extends Fragment {
 
             switch(position) {
                 case 0:
-                    fm1 = NotConfirmedOrderFragment.newInstance(0);
+                    fm1 = OrderFragmentManagementFragment.newInstance(0);
                     return fm1;
                 case 1:
-                    fm2 = ConfirmedOrderFragment.newInstance(1);
+                    fm2 = OrderFragmentManagementFragment2.newInstance(1);
                     return fm2;
                 default:
                     return null;

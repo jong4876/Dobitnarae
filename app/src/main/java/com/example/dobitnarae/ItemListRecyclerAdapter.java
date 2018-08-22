@@ -2,7 +2,6 @@ package com.example.dobitnarae;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
@@ -31,7 +30,7 @@ public class ItemListRecyclerAdapter extends RecyclerView.Adapter<ItemListRecycl
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_cardview, null);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.component_admin_item_cardview, null);
         return new ViewHolder(v);
     }
 
@@ -44,19 +43,7 @@ public class ItemListRecyclerAdapter extends RecyclerView.Adapter<ItemListRecycl
         holder.name.setText(item.getName());
         holder.price.setText("" + item.getPrice());
         holder.cardview.setId(item.getCloth_id());
-        holder.cardview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(holder.clicked == 0) {
-                    holder.clicked = 1;
-                    holder.layout_cardview.setBackgroundResource(R.drawable.cardview_border);
-                }
-                else {
-                    holder.clicked = 0;
-                    holder.layout_cardview.setBackgroundResource(R.drawable.cardview_bordernone);
-                }
-            }
-        });
+
         holder.cardview.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {

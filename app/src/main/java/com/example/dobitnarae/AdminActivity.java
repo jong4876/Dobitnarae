@@ -36,6 +36,7 @@ public class AdminActivity extends AppCompatActivity {
      private ArrayList<Clothes> clothesList = new ArrayList<Clothes>();
      private ImageButton imageButton;
      private Spinner spinner;
+     private ImageButton refreshBtn;
      private StoreManagementFragment storeManagementFragment;
     public AdminActivity() {
 
@@ -93,14 +94,17 @@ public class AdminActivity extends AppCompatActivity {
                 if (position == 0) {
                     imageButton.setVisibility(View.VISIBLE);
                     spinner.setVisibility(View.GONE);
+                    refreshBtn.setVisibility(View.GONE);
                 }
                 else if (position == 1) {
                     imageButton.setVisibility(View.GONE);
                     spinner.setVisibility(View.VISIBLE);
+                    refreshBtn.setVisibility(View.GONE);
                 }
                 else if(position == 2) {
                     imageButton.setVisibility(View.GONE);
                     spinner.setVisibility(View.GONE);
+                    refreshBtn.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -122,6 +126,7 @@ public class AdminActivity extends AppCompatActivity {
 
         imageButton = findViewById(R.id.editButton);
         spinner = findViewById(R.id.edit_spinner);
+        refreshBtn = findViewById(R.id.refreshButton);
     }
 
     @Override
@@ -209,5 +214,9 @@ public class AdminActivity extends AppCompatActivity {
 
     public Spinner getSpinner() {
         return spinner;
+    }
+
+    public ImageButton getRefreshBtn(){
+        return refreshBtn;
     }
 }

@@ -42,4 +42,13 @@
         android:dropDownWidth="60dp"
         android:visibility="gone"></Spinner>
 
+    <ImageButton
+        android:id="@+id/refreshButton"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="right"
+        android:layout_marginRight="10dp"
+        android:visibility="gone"
+        android:background="@drawable/refresh" />
+
 </android.support.v7.widget.Toolbar>

@@ -67,7 +67,31 @@ public class ItemManagementFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
         //옷추가
-        mAdapter = new ItemListRecyclerAdapter(getActivity(), items, store, R.layout.fragment_store);
+        mAdapter = new ItemListRecyclerAdapter(getActivity(), items, store, R.layout.fragment_store){
+            @Override
+            public void onBindViewHolder(final ViewHolder holder, final int position) {
+                super.onBindViewHolder(holder, position);
+
+                holder.cardview.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(holder.clicked == 0) {
+                            holder.clicked = 1;
+                            holder.layout_cardview.setBackgroundResource(R.drawable.cardview_border);
+                        }
+                        else {
+                            holder.clicked = 0;
+                            holder.layout_cardview.setBackgroundResource(R.drawable.cardview_bordernone);
+                        }
+                    }
+                });
+                    if (holder.clicked == 1) {
+                        originItems.remove(position);
+                        mAdapter.notifyDataSetChanged();
+                    }
+
+            }
+        };
         recyclerView.setAdapter(mAdapter);
 
         // 옷 종류 선택 메뉴

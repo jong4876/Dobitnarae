@@ -121,7 +121,7 @@
                 </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
         <include
-            layout="@layout/bottom_static_menu_specific"/>
+            layout="@layout/component_bottom_static_menu_specific_item"/>
     </android.support.design.widget.CoordinatorLayout>
 
 </LinearLayout>

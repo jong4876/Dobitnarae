@@ -3,19 +3,16 @@ package com.example.dobitnarae;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -25,20 +22,20 @@ import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-import java.util.Objects;
-
-public class SpecificOrderActivity extends AppCompatActivity {
+public class OrderSpecificActivity extends AppCompatActivity {
 
     private Order item;
+    private Order item2;
     private ArrayList<Order> confirm;
     private ArrayList<Order> nConfirm;
     DecimalFormat dc;
     int index;
     TextView totalPrice;
+
+    private LinearLayout layout;
 
     private NestedScrollView mScrollView;
 
@@ -50,7 +47,7 @@ public class SpecificOrderActivity extends AppCompatActivity {
 
     private Basket basket;
 
-    public SpecificOrderActivity() {
+    public OrderSpecificActivity() {
         this.basket = Basket.getInstance();
         this.nConfirm = Order.getncInstanceList();
         this.confirm = Order.getocInstanceList();
@@ -59,7 +56,7 @@ public class SpecificOrderActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order_specific);
+        setContentView(R.layout.activity_specific_order);
 
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.tool_bar);
@@ -74,11 +71,18 @@ public class SpecificOrderActivity extends AppCompatActivity {
             }
         });
 
-
         Intent intent = getIntent();
         index = (int) intent.getIntExtra("order", 0);
 
-        this.item = Order.getncInstanceList().get(index);
+        layout = (LinearLayout) findViewById(R.id.layout_confirmornot);
+
+        if(Order.getncInstanceList().size()>index)
+            this.item = Order.getncInstanceList().get(index);
+        if(Order.getocInstanceList().size()>index) {
+            this.item2 = Order.getocInstanceList().get(index);
+            if(this.item2.getAcceptStatus()!=0)
+                layout.setVisibility(View.GONE);
+        }
 
         mListView = (ListView) findViewById(R.id.listview_specific);
 
@@ -200,7 +204,7 @@ public class SpecificOrderActivity extends AppCompatActivity {
                 holder = new ViewHolder();
 
                 LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = inflater.inflate(R.layout.listview_order_specific, null);
+                convertView = inflater.inflate(R.layout.component_listview_order_specific, null);
 
                 holder.imageView = (ImageView) convertView.findViewById(R.id.order_clothes_img);
                 holder.mName = (TextView) convertView.findViewById(R.id.order_clothes_name);

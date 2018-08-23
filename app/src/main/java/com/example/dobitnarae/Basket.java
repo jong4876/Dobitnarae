@@ -92,7 +92,7 @@ public class Basket {
                         selectedStoreID = item.getClothes().getStore_id();
                     }
                 });
-        builder.setNegativeButton("아니오",
+        builder.setNegativeButton("아니요",
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

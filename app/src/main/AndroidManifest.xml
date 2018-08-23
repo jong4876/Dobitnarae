@@ -56,8 +56,9 @@
         </provider>
 
         <activity android:name=".BasketActivity" />
-        <activity android:name=".MyPageActivity" />
-        <activity android:name=".ReservationInfoActivity"></activity>
+        <activity android:name=".MyPageActivity"
+            android:windowSoftInputMode="adjustResize|adjustPan"/>
+        <activity android:name=".ReservationInfoActivity" />
     </application>
 
 </manifest>

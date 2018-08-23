@@ -110,14 +110,7 @@ public class ClothesReservationActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Basket basket = Basket.getInstance();
-
                     basket.addClothes(v.getContext(), new BasketItem(item, Integer.parseInt((String) selectCnt.getText())));
-                    Toast.makeText(getApplicationContext(), "장바구니", Toast.LENGTH_SHORT).show();
-
-                    ArrayList<BasketItem> tmp = basket.getBasket();
-                    for (BasketItem a : tmp) {
-                        Log.e(a.getClothes().getName(), "" + a.getCnt());
-                    }
                     finish();
                 }
             });
@@ -126,7 +119,11 @@ public class ClothesReservationActivity extends AppCompatActivity {
             gotoReserve.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getApplicationContext(), "예약하기", Toast.LENGTH_SHORT).show();
+                    Basket basket = Basket.getInstance();
+                    basket.addClothes(v.getContext(), new BasketItem(item, Integer.parseInt((String) selectCnt.getText())));
+                    finish();
+                    Intent intent = new Intent(ClothesReservationActivity.this, BasketActivity.class);
+                    startActivity(intent);
                 }
             });
         }

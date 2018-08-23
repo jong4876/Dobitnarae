@@ -14,7 +14,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class ReserveListRecyclerAdapter extends RecyclerView.Adapter<ReserveListRecyclerAdapter.ViewHolder> {
@@ -28,13 +27,13 @@ public class ReserveListRecyclerAdapter extends RecyclerView.Adapter<ReserveList
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.component_store_list_view, parent, false);
+        View v = LayoutInflater.from(context).inflate(R.layout.component_reserve_list_view, parent, false);
         return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        Reserve item = reserves.get(position);
+        final Reserve item = reserves.get(position);
         // TODO  서버에서 이미지 받아야함
         Drawable drawable = ContextCompat.getDrawable(context, R.drawable.sejong);
         holder.image.setBackground(drawable);
@@ -50,15 +49,15 @@ public class ReserveListRecyclerAdapter extends RecyclerView.Adapter<ReserveList
         });
 
         Drawable successLayoutDrawable;
-        int successStatus = 1;
+        int successStatus = item.getAcceptStatus();
 
         if(successStatus == 0){
-            holder.successText.setText("승인 대기");
+            holder.successText.setText("대기");
             holder.successText.setTextColor(Color.parseColor("#8f8f8f"));
             successLayoutDrawable = context.getResources().getDrawable(R.drawable.border_all_layout_item_gray);
         }
         else if(successStatus == 1){
-            holder.successText.setText("대여 승인");
+            holder.successText.setText("승인");
             holder.successText.setTextColor(Color.parseColor("#339738"));
             successLayoutDrawable = context.getResources().getDrawable(R.drawable.border_all_layout_item_green);
         }
@@ -67,7 +66,16 @@ public class ReserveListRecyclerAdapter extends RecyclerView.Adapter<ReserveList
             holder.successText.setTextColor(Color.parseColor("#f94c4c"));
             successLayoutDrawable = context.getResources().getDrawable(R.drawable.border_all_layout_item_red);
         }
-        holder.reserveSccessBorder.setBackground(successLayoutDrawable);
+        holder.reserveSuccessBorder.setBackground(successLayoutDrawable);
+
+        holder.storeView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ReservationInfoActivity.class);
+                intent.putExtra("reserveInfo", item);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -78,7 +86,7 @@ public class ReserveListRecyclerAdapter extends RecyclerView.Adapter<ReserveList
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
         TextView name, time, successText;
-        LinearLayout storeView, reserveSccessBorder;
+        LinearLayout storeView, reserveSuccessBorder;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -87,7 +95,7 @@ public class ReserveListRecyclerAdapter extends RecyclerView.Adapter<ReserveList
             time = (TextView) itemView.findViewById(R.id.reserve_time);
             storeView = (LinearLayout) itemView.findViewById(R.id.reserve_list_item);
             successText = (TextView) itemView.findViewById(R.id.reserve_success_text);
-            reserveSccessBorder = (LinearLayout)itemView.findViewById(R.id.reserve_success_layout);
+            reserveSuccessBorder = (LinearLayout)itemView.findViewById(R.id.reserve_success_layout);
         }
     }
 }

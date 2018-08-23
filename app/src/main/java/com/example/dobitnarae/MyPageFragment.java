@@ -12,15 +12,12 @@ public class MyPageFragment extends Fragment {
     public MyPageFragment() {
     }
 
-    /**
-     * Returns a new instance of this fragment for the given section
-     * number.
-     */
     public static MyPageFragment newInstance(int sectionNumber) {
         MyPageFragment fragment = new MyPageFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);
+        
         return fragment;
     }
 

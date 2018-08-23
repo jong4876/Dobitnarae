@@ -24,7 +24,7 @@ import java.util.Objects;
 
 public class StoreActivity extends AppCompatActivity {
     Store store;
-    List<Clothes> items;
+    ArrayList<Clothes> items;
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;

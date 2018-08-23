@@ -156,7 +156,7 @@ public  class JSONTask extends AsyncTask<String, String, String> {
 
 
 
-    public int chageStoreID(String user_id){ // "jong4876" 값을 -> 1로
+    public int changeStoreID(String user_id){ // "jong4876" 값을 -> 1로
         int id = -1;
 
         try{
@@ -250,7 +250,7 @@ public  class JSONTask extends AsyncTask<String, String, String> {
         Clothes clothes;
 
         try{
-            int id = JSONTask.getInstance().chageStoreID(user_id);// store클래스의 id값으로 변환 1,2,3,4~~
+            int id = JSONTask.getInstance().changeStoreID(user_id);// store클래스의 id값으로 변환 1,2,3,4~~
             JSONTask JT = new JSONTask();
             JT.setUser_id(id+"");
             String str = JT.execute("http://13.209.89.187:3443/clothes").get();
@@ -429,7 +429,7 @@ public  class JSONTask extends AsyncTask<String, String, String> {
     //////////삽입메서드
     public void insertCloth(Clothes inCloth, String admin_id){ // user_id에 해당하는 매장에 옷 추가(관리자)
         try {
-            int id = JSONTask.getInstance().chageStoreID(admin_id);
+            int id = JSONTask.getInstance().changeStoreID(admin_id);
             JSONTask JT = new JSONTask();
             JT.setCloth(inCloth);
             JT.setUser_id(id+"");

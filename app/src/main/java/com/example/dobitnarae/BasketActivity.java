@@ -80,6 +80,7 @@ public class BasketActivity extends AppCompatActivity {
         priceTextView = findViewById(R.id.basket_reserve_clothes_total_price);
         decimalFormat = new DecimalFormat("###,###,###,###");
 
+        // 총 대여 가격 설정
         setTotalCost();
 
         // 날짜 및 시간 설정

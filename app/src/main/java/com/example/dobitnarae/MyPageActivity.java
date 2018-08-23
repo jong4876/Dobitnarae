@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 import java.util.Objects;
@@ -19,6 +20,8 @@ public class MyPageActivity extends AppCompatActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
+
+    public static String myPageFragmentTag, myReservationListFragmentTag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +47,8 @@ public class MyPageActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container_clothes);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        // TODO 스크롤 하고 탭 클릭시 스크롤 처음으로 돌아가게하기
-        final TabLayout tabLayout = (TabLayout) findViewById(R.id.store_tabs);
 
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.store_tabs);
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
     }
@@ -92,6 +94,22 @@ public class MyPageActivity extends AppCompatActivity {
                     return MyReserveFragment.newInstance(1);
             }
             return null;
+        }
+
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            Fragment createdFragment = (Fragment) super.instantiateItem(container, position);
+            // get the tags set by FragmentPagerAdapter
+            switch (position) {
+                case 0:
+                    myPageFragmentTag = createdFragment.getTag();
+                    break;
+                case 1:
+                    myReservationListFragmentTag = createdFragment.getTag();
+                    break;
+            }
+            // ... save the tags somewhere so you can reference them later
+            return createdFragment;
         }
 
 

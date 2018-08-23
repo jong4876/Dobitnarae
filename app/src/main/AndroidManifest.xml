@@ -3,10 +3,11 @@
     package="com.example.dobitnarae">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-feature android:name="android.hardware.camera2"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera2" />
 
     <application
         android:allowBackup="true"
@@ -24,12 +25,12 @@
         </activity>
         <activity
             android:name=".AdminActivity"
-            android:label="@string/title_activity_admin"
-            android:theme="@style/AppTheme"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/title_activity_admin"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
-        <activity android:name=".OrderSpecificActivity"/>
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+        <activity android:name=".OrderSpecificActivity" />
         <activity
             android:name=".StoreActivity"
             android:label="@string/title_activity_store"
@@ -37,12 +38,13 @@
         <activity android:name=".DBstoreActivity" />
         <activity android:name=".ClothesReservationActivity" />
         <activity android:name=".MainActivityTmp" />
-        <activity android:name=".StoreListActivity"/>
+        <activity android:name=".StoreListActivity" />
         <activity
             android:name=".ItemSpecificActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.example.dobitnarae"
@@ -50,10 +52,12 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"/>
+                android:resource="@xml/file_paths" />
         </provider>
+
         <activity android:name=".BasketActivity" />
         <activity android:name=".MyPageActivity" />
+        <activity android:name=".ReservationInfoActivity"></activity>
     </application>
 
 </manifest>

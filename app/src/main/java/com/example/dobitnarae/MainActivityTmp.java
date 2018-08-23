@@ -23,10 +23,8 @@ public class MainActivityTmp extends AppCompatActivity {
         setSupportActionBar(myToolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
 
-        ImageButton backButton = (ImageButton)findViewById(R.id.backButton);
-        Drawable drawable = ContextCompat.getDrawable(this, R.drawable.ic_action_mypage);
-        backButton.setBackground(drawable);
-        backButton.setOnClickListener(new View.OnClickListener(){
+        LinearLayout myPageBtn = (LinearLayout)findViewById(R.id.myPage);
+        myPageBtn.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 Intent intent = new Intent(MainActivityTmp.this, MyPageActivity.class);
                 startActivity(intent);

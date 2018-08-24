@@ -45,5 +45,14 @@
             app:layout_constraintTop_toBottomOf="@+id/txtView"
             app:srcCompat="@drawable/edit" />
 
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="72dp"
+            android:text="upLoad"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2"
+            tools:layout_editor_absoluteX="157dp" />
+
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

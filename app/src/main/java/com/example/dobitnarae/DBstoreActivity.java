@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +28,7 @@ public class DBstoreActivity extends AppCompatActivity {// db실험용
     TextView txtView;
     ImageView imageView;
     ImageView imageView2;
+    Button button;
     Store store;
     Clothes inCloth;
 
@@ -46,10 +48,11 @@ public class DBstoreActivity extends AppCompatActivity {// db실험용
         txtView = (TextView) findViewById(R.id.txtView);
         imageView = (ImageView)findViewById(R.id.imageView);
         imageView2 = (ImageView)findViewById(R.id.imageView2);
+        button = (Button)findViewById(R.id.button);
 
         try {
-           Bitmap BM = serverIMG.getImage("123");
-           Bitmap BM2 = serverIMG.getImage("서버사진저장구조");
+           Bitmap BM = serverIMG.getStoreImage(1);
+           Bitmap BM2 = serverIMG.getClothImage(1);
 
            imageView.setImageBitmap(BM);
            imageView2.setImageBitmap(BM2);

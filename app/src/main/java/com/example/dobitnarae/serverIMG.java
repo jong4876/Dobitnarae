@@ -38,17 +38,33 @@ public  class serverIMG  extends AsyncTask<String, Integer,Bitmap>{// 서버에 
         return bmImg;
     }
 
-    public static Bitmap getImage(String filename){
+    public static Bitmap getStoreImage(int clothID){
+
+        String str = ""+clothID;
         Bitmap BM = null;
         try {
             serverIMG SI = new serverIMG();
-            BM = SI.execute("http://192.168.219.104:3443/" + filename+".png").get();
+            BM = SI.execute("http://13.209.89.187:3443/store/" + str+".jpg").get();
+
 
         }catch(Exception E){
             E.printStackTrace();
         }
         return BM;
     }
+    public static Bitmap getClothImage(int clothID){
+
+        String str = ""+clothID;
+        Bitmap BM = null;
+        try {
+            serverIMG SI = new serverIMG();
+            BM = SI.execute("http://13.209.89.187:3443/cloth/" + str+".jpg").get();
+        }catch(Exception E){
+            E.printStackTrace();
+        }
+        return BM;
+    }
+
 
 
 }

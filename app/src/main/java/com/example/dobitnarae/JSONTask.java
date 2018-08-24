@@ -25,7 +25,7 @@ public  class JSONTask extends AsyncTask<String, String, String> {
     Clothes inCloth = new Clothes(0,0,0,"example","example",0,0,0);
     BasketItem basketItem = new BasketItem(inCloth, 0);
     Order order = new Order(0,"example","example",0,"example");
-
+    Account account = new Account("example","example","example","example",0);
     ArrayList<Store> storeList;
 
     int flag = 0;
@@ -57,12 +57,12 @@ public  class JSONTask extends AsyncTask<String, String, String> {
         this.order = order;
         flag = 3;
     }
-    public void setDelClothName(String delClothName){// 삭제를 위한 셋함수(매개변수 옷이름)
-        user_id = delClothName;
+    public void setAccount(Account account){// accountd의 update와 insert를 위한 매개변수 전달
+        this.account = account;
+        flag = 4;
     }
     public void setAcceptStatus(int acceptStatus){// 삭제를 위한 셋함수(매개변수 옷이름)
         this.acceptStatus = acceptStatus;
-
     }
 
 
@@ -110,6 +110,15 @@ public  class JSONTask extends AsyncTask<String, String, String> {
                 jsonObject.accumulate("accept", order.getAcceptStatus());
                 flag = 0;
             }
+            if(flag == 4) {//insertAccount, updateAccount
+                jsonObject.accumulate("ID", account.getId());//insert를 위해 서버로 보낼 데이터들 req.on
+                jsonObject.accumulate("PW", account.getPw());
+                jsonObject.accumulate("name", account.getName());
+                jsonObject.accumulate("HP", account.getPhone());
+                jsonObject.accumulate("priv", account.getPrivilege());
+                flag = 0;
+            }
+
 
             URL url = new URL(urls[0]);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();//이거문제
@@ -175,7 +184,42 @@ public  class JSONTask extends AsyncTask<String, String, String> {
         return id;
     }
 
+
+
+
+
+
     /////////검색메서드
+
+    public  ArrayList<Account> getAccountAll(String user_id){ // JSON.HTML넣어서 사용, 전송되는 user_id jong4876~~
+        ArrayList<Account> accountList = new ArrayList<Account>();
+        Account account;
+
+        try {
+            JSONTask JT = new JSONTask();
+            JT.setUser_id(user_id);
+            String str = JT.execute("http://10.64.39.64:3443/account").get();
+            JSONArray ja = new JSONArray(str);
+            // txtView.setText(str);
+            for(int i=0; i<ja.length(); i++){
+                JSONObject jo = ja.getJSONObject(i);
+                String ID = jo.getString("ID");
+                String PW = jo.getString("PW");
+                String name = jo.getString("name");
+                String HP = jo.getString("HP");
+                int priv = jo.getInt("priv");
+
+                // TODO 영업 시작시간 종료시간 가져와서 넣어야됨
+                account = new Account(ID, PW, name, HP, priv);
+                accountList.add(account);
+
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return accountList;
+    }
+
     public  ArrayList<Store> getAdminStoreAll(String user_id){ // JSON.HTML넣어서 사용, 전송되는 user_id jong4876~~
         ArrayList<Store> storeList = new ArrayList<Store>();
         Store store;
@@ -384,6 +428,18 @@ public  class JSONTask extends AsyncTask<String, String, String> {
 
 
     //////////수정메서드
+    public void updateAccount(Account upAccount){ //바꿀 값이 들어 있는 account 클래스와, 바꿀 account의 아이디 전달
+        try {
+            JSONTask JT = new JSONTask();
+            JT.setAccount(upAccount);
+            JT.execute("http://10.64.39.64:3443/updateAccount");
+            Log.e("err","update Success");
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
     public void updateStore(Store upStore, String admin_id){ //바꿀 값이 들어 있는 store 클래스와, 바꿀 store의 아이디 전달
         try {
             JSONTask JT = new JSONTask();
@@ -395,8 +451,6 @@ public  class JSONTask extends AsyncTask<String, String, String> {
         }catch(Exception e){
             e.printStackTrace();
         }
-
-
     }
     public void updateCloth(Clothes upClothes){
         try {
@@ -426,6 +480,19 @@ public  class JSONTask extends AsyncTask<String, String, String> {
 
 
     //////////삽입메서드
+
+    public void insertAccount(Account newAccount){ // user_id에 해당하는 매장에 옷 추가(관리자)
+        try {
+            JSONTask JT = new JSONTask();
+            JT.setAccount(newAccount);
+            JT.execute("http://10.64.39.64:3443/insertAccount");// URL변경필수
+            Log.e("err","account삽입 성공!!");
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
     public void insertCloth(Clothes inCloth, String admin_id){ // user_id에 해당하는 매장에 옷 추가(관리자)
         try {
             int id = JSONTask.getInstance().changeStoreID(admin_id);
@@ -440,12 +507,23 @@ public  class JSONTask extends AsyncTask<String, String, String> {
         }
     }
 
-    public void insertOrder(Order order){ // user_id에 해당하는 매장에 옷 추가(관리자)
+    public void insertOrder(Order order,BasketItem basketItem){ // user_id에 해당하는 매장에 옷 추가(관리자)
         try {
             JSONTask JT = new JSONTask();
             JT.setOrder(order);
             JT.execute("http://13.209.89.187:3443/insertReserve");// URL변경필수
             Log.e("err","cloth삽입 성공!!");
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void insertBasket(BasketItem newBasket){ // user_id에 해당하는 매장에 옷 추가(관리자)
+        try {
+            JSONTask JT = new JSONTask();
+            JT.execute("http://10.64.39.64:3443/insertBasket");// URL변경필수
+            Log.e("err","Basket삽입 성공!!");
 
         }catch(Exception e){
             e.printStackTrace();
@@ -458,11 +536,12 @@ public  class JSONTask extends AsyncTask<String, String, String> {
 
 
     /////////삭제메서드
-    public void deleteCloth(String delClothName){ // user_id에 해당하는 매장에 옷 삭제(관리자)
+    public void deleteCloth(int clothID){ // user_id에 해당하는 매장에 옷 삭제(관리자)
         try {
 
             JSONTask JT = new JSONTask();
-            JT.setDelClothName(delClothName);
+
+            JT.setUser_id(""+clothID);
             JT.execute("http://13.209.89.187:3443/deleteCloth");// URL변경필수
             Log.e("err","cloth삭제 성공");
         }catch(Exception e) {

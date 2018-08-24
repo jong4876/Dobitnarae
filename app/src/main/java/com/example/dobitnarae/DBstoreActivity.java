@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -36,6 +37,7 @@ public class DBstoreActivity extends AppCompatActivity {// db실험용
     ArrayList<Clothes> clothesList = new ArrayList<Clothes>();
     ArrayList<Order> orderList = new ArrayList<Order>();
     ArrayList<BasketItem> bascketList = new ArrayList<>();
+    ArrayList<Account> accountList = new ArrayList<>();
 
 
     @Override
@@ -109,11 +111,29 @@ public class DBstoreActivity extends AppCompatActivity {// db실험용
             //JSONTask.getInstance().updateOrderAccept(5,1);
             //update accept 예시
 
-            storeList = JSONTask.getInstance().getCustomerStoreAll();
+           // storeList = JSONTask.getInstance().getCustomerStoreAll();
+            accountList = JSONTask.getInstance().getAccountAll("jong4876");
+            Account upAccount = accountList.get(0);
+            upAccount.setName("안종쓰");
+            JSONTask.getInstance().updateAccount(upAccount);
 
+
+
+            //JSONTask.getInstance().insertAccount(newAccount);
+            //account 삽입 예시
 
             StringBuffer sb = new StringBuffer();
-
+            for (int i = 0; i < accountList.size(); i++) {
+                sb.append(// test용 stringbuffer
+                        "한복id: " + accountList.get(i).getId() +
+                                "\n\n매장명: " + accountList.get(i).getPw() +
+                                "\n\n매장아이디: " + accountList.get(i).getName() +
+                                "\n\n매장번호: " + accountList.get(i).getPhone() +
+                                "\n\n매장소개: " + accountList.get(i).getPrivilege() +
+                                "\n\n\n"
+                );
+            }
+            /*
             for (int i = 0; i < storeList.size(); i++) {
                 sb.append(// test용 stringbuffer
                         "한복id: " + storeList.get(i).getId() +
@@ -127,7 +147,7 @@ public class DBstoreActivity extends AppCompatActivity {// db실험용
                                 "\n\n\n"
                 );
             }
-
+*/
 
             /*
             for(int i=0; i<clothesList.size(); i++){

@@ -1,6 +1,8 @@
 package com.example.dobitnarae;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -9,6 +11,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,13 +31,17 @@ public class StoreActivity extends AppCompatActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
+    private TextView manTextView, womanTextView;
+    private int sex;
+
+    private StoreClothesFragment storeClothesFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar_store);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
 
@@ -53,12 +60,10 @@ public class StoreActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container_clothes);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        // TODO 스크롤 하고 탭 클릭시 스크롤 처음으로 돌아가게하기
         final TabLayout tabLayout = (TabLayout) findViewById(R.id.store_tabs);
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
-
 
         LinearLayout gotoBasket = (LinearLayout) findViewById(R.id.store_basket);
         gotoBasket.setOnClickListener(new View.OnClickListener() {
@@ -67,6 +72,39 @@ public class StoreActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "장바구니", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(StoreActivity.this, BasketActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        // 옷 성별 선택 메뉴
+        LinearLayout man = toolbar.findViewById(R.id.store_clothes_sex_man);
+        manTextView = toolbar.findViewById(R.id.store_clothes_sex_man_text);
+
+        LinearLayout woman = toolbar.findViewById(R.id.store_clothes_sex_woman);
+        womanTextView = toolbar.findViewById(R.id.store_clothes_sex_woman_text);
+
+        man.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sex = Constant.MAN;
+                manTextView.setTextColor(Color.parseColor("#000000"));
+                manTextView.setBackground(v.getResources().getDrawable(R.drawable.border_bottom_layout_item_thick));
+
+                womanTextView.setTextColor(Color.parseColor("#aaaaaa"));
+                womanTextView.setBackground(null);
+                refresh();
+            }
+        });
+
+        woman.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sex = Constant.WOMAN;
+                womanTextView.setTextColor(Color.parseColor("#000000"));
+                womanTextView.setBackground(v.getResources().getDrawable(R.drawable.border_bottom_layout_item_thick));
+
+                manTextView.setTextColor(Color.parseColor("#aaaaaa"));
+                manTextView.setBackground(null);
+                refresh();
             }
         });
 
@@ -89,7 +127,7 @@ public class StoreActivity extends AppCompatActivity {
         for(int i=0; i<ITEM_SIZE; i++){
             item[i] = new Clothes(i, store.getId(), i % Constant.category_cnt + 1,
                     "불곱창" + (i + 1), "이 곱창은 왕십리에서 시작하여...",
-                    1000 * (i + 1), (i + 1) % ITEM_SIZE,  0);
+                    1000 * (i + 1), (i + 1) % ITEM_SIZE,  i%2);
             items.add(item[i]);
         }
     }
@@ -131,14 +169,11 @@ public class StoreActivity extends AppCompatActivity {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
 
-            // 액티비티 만들어서 케이스 문에다가 넣어주면 됩니다
-            // 탭 이름은 values/string 에 들어있어요
-
             switch (position) {
                 case 0:
                     return StoreInfoFragment.newInstance(0, store);
                 case 1:
-                    return StoreClothesFragment.newInstance(1, items, store);
+                    return storeClothesFragment = StoreClothesFragment.newInstance(1, items, store);
             }
                 return null;
         }
@@ -148,6 +183,14 @@ public class StoreActivity extends AppCompatActivity {
             // Show 3 total pages.
             return 2;
         }
+    }
+
+    public int getSex() {
+        return sex;
+    }
+
+    private void refresh(){
+        storeClothesFragment.refresh();
     }
 }
 

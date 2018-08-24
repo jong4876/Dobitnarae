@@ -6,7 +6,7 @@
     <string name="title_activity_example_swipe_menu">ExampleSwipeMenu</string>
     <string name="title_activity_admin">AdminActivity</string>
     <string name="store_tab_text_1">매장 정보</string>
-    <string name="store_tab_text_2">옷</string>
+    <string name="store_tab_text_2">한복</string>
     <string name="title_activity_store">Store</string>
 
     <string name="tab_text_1">매장관리</string>

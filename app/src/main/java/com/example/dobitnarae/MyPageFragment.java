@@ -19,6 +19,8 @@ public class MyPageFragment extends Fragment {
     private String password, name, phone;
     private EditText passwordET, nameET, phoneET;
 
+    private Account account;
+
     public MyPageFragment() {
     }
 
@@ -40,11 +42,10 @@ public class MyPageFragment extends Fragment {
         nameET = (EditText)rootView.findViewById(R.id.myPage_name);
         phoneET = (EditText)rootView.findViewById(R.id.myPage_phone);
 
-        // 유저 정보 가져옴
-        getUserInfo();
+        account = Account.getInstance();
 
-        nameET.setText(name);
-        phoneET.setText(phone);
+        nameET.setText(account.getName());
+        phoneET.setText(account.getPhone());
 
         CardView editBtn = (CardView)rootView.findViewById(R.id.myPage_edit_btn);
         editBtn.setOnClickListener(new CardView.OnClickListener() {
@@ -55,13 +56,6 @@ public class MyPageFragment extends Fragment {
         });
 
         return rootView;
-    }
-
-    private void getUserInfo(){
-        // TODO 서버에서 유저 정보 가져옴
-        password = "*****";
-        name = "홍길동";
-        phone = "01012345678";
     }
 
     private void showAlert(final Context context){

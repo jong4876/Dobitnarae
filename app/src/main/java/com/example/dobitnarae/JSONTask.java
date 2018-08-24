@@ -154,14 +154,12 @@ public  class JSONTask extends AsyncTask<String, String, String> {
 
     }
 
-
-
-    public int changeStoreID(String user_id){ // "jong4876" 값을 -> 1로
+    public int changeStoreID(String admin_id){ // "jong4876" 값을 -> 1로
         int id = -1;
 
         try{
             JSONTask JT = new JSONTask();
-            JT.setUser_id(user_id);
+            JT.setUser_id(admin_id);
             String str = JT.execute("http://13.209.89.187:3443/changeID").get();
             Log.e("err",str);
             JSONArray ja = new JSONArray(str);
@@ -245,12 +243,12 @@ public  class JSONTask extends AsyncTask<String, String, String> {
     }
 
 
-    public ArrayList<Clothes> getClothesAll(String user_id){ // 아이디에 해당하는 매장의 옷 검색
+    public ArrayList<Clothes> getClothesAll(String admin_id){ // 아이디에 해당하는 매장의 옷 검색
         ArrayList<Clothes> clothesList = new ArrayList<Clothes>();
         Clothes clothes;
 
         try{
-            int id = JSONTask.getInstance().changeStoreID(user_id);// store클래스의 id값으로 변환 1,2,3,4~~
+            int id = JSONTask.getInstance().changeStoreID(admin_id);// store클래스의 id값으로 변환 1,2,3,4~~
             JSONTask JT = new JSONTask();
             JT.setUser_id(id+"");
             String str = JT.execute("http://13.209.89.187:3443/clothes").get();
@@ -274,6 +272,34 @@ public  class JSONTask extends AsyncTask<String, String, String> {
         }
         return clothesList;
     }
+
+    // client의 예약 목록 가져오는 메소드
+    public ArrayList<Reserve> getCustomerReservationList(String customerID){ // user_id가 주문한 옷 전체 검색
+        ArrayList<Reserve> reserves = new ArrayList<Reserve>();
+        Reserve reserve;
+
+        try{
+            JSONTask JT = new JSONTask();
+            JT.setUser_id(customerID);
+            String str = JT.execute("http://13.209.89.187:3443/reserveCustomer").get();
+            JSONArray ja = new JSONArray(str);
+            for(int i=0; i<ja.length(); i++){
+                JSONObject jo = ja.getJSONObject(i);
+                int reserveID = jo.getInt("ID");
+                String userID = jo.getString("user_ID");
+                String adminID = jo.getString("admin_ID");
+                int acceptStatus = jo.getInt("accept");
+                String date = jo.getString("date");//Date형?
+
+                reserve = new Reserve(reserveID, userID, adminID, acceptStatus, date);
+                reserves.add(reserve);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return reserves;
+    }
+
     public ArrayList<Order> getOrderCustomerAll(String customer_id){ // user_id가 주문한 옷 전체 검색
         ArrayList<Order> orderList = new ArrayList<Order>();
         Order order;

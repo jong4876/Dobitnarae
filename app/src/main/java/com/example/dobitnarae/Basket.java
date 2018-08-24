@@ -66,7 +66,7 @@ public class Basket {
         date.setTimeZone(TimeZone.getTimeZone("GMT+9"));
         rentalDate = date.format(today);
         Log.e("Sdfsdf", rentalDate);
-        if(selectedStoreID == -1){
+        if(selectedStoreID == -1 || basket.size() == 0){
             basket.add(item);
             selectedStoreID = item.getClothes().getStore_id();
         }

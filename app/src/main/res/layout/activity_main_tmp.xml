@@ -16,70 +16,126 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-            <LinearLayout
+            android:orientation="vertical"
+            android:background="@color/cardviewbg">
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:weightSum="1">
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:elevation="2dp">
                 <LinearLayout
-                    android:id="@+id/store_sector_1"
-                    android:tag="1"
-                    android:layout_weight="0.5"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#62ca73"
-                    android:gravity="center">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="30dp"
-                        android:text="경복궁"
-                        android:textColor="#fff"
-                        android:textStyle="bold"/>
+                    android:layout_height="200dp"
+                    android:weightSum="1">
+                    <LinearLayout
+                        android:id="@+id/store_sector_1"
+                        android:tag="0"
+                        android:layout_weight="0.5"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#62ca73"
+                        android:gravity="center">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="50dp"
+                            android:text="경복궁"
+                            android:textColor="#fff"
+                            android:textStyle="bold"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/store_sector_2"
+                        android:tag="1"
+                        android:layout_weight="0.5"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/appMainColor"
+                        android:gravity="center">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="50dp"
+                            android:text="창경궁"
+                            android:textColor="#fff"
+                            android:textStyle="bold"/>
+                    </LinearLayout>
                 </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/store_sector_2"
-                    android:tag="2"
-                    android:layout_weight="0.5"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/appMainColor"
-                    android:gravity="center">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="30dp"
-                        android:text="창경궁"
-                        android:textColor="#fff"
-                        android:textStyle="bold"/>
-                </LinearLayout>
-            </LinearLayout>
-            <LinearLayout
+            </android.support.v7.widget.CardView>
+            
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:background="#3564ff"
-                android:gravity="center">
-                <TextView
+                android:layout_height="wrap_content">
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:background="#fff"
+                        android:padding="10dp"
+                        android:orientation="vertical">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="20dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:textColor="#000"
+                                android:textSize="15dp"
+                                android:text="한복 추천"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+                <android.support.v7.widget.RecyclerView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="30dp"
-                    android:text="옷추천"
-                    android:textColor="#fff"
-                    android:textStyle="bold"/>
-            </LinearLayout>
-            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_centerVertical="true">
+
+                </android.support.v7.widget.RecyclerView>
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:background="#3564ff"
-                android:gravity="center">
-                <TextView
+                android:layout_height="wrap_content">
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:background="#fff"
+                        android:padding="10dp"
+                        android:orientation="vertical">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="20dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:textColor="#000"
+                                android:textSize="15dp"
+                                android:text="고궁 알아보기"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+                <android.support.v7.widget.RecyclerView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="30dp"
-                    android:text="옷추천"
-                    android:textColor="#fff"
-                    android:textStyle="bold"/>
-            </LinearLayout>
+                    android:orientation="horizontal"
+                    android:layout_centerVertical="true">
+
+                </android.support.v7.widget.RecyclerView>
+            </RelativeLayout>
+            
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

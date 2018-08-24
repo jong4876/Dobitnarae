@@ -40,15 +40,7 @@ public class MyReserveFragment extends Fragment {
 
         recyclerView.setLayoutManager(layoutManager);
 
-        // 대여 신청했던 목록
-        reserves = new ArrayList<>();
-
-        // 대여 dummy 목록
-        for(int i=0; i<5; i++){
-            Reserve tmp = new Reserve(i, "kuril951", "jong4876",
-                    i % 3, "2018-08-23 11:00");
-            reserves.add(tmp);
-        }
+        reserves = JSONTask.getInstance().getCustomerReservationList(Account.getInstance().getId());
 
         mAdapter = new ReserveListRecyclerAdapter(getContext(), reserves);
         recyclerView.setAdapter(mAdapter);

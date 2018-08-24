@@ -29,6 +29,7 @@
             android:textStyle="bold"
             android:gravity="center"
             android:layout_marginRight="16dp"
+            android:fontFamily="@font/jejuhallasan"
             />
     </android.support.design.widget.CoordinatorLayout>
 

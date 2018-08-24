@@ -33,6 +33,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -52,12 +53,15 @@ public class ItemSpecificActivity extends AppCompatActivity {
     private int iv_height;
 
     private DecimalFormat dc;
-    private Clothes item;
+    private int index;
     private LinearLayout btnReduce, btnAdd;
     private TextView selectCnt;
     private Store store;
 
     private Context context;
+
+    private ArrayList<Clothes> items;
+    private Clothes item;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +69,16 @@ public class ItemSpecificActivity extends AppCompatActivity {
         setContentView(R.layout.activity_specific_item);
 
         context = this;
+
+        Intent intent = getIntent();
+        index = intent.getIntExtra("clothesid", 0);
+        store = (Store) intent.getSerializableExtra("store");
+
+        items = Clothes.getAllInstanceList();
+        for (Clothes item: items) {
+            if(item.getCloth_id() == index)
+                this.item = item;
+        }
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(myToolbar);
@@ -77,10 +91,6 @@ public class ItemSpecificActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-        Intent intent = getIntent();
-        item = (Clothes) intent.getSerializableExtra("clothes");
-        store = (Store) intent.getSerializableExtra("store");
 
         TextView titleName = (TextView)findViewById(R.id.toolbar_title);
         titleName.setText(store.getName());
@@ -125,11 +135,11 @@ public class ItemSpecificActivity extends AppCompatActivity {
         checkPermission();
 
         // 옷 이름
-        EditText name = findViewById(R.id.reserve_clothes_name);
+        final EditText name = findViewById(R.id.reserve_clothes_name);
         name.setText(item.getName());
 
         // 옷 설명
-        EditText description = findViewById(R.id.reserve_clothes_introduction);
+        final EditText description = findViewById(R.id.reserve_clothes_introduction);
         description.setText(item.getIntro());
 
         // 옷 가격
@@ -168,6 +178,19 @@ public class ItemSpecificActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // 여기에 Clothes 업데이트 메소드
+                item.setName(name.getText().toString());
+                item.setIntro(description.getText().toString());
+                String tmp = deleteDC(price.getText().toString());
+                String tmp2 = deleteWon(tmp);
+                item.setPrice(Integer.parseInt(tmp2));
+                item.setCount(Integer.parseInt(selectCnt.getText().toString()));
+
+                items.get(items.indexOf(item)).setName(name.getText().toString());
+                items.get(items.indexOf(item)).setIntro(description.getText().toString());
+                items.get(items.indexOf(item)).setPrice(Integer.parseInt(tmp2));
+                items.get(items.indexOf(item)).setCount(Integer.parseInt(selectCnt.getText().toString()));
+                JSONTask.getInstance().updateCloth(items.get(items.indexOf(item)));
+                Toast.makeText(getApplicationContext(), "변경되었습니다.", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -176,9 +199,20 @@ public class ItemSpecificActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // 여기에 삭제 메소드
+                items.remove(item);
+                JSONTask.getInstance().deleteCloth(item.getCloth_id());
+                Toast.makeText(getApplicationContext(), "삭제되었습니다.", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });
+    }
+
+    public String deleteDC(String data){
+        return data.replaceAll("\\,","");
+    }
+
+    public String deleteWon(String data){
+        return data.replaceAll(" 원", "");
     }
 
     @Override

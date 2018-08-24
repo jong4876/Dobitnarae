@@ -48,7 +48,7 @@ public class ItemListRecyclerAdapter extends RecyclerView.Adapter<ItemListRecycl
             @Override
             public boolean onLongClick(View v) {
                 Intent intent = new Intent(context, ItemSpecificActivity.class);
-                intent.putExtra("clothes", item);
+                intent.putExtra("clothesid", item.getCloth_id());
                 intent.putExtra("store", store);
                 context.startActivity(intent);
 
@@ -73,6 +73,7 @@ public class ItemListRecyclerAdapter extends RecyclerView.Adapter<ItemListRecycl
         CardView cardview;
         LinearLayout layout_cardview;
         int clicked;
+        int cloth_id;
 
         public ViewHolder(View itemView) {
             super(itemView);

@@ -59,6 +59,7 @@
         <activity android:name=".MyPageActivity"
             android:windowSoftInputMode="adjustResize|adjustPan"/>
         <activity android:name=".ReservationInfoActivity" />
+        <activity android:name=".ItemAddActivity"/>
     </application>
 
 </manifest>

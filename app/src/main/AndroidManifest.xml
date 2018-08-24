@@ -54,6 +54,7 @@
         </provider>
         <activity android:name=".BasketActivity" />
         <activity android:name=".MyPageActivity" />
+        <activity android:name=".ItemAddActivity"/>
     </application>
 
 </manifest>

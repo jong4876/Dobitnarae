@@ -20,9 +20,9 @@
         android:textColor="@color/titleColor"
         android:id="@+id/toolbar_title"
         android:textSize="20sp"
-        android:textStyle="bold"
         android:gravity="center"
         android:layout_marginRight="20dp"
+        android:fontFamily="@font/jejuhallasan"
         />
 
 </android.support.v7.widget.Toolbar>

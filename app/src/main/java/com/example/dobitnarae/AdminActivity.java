@@ -33,7 +33,6 @@ import java.util.Objects;
 public class AdminActivity extends AppCompatActivity {
      private Store store;
      private ArrayList<Store> storeList = new ArrayList<Store>();
-     private ArrayList<Clothes> clothesList = new ArrayList<Clothes>();
      private ImageButton imageButton;
      private Spinner spinner;
      private ImageButton refreshBtn;
@@ -47,7 +46,7 @@ public class AdminActivity extends AppCompatActivity {
      * fragments for each of the sections. We use a
      * {@link FragmentPagerAdapter} derivative, which will keep every
      * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
+     * may be best to switch to a/
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
 
@@ -119,7 +118,6 @@ public class AdminActivity extends AppCompatActivity {
         // 서버로 통신 하여 `가게정보, 판매중인 옷` 데이터 받아옴
         storeList = JSONTask.getInstance().getAdminStoreAll("jong4876");// JSON형태의 store정보들을 분류하여 arrayList에 저장
         store = storeList.get(0);
-        clothesList = JSONTask.getInstance().getClothesAll("jong4876");
 
         TextView textView = (TextView) findViewById(R.id.toolbar_title);
         textView.setText(store.getName());
@@ -183,7 +181,7 @@ public class AdminActivity extends AppCompatActivity {
                     storeManagementFragment = StoreManagementFragment.newInstance(0, store);
                     return storeManagementFragment;
                 case 1:
-                    return ItemManagementFragment.newInstance(1, clothesList, store);
+                    return ItemManagementFragment.newInstance(1, store);
                 case 2:
                     return OrderManagementFragment.newInstance(2);
                 default:

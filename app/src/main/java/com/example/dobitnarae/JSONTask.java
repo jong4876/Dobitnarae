@@ -459,11 +459,12 @@ public  class JSONTask extends AsyncTask<String, String, String> {
 
 
     /////////삭제메서드
-    public void deleteCloth(String delClothName){ // user_id에 해당하는 매장에 옷 삭제(관리자)
+    public void deleteCloth(int clothID){ // user_id에 해당하는 매장에 옷 삭제(관리자)
         try {
 
             JSONTask JT = new JSONTask();
-            JT.setDelClothName(delClothName);
+
+            JT.setUser_id(""+clothID);
             JT.execute("http://13.209.89.187:3443/deleteCloth");// URL변경필수
             Log.e("err","cloth삭제 성공");
         }catch(Exception e) {

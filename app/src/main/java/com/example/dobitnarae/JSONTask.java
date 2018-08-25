@@ -198,7 +198,7 @@ public  class JSONTask extends AsyncTask<String, String, String> {
         try {
             JSONTask JT = new JSONTask();
             JT.setUser_id(user_id);
-            String str = JT.execute("http://10.64.39.64:3443/account").get();
+            String str = JT.execute("http://13.209.89.187:3443/account").get();
             JSONArray ja = new JSONArray(str);
             // txtView.setText(str);
             for(int i=0; i<ja.length(); i++){
@@ -432,7 +432,7 @@ public  class JSONTask extends AsyncTask<String, String, String> {
         try {
             JSONTask JT = new JSONTask();
             JT.setAccount(upAccount);
-            JT.execute("http://10.64.39.64:3443/updateAccount");
+            JT.execute("http://13.209.89.187:3443/updateAccount");
             Log.e("err","update Success");
 
         }catch(Exception e){
@@ -485,7 +485,7 @@ public  class JSONTask extends AsyncTask<String, String, String> {
         try {
             JSONTask JT = new JSONTask();
             JT.setAccount(newAccount);
-            JT.execute("http://10.64.39.64:3443/insertAccount");// URL변경필수
+            JT.execute("http://13.209.89.187:3443/insertAccount");// URL변경필수
             Log.e("err","account삽입 성공!!");
 
         }catch(Exception e){
@@ -522,7 +522,7 @@ public  class JSONTask extends AsyncTask<String, String, String> {
     public void insertBasket(BasketItem newBasket){ // user_id에 해당하는 매장에 옷 추가(관리자)
         try {
             JSONTask JT = new JSONTask();
-            JT.execute("http://10.64.39.64:3443/insertBasket");// URL변경필수
+            JT.execute("http://13.209.89.187:3443/insertBasket");
             Log.e("err","Basket삽입 성공!!");
 
         }catch(Exception e){

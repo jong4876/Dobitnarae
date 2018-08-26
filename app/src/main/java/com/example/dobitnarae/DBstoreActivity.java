@@ -36,6 +36,7 @@ public class DBstoreActivity extends AppCompatActivity {// db실험용
     ArrayList<Store> storeList = new ArrayList<Store>();
     ArrayList<Clothes> clothesList = new ArrayList<Clothes>();
     ArrayList<Order> orderList = new ArrayList<Order>();
+    BasketItem basketItem;
     ArrayList<BasketItem> bascketList = new ArrayList<>();
     ArrayList<Account> accountList = new ArrayList<>();
 
@@ -112,17 +113,33 @@ public class DBstoreActivity extends AppCompatActivity {// db실험용
             //update accept 예시
 
            // storeList = JSONTask.getInstance().getCustomerStoreAll();
-            accountList = JSONTask.getInstance().getAccountAll("jong4876");
-            Account upAccount = accountList.get(0);
-            upAccount.setName("안종쓰");
-            JSONTask.getInstance().updateAccount(upAccount);
-
-
 
             //JSONTask.getInstance().insertAccount(newAccount);
             //account 삽입 예시
 
+            /*
+
+            clothesList = JSONTask.getInstance().getBascketCustomerAll("su123");
+            Clothes clothes = clothesList.get(0);
+            clothes.setCloth_id(7);
+            basketItem = new BasketItem(clothes, 1);
+
+            orderList = JSONTask.getInstance().getOrderCustomerAll("su123");
+            Order order = orderList.get(0);
+            order.setAdminID("jong4876");
+            JSONTask.getInstance().insertOrderAndBasket(order,basketItem);
+            */
+            //order, basket 동시삽입 예시
+
+            /*
+            JSONTask.getInstance().deleteOrderAndBasket(7);
+
+            */
+            //order, basket 동시삭제 예시
+            orderList = JSONTask.getInstance().getOrderCustomerAll("su123");
+
             StringBuffer sb = new StringBuffer();
+            /*
             for (int i = 0; i < accountList.size(); i++) {
                 sb.append(// test용 stringbuffer
                         "한복id: " + accountList.get(i).getId() +
@@ -133,6 +150,7 @@ public class DBstoreActivity extends AppCompatActivity {// db실험용
                                 "\n\n\n"
                 );
             }
+            */
             /*
             for (int i = 0; i < storeList.size(); i++) {
                 sb.append(// test용 stringbuffer
@@ -165,7 +183,7 @@ public class DBstoreActivity extends AppCompatActivity {// db실험용
             }
             */
 
-/*
+
             for(int i=0; i<orderList.size(); i++){
 
                 sb.append(// test용 stringbuffer
@@ -177,7 +195,7 @@ public class DBstoreActivity extends AppCompatActivity {// db실험용
                                 "\n\n\n"
                 );
             }
-*/
+
 
             txtView.setText(sb);
         } catch (Exception E) {

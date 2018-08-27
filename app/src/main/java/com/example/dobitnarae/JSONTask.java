@@ -214,7 +214,7 @@ public  class JSONTask extends AsyncTask<String, String, String> {
         try {
             JSONTask JT = new JSONTask();
             JT.setUser_id(user_id);
-            String str = JT.execute("http://13.209.89.187:3443/account").get();
+            String str = JT.execute("http://192.168.219.104:3443/account").get();
             JSONArray ja = new JSONArray(str);
             // txtView.setText(str);
             for(int i=0; i<ja.length(); i++){
@@ -596,8 +596,8 @@ public  class JSONTask extends AsyncTask<String, String, String> {
         }
     }
     public void deleteOrderAndBasket(int reserve_ID){// order basket 삽입한번에
-        JSONTask.getInstance().deleteBasket(reserve_ID);
-        JSONTask.getInstance().deleteOrder(reserve_ID);
+        //JSONTask.getInstance().deleteBasket(reserve_ID);
+        JSONTask.getInstance().deleteOrder(reserve_ID);//cascade로 삭제
 
 
     }

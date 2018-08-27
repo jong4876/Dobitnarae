@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <include
+        layout="@layout/tool_bar"/>
+
+    <LinearLayout
+        android:id="@+id/ID"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/IDTxt"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="0dp"
+            android:hint="Id" />
+
+        <EditText
+            android:password="true"
+            android:id="@+id/PASSWORD"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/ID"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp"
+
+            android:hint="Password" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/Login"
+                android:layout_width="150dp"
+                android:layout_height="55dp"
+                android:layout_below="@+id/PASSWORD"
+                android:layout_marginTop="0dp"
+                android:layout_toStartOf="@+id/signupButton"
+                android:text="Log in"
+                android:textAllCaps="false" />
+
+
+            <Button
+                android:id="@+id/signupButton"
+                android:layout_width="150dp"
+                android:layout_height="55dp"
+                android:layout_alignEnd="@+id/PASSWORD"
+                android:layout_alignTop="@+id/Login"
+                android:text="Sign up"
+                android:textAllCaps="false" />
+
+        </LinearLayout>
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Login"
+            android:layout_centerHorizontal="true"
+            android:layout_marginEnd="80dp"
+            android:layout_marginTop="10dp"
+            android:text="Remember login" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

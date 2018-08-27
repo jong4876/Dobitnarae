@@ -108,16 +108,15 @@ public class StoreActivity extends AppCompatActivity {
             }
         });
 
-        // TODO
-        // 특정 인덴트에서 store 키값을 받아와
-        // 서버로 통신 하여 `판매중인 옷` 데이터 받아와야함
+        // 상점정보 가져옴
         Intent intent = getIntent();
         store = (Store) intent.getSerializableExtra("store");
 
+        // 툴바 타이틀 이름 상점이름으로 변경
         TextView titleName = (TextView) findViewById(R.id.toolbar_title);
         titleName.setText(store.getName());
 
-        //
+        // 판매중인 옷 가져옴
         items = JSONTask.getInstance().getClothesAll(store.getAdmin_id());
     }
 
